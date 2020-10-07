@@ -148,12 +148,19 @@ function bubbleCollision(bubble, bubbles) {
 
 function screenCollision(bubble, context) {
   res = false
-  if (bubble.x - bubble.r <= 0 || bubble.x + bubble.r >= context.width) {
-    bubble.dx = -randomIntIn(1, 5) * Math.sign(bubble.dx)
+  if (bubble.x - bubble.r <= 0) {
+    bubble.dx = Math.abs(bubble.dx)
+    res = true
+  } else if (bubble.x + bubble.r >= context.width) {
+    bubble.dx = -Math.abs(bubble.dx)
     res = true
   }
-  if (bubble.y - bubble.r <= 0 || bubble.y + bubble.r >= context.height) {
-    bubble.dy = -randomIntIn(1, 5) * Math.sign(bubble.dy)
+
+  if (bubble.y - bubble.r <= 0) {
+    bubble.dy = Math.abs(bubble.dy)
+    res = true
+  } else if (bubble.y + bubble.r >= context.height) {
+    bubble.dy = -Math.abs(bubble.dy)
     res = true
   }
   return res
@@ -206,6 +213,7 @@ function stringFromRecord(record) {
 
 function displayScores(scores) {
   let list = document.getElementById("records")
+  list.innerHTML = "";
   scores.forEach((record) => {
     let li = document.createElement("div");
     var text = document.createTextNode(stringFromRecord(record));
@@ -214,13 +222,14 @@ function displayScores(scores) {
   })
 }
 
+let scores_loaded = false
 function loadScores() {
+  if (scores_loaded) {return}
   scores = []
   firebase.database().ref('bubbles-records')
     .orderByChild("score")
     .limitToFirst(15)
-    .once('value')
-    .then(function(snapshot) {
+    .on('value', (snapshot) => {
       console.log("records")
       snapshot.forEach(function(childSnapshot) {
         var childData = childSnapshot.val();
@@ -230,6 +239,7 @@ function loadScores() {
       scores.forEach((data) => {console.log(data)})
       displayScores(scores)
     })
+    scores_loaded = true
 }
 
 function checkScore(context) {
