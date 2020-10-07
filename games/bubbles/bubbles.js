@@ -236,7 +236,7 @@ function loadScores() {
 }
 
 function checkScore(context) {
-  if (context.score > 280) {
+  if (context.score > 260) {
     name = window.prompt("Enter your name to save a record!", "");
     if (name == null || name.length === 0) {
       return;
