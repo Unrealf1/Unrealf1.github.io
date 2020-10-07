@@ -110,11 +110,6 @@ function removeBubble(bubble, bubbles, stage) {
   bubbles.splice(bubbles.indexOf(bubble), 1);
 }
 
-function updateScore(score) {
-  let elem = document.getElementById("score")
-  elem.innerText = '' + score
-}
-
 function initBubble(bubble, context) {
   let app = context.app
   let bubbles = context.bubbles
@@ -124,8 +119,9 @@ function initBubble(bubble, context) {
     removeBubble(bubble, bubbles, app.stage)
     console.log(bubbles.length)
     context.score += bubble.bounty
+    context.score += 5 // for misses
     context.misses -= 1
-    updateScore(context.score)
+    updateElement("score", context.score)
   }
   bubble.circle.on('pointerdown', bubbleOnclick);
   app.ticker.add((delta) => {
@@ -173,14 +169,9 @@ function collision(context) {
     }
 }
 
-function updateTime(timeLeft) {
-  let elem = document.getElementById("time")
-  elem.innerText = '' + timeLeft
-}
-
-function updateMisses(misses) {
-  let elem = document.getElementById("misses")
-  elem.innerText = '' + misses
+function updateElement(name, value) {
+  let elem = document.getElementById(name)
+  elem.innerText = '' + value
 }
 
 function finalText() {
@@ -213,7 +204,9 @@ function stringFromRecord(record) {
 
 function displayScores(scores) {
   let list = document.getElementById("records")
-  list.innerHTML = "";
+  while (list.firstChild) {
+    list.removeChild(list.lastChild);
+  }
   scores.forEach((record) => {
     let li = document.createElement("div");
     var text = document.createTextNode(stringFromRecord(record));
@@ -225,11 +218,11 @@ function displayScores(scores) {
 let scores_loaded = false
 function loadScores() {
   if (scores_loaded) {return}
-  scores = []
   firebase.database().ref('bubbles-records')
     .orderByChild("score")
     .limitToFirst(15)
     .on('value', (snapshot) => {
+      scores = []
       console.log("records")
       snapshot.forEach(function(childSnapshot) {
         var childData = childSnapshot.val();
@@ -268,7 +261,9 @@ function main() {
     }
     app.stage.on('pointerdown', () => {
       gameContext.misses += 1
-      updateMisses(gameContext.misses)
+      gameContext.score -= 5
+      updateElement("misses", gameContext.misses)
+      updateElement("score", gameContext.score)
     });
     app.ticker.add((delta) => {
       collision(gameContext)
@@ -288,10 +283,10 @@ function main() {
       }
     }, 50)
     let timeLeft = 30
-    updateTime(timeLeft)
+    updateElement("time", timeLeft)
     let countdownTimer = setInterval(() => {
       timeLeft -= 1
-      updateTime(timeLeft)
+      updateElement("time", timeLeft)
       if (timeLeft === 0) {
         for (bubble of [...gameContext.bubbles]) {
           removeBubble(bubble, gameContext.bubbles, app.stage)
@@ -304,6 +299,9 @@ function main() {
         app.stage.on('pointerdown', () => {
           app.stop()
           app.destroy()
+          updateElement("score", 0)
+          updateElement("misses", 0)
+          updateElement("last", gameContext.score)
           main()
         });
       }
