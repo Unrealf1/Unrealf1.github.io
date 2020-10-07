@@ -1,10 +1,23 @@
 class Bubble {
+  _create_text() {
+    const style = new PIXI.TextStyle({
+      fontFamily: 'Arial',
+      fontSize: 18,
+      fontWeight: 'bold',
+    });
+    const text = new PIXI.Text('' + this.bounty, style);
+    text.x = this.x-10;
+    text.y = this.y-12;
+    return text
+  }
+
   constructor(circle, dx, dy, bounty, life) {
     this.circle = circle
     this.dx = dx;
     this.dy = dy;
     this.bounty = bounty;
     this.life = life
+    this.text = this._create_text(bounty)
   }
 
   get r() {
@@ -22,6 +35,8 @@ class Bubble {
   move(delta) {
     this.circle.x += this.dx * delta
     this.circle.y += this.dy * delta
+    this.text.x += this.dx * delta
+    this.text.y += this.dy * delta
   }
   fade() {
     this.life -= 0.2
@@ -76,6 +91,7 @@ function safeCreateBubble(width, height, context) {
 
 function removeBubble(bubble, bubbles, stage) {
   stage.removeChild(bubble.circle)
+  stage.removeChild(bubble.text)
   bubbles.splice(bubbles.indexOf(bubble), 1);
 }
 
@@ -107,8 +123,8 @@ function bubbleCollision(bubble, bubbles) {
   res = false
   for (other of bubbles) {
     if (other !== bubble && objDistance(bubble, other) <= bubble.r + other.r) {
-      bubble.dx *= -1
-      bubble.dy *= -1
+      bubble.dx = randomIntIn(1, 5) * Math.sign(bubble.x - other.x)
+      bubble.dy = randomIntIn(1, 5) * Math.sign(bubble.y - other.y)
       res = true
     }
   }
@@ -117,12 +133,12 @@ function bubbleCollision(bubble, bubbles) {
 
 function screenCollision(bubble, context) {
   res = false
-  if (bubble.x - bubble.r <= 0 || bubble.x + bubble.r >= context.width - 100) {
-    bubble.dx *= -1
+  if (bubble.x - bubble.r <= 0 || bubble.x + bubble.r >= context.width) {
+    bubble.dx = -randomIntIn(1, 5) * Math.sign(bubble.dx)
     res = true
   }
-  if (bubble.y - bubble.r <= 0 || bubble.y + bubble.r >= context.height - 100) {
-    bubble.dy *= -1
+  if (bubble.y - bubble.r <= 0 || bubble.y + bubble.r >= context.height) {
+    bubble.dy = -randomIntIn(1, 5) * Math.sign(bubble.dy)
     res = true
   }
   return res
@@ -193,6 +209,7 @@ function main() {
       let bubble = safeCreateBubble(width, height, gameContext)
       initBubble(bubble, gameContext)
       app.stage.addChild(bubble.circle)
+      app.stage.addChild(bubble.text)
     }, 1000);
     let fadeTimer = setInterval(() => {
       for (bubble of gameContext.bubbles) {
@@ -225,4 +242,4 @@ function main() {
     
 }
   
-  window.onload = main;
+window.onload = main;
