@@ -1,0 +1,30 @@
+body {
+	background: #262a2b;
+}
+
+.playArea {
+    background: #f3e130;
+    display: flex;
+    justify-content: center;
+    margin: 0 auto;
+}
+
+.playArea canvas {
+    border: 4mm ridge rgba(56, 48, 59, 0.6);
+}
+
+.stats {
+    text-align: center;
+    font: small-caps bold 24px/1 sans-serif;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.stats div {
+    margin-bottom: 2rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    width: 40rem;
+}
