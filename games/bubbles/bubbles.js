@@ -44,6 +44,21 @@ class Bubble {
   }
 }
 
+function saveToFirebase(name, score, misses) {
+  let record = {
+    name: name,
+    score: score,
+    misses: misses
+  }
+
+  firebase.database().ref('bubbles-records').push().set(record)
+      .then(function(snapshot) {
+
+      }, function(error) {
+          console.log('error' + error);
+      });
+}
+
 function init(canvas, width, height, backgroundColor=0x000000) {
   canvas.width = width;
   canvas.height = height;
@@ -185,7 +200,50 @@ function finalText() {
   return richText
 }
 
+function stringFromRecord(record) {
+  return '' + record.name + ': ' + record.score + '(' + record.misses + ')'
+}
+
+function displayScores(scores) {
+  let list = document.getElementById("records")
+  scores.forEach((record) => {
+    let li = document.createElement("div");
+    var text = document.createTextNode(stringFromRecord(record));
+    li.appendChild(text);
+    list.appendChild(li)
+  })
+}
+
+function loadScores() {
+  scores = []
+  firebase.database().ref('bubbles-records')
+    .orderByChild("score")
+    .limitToFirst(15)
+    .once('value')
+    .then(function(snapshot) {
+      console.log("records")
+      snapshot.forEach(function(childSnapshot) {
+        var childData = childSnapshot.val();
+        scores.push(childData)
+      });
+      scores.reverse()
+      scores.forEach((data) => {console.log(data)})
+      displayScores(scores)
+    })
+}
+
+function checkScore(context) {
+  if (context.score > 280) {
+    name = window.prompt("Enter your name to save a record!", "");
+    if (name == null || name.length === 0) {
+      return;
+    }
+    saveToFirebase(name, context.score, context.misses)
+  }
+}
+
 function main() {
+    loadScores()
     const canvas = document.querySelector("#glCanvas");
     var width = window.innerWidth * 0.5;
     var height = window.innerHeight - 20;
@@ -232,6 +290,7 @@ function main() {
         clearInterval(fadeTimer)
         clearInterval(countdownTimer)
         app.stage.addChild(finalText());
+        checkScore(gameContext)
         app.stage.on('pointerdown', () => {
           app.stop()
           app.destroy()
