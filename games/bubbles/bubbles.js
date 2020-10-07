@@ -236,9 +236,9 @@ function loadScores() {
 }
 
 function checkScore(context) {
-  if (context.score > 260) {
+  if (context.score > 250) {
     name = window.prompt("Enter your name to save a record!", "");
-    if (name == null || name.length === 0) {
+    if (name === null || name.length === 0 || name === "null") {
       return;
     }
     saveToFirebase(name, context.score, context.misses)
