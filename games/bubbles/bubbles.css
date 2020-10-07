@@ -1,5 +1,18 @@
-body {
-	background: #262a2b;
+.back {
+    position: absolute;
+    left: 3;
+    top: 3;
+    background: #4f4f4f;
+    border: 2px solid;
+    font: inherit;
+    line-height: 1;
+    padding: 1em 2em;
+    transition: 0.25s;
+}
+
+.back:hover,
+.back:focus {
+    box-shadow: inset 0 0 0 2em #f3e130;
 }
 
 .playArea {
@@ -7,10 +20,11 @@ body {
     display: flex;
     justify-content: center;
     margin: 0 auto;
+    overflow: hidden;
 }
 
 .playArea canvas {
-    border: 4mm ridge rgba(56, 48, 59, 0.6);
+    border: 10px ridge rgba(56, 48, 59, 0.6);
 }
 
 .stats {
@@ -19,6 +33,7 @@ body {
     display: flex;
     flex-direction: column;
     justify-content: center;
+    width: 25%
 }
 
 .stats div {

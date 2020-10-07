@@ -39,7 +39,7 @@ class Bubble {
     this.text.y += this.dy * delta
   }
   fade() {
-    this.life -= 0.2
+    this.life -= 1
     this.circle.alpha = this.life / 100
   }
 }
@@ -187,8 +187,8 @@ function finalText() {
 
 function main() {
     const canvas = document.querySelector("#glCanvas");
-    var width = 900
-    var height = 700
+    var width = window.innerWidth * 0.5;
+    var height = window.innerHeight - 20;
     var app = init(canvas, width, height)
     let gameContext = {
       score: 0,
@@ -210,7 +210,7 @@ function main() {
       initBubble(bubble, gameContext)
       app.stage.addChild(bubble.circle)
       app.stage.addChild(bubble.text)
-    }, 1000);
+    }, 700);
     let fadeTimer = setInterval(() => {
       for (bubble of gameContext.bubbles) {
         bubble.fade()
@@ -218,7 +218,7 @@ function main() {
           removeBubble(bubble, gameContext.bubbles, app.stage)
         }
       }
-    })
+    }, 50)
     let timeLeft = 30
     updateTime(timeLeft)
     let countdownTimer = setInterval(() => {

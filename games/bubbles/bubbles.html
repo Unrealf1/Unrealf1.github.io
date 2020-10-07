@@ -8,31 +8,29 @@
     <link rel="stylesheet" href="bubbles.css">
 </head>
 
-<body>
-    <button onclick="window.location.href='../../index.html';">back</button>
-    <div class="playArea">
-        <span class="stats">
-            <div>
-                Highscore: 0
-            </div>
-            <div>
-                Record holder: "No one... yet"
-            </div>
-        </span>
-        <span>
-            <canvas touch-action="none" id="glCanvas" width="640" height="480"></canvas>
-        </span>
-        <span class="stats">
-            <div>
-                <span>Score: </span> <span id="score">0</span>
-            </div>
-            <div>
-                <span>Misses: </span> <span id="misses">0</span>
-            </div>
-            <div>
-                <span>Time left: </span> <span id="time">0</span>
-            </div>
-        </span>
-    </div>
+<body class="playArea">
+<button class="back" onclick="window.location.href='../../index.html';">Go back</button>
+    <span class="stats">
+        <div>
+            Highscore: 0
+        </div>
+        <div>
+            Record holder: "No one... yet"
+        </div>
+    </span>
+    <span>
+        <canvas touch-action="none" id="glCanvas"></canvas>
+    </span>
+    <span class="stats">
+        <div>
+            <span>Score: </span> <span id="score">0</span>
+        </div>
+        <div>
+            <span>Misses: </span> <span id="misses">0</span>
+        </div>
+        <div>
+            <span>Time left: </span> <span id="time">0</span>
+        </div>
+    </span>
 </body>
 </html>
