@@ -11,6 +11,7 @@ class Bubble {
     return text
   }
 
+  //TODO: move all visible parts to one container
   constructor(circle, dx, dy, bounty, life) {
     this.circle = circle
     this.dx = dx;
@@ -220,7 +221,7 @@ function loadScores() {
   if (scores_loaded) {return}
   firebase.database().ref('bubbles-records')
     .orderByChild("score")
-    .limitToFirst(15)
+    .limitToLast(10)
     .on('value', (snapshot) => {
       scores = []
       console.log("records")
