@@ -115,6 +115,7 @@ function safeCreateBubble(width, height, context) {
 function removeBubble(bubble, bubbles, stage) {
   stage.removeChild(bubble.graphics)
   bubbles.splice(bubbles.indexOf(bubble), 1);
+  bubble.graphics.destroy({children: true})
 }
 
 function initBubble(bubble, context) {
@@ -122,16 +123,12 @@ function initBubble(bubble, context) {
   let bubbles = context.bubbles
   let bubbleOnclick = () => {
     removeBubble(bubble, bubbles, app.stage)
-    console.log(bubbles.length)
     context.score += bubble.bounty
     context.score += 5 // for misses
     context.misses -= 1
     updateElement("score", context.score)
   }
   bubble.circle.on('pointerdown', bubbleOnclick);
-  app.ticker.add((delta) => {
-    bubble.move(delta)
-  });
   bubbles.push(bubble)
 }
 
@@ -232,13 +229,11 @@ function loadScores() {
     .limitToLast(10)
     .on('value', (snapshot) => {
       scores = []
-      console.log("records")
       snapshot.forEach(function(childSnapshot) {
         var childData = childSnapshot.val();
         scores.push(childData)
       });
       scores.reverse()
-      scores.forEach((data) => {console.log(data)})
       displayScores(scores)
     })
     scores_loaded = true
@@ -276,6 +271,7 @@ function main() {
     });
     app.ticker.add((delta) => {
       collision(gameContext)
+      gameContext.bubbles.forEach((bubble) => {bubble.move(delta)})
     });
     let spawnTimer = setInterval(() => {
       let bubble = safeCreateBubble(width, height, gameContext)
