@@ -1,3 +1,5 @@
+let color_list = [0x9b59b6, 0xffc125, 0xf24b4b, 0x97c4f5, 0xe3e129]
+
 class Bubble {
   _create_text() {
     const style = new PIXI.TextStyle({
@@ -6,42 +8,49 @@ class Bubble {
       fontWeight: 'bold',
     });
     const text = new PIXI.Text('' + this.bounty, style);
-    text.x = this.x-10;
-    text.y = this.y-12;
+    text.x = -10;
+    text.y = -12;
     return text
   }
 
-  //TODO: move all visible parts to one container
-  constructor(circle, dx, dy, bounty, life) {
-    this.circle = circle
+  _create_border() {
+    let line = new PIXI.Graphics();
+    line.lineStyle(4, randomSample(color_list), 1);
+    line.drawCircle(0, 0, this.r - 2);
+    return line
+  }
+
+  constructor(x, y, r, color, dx, dy, bounty, life) {
+    this.r = r
     this.dx = dx;
     this.dy = dy;
     this.bounty = bounty;
     this.life = life
-    this.text = this._create_text(bounty)
-  }
-
-  get r() {
-    return this.circle.r
+    this.graphics = new PIXI.Container()
+    this.graphics.x = x
+    this.graphics.y = y
+    this.circle = createCircle(0, 0, r, color)
+    this.circle.interactive = true
+    this.graphics.addChild(this.circle)
+    // this.graphics.addChild(this._create_border())
+    this.graphics.addChild(this._create_text(bounty))
   }
 
   get x() {
-    return this.circle.x
+    return this.graphics.x
   }
 
   get y() {
-    return this.circle.y
+    return this.graphics.y
   }
 
   move(delta) {
-    this.circle.x += this.dx * delta
-    this.circle.y += this.dy * delta
-    this.text.x += this.dx * delta
-    this.text.y += this.dy * delta
+    this.graphics.x += this.dx * delta
+    this.graphics.y += this.dy * delta
   }
   fade() {
     this.life -= 1
-    this.circle.alpha = this.life / 100
+    this.graphics.alpha = this.life / 100
   }
 }
 
@@ -78,7 +87,6 @@ function init(canvas, width, height, backgroundColor=0x000000) {
   return app
 }
 
-var bubble_colors = [0x9b59b6, 0xffc125, 0xf24b4b, 0x97c4f5, 0xe3e129]
 function createBubble(width, height) {
   let life    = randomIntIn(80, 101)
   let dx      = randomIntIn(1, 5)
@@ -89,13 +97,11 @@ function createBubble(width, height) {
   let r       = randomIntIn(10, 90)
   let x       = randomIntIn(100, width - 100)
   let y       = randomIntIn(100, height - 100)
-  let color   = randomSample(bubble_colors)
-  let circle  = createCircle(x, y, r, color)
-  circle.interactive = true
+  let color   = randomSample(color_list)
   let klife   = Math.floor((100 - life) / 10)
   let kr      = Math.floor((90 - r) / 20)
   let bounty  = (kspeed * (1 + klife + kr))
-  return new Bubble(circle, dx, dy, bounty, life)
+  return new Bubble(x, y, r, color, dx, dy, bounty, life)
 }
 
 function safeCreateBubble(width, height, context) {
@@ -107,8 +113,7 @@ function safeCreateBubble(width, height, context) {
 }
 
 function removeBubble(bubble, bubbles, stage) {
-  stage.removeChild(bubble.circle)
-  stage.removeChild(bubble.text)
+  stage.removeChild(bubble.graphics)
   bubbles.splice(bubbles.indexOf(bubble), 1);
 }
 
@@ -275,8 +280,7 @@ function main() {
     let spawnTimer = setInterval(() => {
       let bubble = safeCreateBubble(width, height, gameContext)
       initBubble(bubble, gameContext)
-      app.stage.addChild(bubble.circle)
-      app.stage.addChild(bubble.text)
+      app.stage.addChild(bubble.graphics)
     }, 700);
     let fadeTimer = setInterval(() => {
       for (bubble of gameContext.bubbles) {
