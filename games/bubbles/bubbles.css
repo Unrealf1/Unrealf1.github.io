@@ -6,13 +6,13 @@
     border: 2px solid;
     font: inherit;
     line-height: 1;
-    padding: 1em 2em;
+    padding: 1% 1%;
     transition: 0.25s;
 }
 
 .back:hover,
 .back:focus {
-    box-shadow: inset 0 0 0 2em #f3e130;
+    box-shadow: inset 0 0 0 2em #f3a530;
 }
 
 .records {
@@ -62,5 +62,4 @@
     display: flex;
     flex-direction: row;
     justify-content: center;
-    width: 30rem;
 }
