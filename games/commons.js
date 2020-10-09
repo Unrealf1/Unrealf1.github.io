@@ -17,3 +17,12 @@ function randomIntIn(min, max) {
 function randomSample(arr) {
     return arr[randomIntIn(0, arr.length)]
 }
+
+function isMobile() {
+    return ('ontouchstart' in document.documentElement) &&
+        (screen.width < 500 ||
+        navigator.userAgent.match(/Android/i) ||
+        navigator.userAgent.match(/webOS/i) ||
+        navigator.userAgent.match(/(iPhone|iPod|iPad)/i) ||
+        navigator.userAgent.match(/BlackBerry/i))
+}

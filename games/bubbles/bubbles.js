@@ -49,7 +49,8 @@ function saveToFirebase(name, score, misses) {
   let record = {
     name: name,
     score: score,
-    misses: misses
+    misses: misses,
+    mobile: isMobile()
   }
 
   firebase.database().ref('bubbles-records').push().set(record)
@@ -63,8 +64,8 @@ function saveToFirebase(name, score, misses) {
 function init(canvas, width, height, backgroundColor=0x000000) {
   canvas.width = width;
   canvas.height = height;
-  if(!PIXI.utils.isWebGLSupported()){
-    alert("Your browser ot computer does not support this page :(")
+  if(!PIXI.utils.isWebGLSupported())    {
+    alert("Your browser ot computer does not support WebGL, content might be displayed poorly :(")
   }
   let app = new PIXI.Application({
     width: width,
@@ -115,8 +116,6 @@ function initBubble(bubble, context) {
   let app = context.app
   let bubbles = context.bubbles
   let bubbleOnclick = () => {
-    console.log("removing bubble. It's bounty is " + bubble.bounty)
-    console.log("score is " + context.score)
     removeBubble(bubble, bubbles, app.stage)
     console.log(bubbles.length)
     context.score += bubble.bounty
@@ -200,7 +199,11 @@ function finalText() {
 }
 
 function stringFromRecord(record) {
-  return '' + record.name + ': ' + record.score + '(' + record.misses + ')'
+  let res = '' + record.name + ': ' + record.score + '(' + record.misses + ')'
+  if ('mobile' in record && record.mobile) {
+    res += '  📱'
+  }
+  return res
 }
 
 function displayScores(scores) {
