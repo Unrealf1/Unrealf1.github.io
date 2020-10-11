@@ -68,7 +68,7 @@ function enterQue(name) {
 }
 
 function rollSteps() {
-  return 2
+  return randomInt(2) + randomInt(2) + randomInt(2) + randomInt(2)
 }
 
 async function waitTurn(state, context) {
@@ -89,13 +89,15 @@ function win(state, winner) {
 async function actualGameplay(state, context, game_ref) {
   delete context.self_ref
   window.addEventListener('unload', function(event) {
-    if (context.first_player) {
-      game_ref.remove()
-    }
+    game_ref.remove()
   });
   context.state = state
   game_ref.on('value', async (snapshot)=>{
     let new_state = snapshot.val()
+    if (new_state == null) {
+      alert('other player left')
+      location.reload()
+    }
     updateGraphics(new_state, context)
     let winner = checkForEnd(new_state)
     if (winner !== 0) {
@@ -245,7 +247,23 @@ function main() {
       console.log('now unit\'s position is ' + unit.position)
       gameContext.turn = false
     }
-    initGraphics(gameContext)  
+    document.getElementById('skip').onclick = () => {
+      let context = gameContext
+      if (context.first_player === undefined) {
+        console.log('game hasn\'t started yet')
+        return
+      }
+      if (context.turn === undefined || context.turn === false) {
+        console.log('it is not my turn yet')
+        return
+      }
+      if (context.first_player !== gunit.first_player) {
+        console.log('it\'s not your unit')
+        return
+      }
+      gameContext.turn = false
+    }
+    initGraphics(gameContext)
 }
   
 window.onload = main;
