@@ -1,3 +1,12 @@
+function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+function updateElement(name, value) {
+    let elem = document.getElementById(name)
+    elem.innerText = '' + value
+}
+
 function distance(x1, y1, x2, y2){
     return Math.sqrt((x1-x2)**2 + (y1-y2)**2)
 }

@@ -70,23 +70,6 @@ function saveToFirebase(name, score, misses) {
       });
 }
 
-function init(canvas, width, height, backgroundColor=0x000000) {
-  canvas.width = width;
-  canvas.height = height;
-  if(!PIXI.utils.isWebGLSupported())    {
-    alert("Your browser ot computer does not support WebGL, content might be displayed poorly :(")
-  }
-  let app = new PIXI.Application({
-    width: width,
-    height: height,
-    backgroundColor : backgroundColor,
-    view: canvas
-  });
-  app.stage.interactive = true;
-  app.stage.hitArea = new PIXI.Rectangle(0, 0, width, height);
-  return app
-}
-
 function createBubble(width, height) {
   let life    = randomIntIn(80, 101)
   let dx      = randomIntIn(1, 5)
@@ -171,11 +154,6 @@ function collision(context) {
     }
 }
 
-function updateElement(name, value) {
-  let elem = document.getElementById(name)
-  elem.innerText = '' + value
-}
-
 function finalText() {
   const style = new PIXI.TextStyle({
     fontFamily: 'Arial',
@@ -254,7 +232,7 @@ function main() {
     const canvas = document.querySelector("#glCanvas");
     var width = window.innerWidth * 0.5;
     var height = window.innerHeight - 20;
-    var app = init(canvas, width, height)
+    var app = init(canvas, width, height, true)
     let gameContext = {
       score: 0,
       misses: 0,
