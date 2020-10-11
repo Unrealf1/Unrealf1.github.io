@@ -4,8 +4,9 @@
     <script src="../../libs/pixi.js"></script>
     <script src="../pixicommons.js"></script>
     <script src="../commons.js"></script>
+    <script src="ur-graphics.js"></script>
     <script src="ur.js"></script>
-    <link rel="stylesheet" href="bubbles.css">
+    <link rel="stylesheet" href="ur.css">
     <script src="https://www.gstatic.com/firebasejs/7.22.1/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/7.22.1/firebase-database.js"></script>
     <script>
@@ -24,13 +25,14 @@
 </head>
 
 <body class="playArea">
-<button class="back" onclick="window.location.href='../../index.html';">Go back</button>
     <span>
         <canvas touch-action="none" id="glCanvas"></canvas>
     </span>
     <span class="stats">
+        <button class="back" onclick="window.location.href='../../index.html';">Go back</button>
+        <div class="que" id="que"></div>
         <div>
-            <span>Some info: </span> <span id="some_info">0</span>
+            <span>Steps: </span> <span id="steps">0</span>
         </div>
     </span>
 </body>
