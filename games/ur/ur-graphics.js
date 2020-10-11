@@ -76,7 +76,7 @@ function initGUnits(context) {
   
 function initFields(context) {
     let fields = []
-    let size = 80
+    let size = Math.floor(Math.min(context.width, context.height) / 10)
     let x_offset = Math.floor(context.width / 2 - size*1.5)
     context.field_size = size
     context.field_x_offset = x_offset

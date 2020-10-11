@@ -15,6 +15,7 @@ function objDistance(ob1, ob2){
     return distance(ob1.x, ob1.y, ob2.x, ob2.y)
 }
 
+// max not included
 function randomInt(max) {
     return Math.floor(Math.random() * Math.floor(max));
 }
