@@ -33,8 +33,12 @@ class GUnit {
       }
       if (position < 5) {
         y = context.field_y_offset + context.field_size * (0.5 + (4 - position))
+      } else if (position > 14) {
+        y = 0
+        this.graphics.alpha = 0.001
+        this.circle.interactive = false
       } else if (position > 12) {
-        y = context.field_y_offset + context.field_size * (0.5 + (position - 9))
+        y = context.field_y_offset + context.field_size * (0.5 + (20 - position))
       } else {
         y = context.field_y_offset + context.field_size * (0.5 + (position - 5))
       }
