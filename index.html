@@ -21,6 +21,42 @@
             </p>
             <button onclick="window.location.href='games/ur/ur.html';">Play</button>
         </li>
+        <script>
+            function sendJSON() {
+                let xhr = new XMLHttpRequest(); 
+                let url = "http://127.0.0.1:5000/"; 
+            
+                // open a connection 
+                xhr.open("POST", url, true); 
+
+                // Set the request header i.e. which type of content you are sending 
+                xhr.setRequestHeader("Content-Type", "application/json"); 
+
+                // Create a state change callback 
+                xhr.onreadystatechange = function () { 
+                    if (xhr.readyState === 4 && xhr.status === 200) { 
+
+                        // Print received data from server 
+                        result.innerHTML = this.responseText; 
+
+                    } 
+                }; 
+
+                // Converting JSON data to string 
+                var data = JSON.stringify({ "name": "keker", "email": "brekekeker@lol.com" }); 
+
+                // Sending data with the request 
+                xhr.send(data); 
+            }
+        </script>
+        <li>
+            <h2>03</h2>
+            <h3>TEST</h3>
+            <p>
+                TEST
+            </p>
+            <button onclick="sendJSON()">Play</button>
+        </li>
     </ul>
 </body>
 </html>
