@@ -33,12 +33,13 @@
                 xhr.setRequestHeader("Content-Type", "application/json"); 
 
                 // Create a state change callback 
-                xhr.onreadystatechange = function () { 
+                xhr.onreadystatechange = function (result) { 
                     if (xhr.readyState === 4 && xhr.status === 200) { 
 
                         // Print received data from server 
                         result.innerHTML = this.responseText; 
-
+                        console.log("got result!")
+                        console.log(this.responseText)
                     } 
                 }; 
 
