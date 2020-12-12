@@ -4,7 +4,7 @@ import json
 
 
 def handle_options():
-    resp = with_control_origin("lul")
+    resp = make_response("lul")
     resp.headers["Access-Control-Allow-Headers"] = "Content-Type"
     return resp
 
