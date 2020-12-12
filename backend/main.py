@@ -12,6 +12,10 @@ def ur():
     elif request.method == 'GET':
         return with_control_origin(ur_handlers.handle_get())
 
+def with_control_origin(stuff):
+    response = make_response(stuff)
+    response.headers["Access-Control-Allow-Origin"] = "*"
+    return response
 
 if __name__ == "__main__":
     app.run(debug=True)

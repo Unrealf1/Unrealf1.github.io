@@ -36,10 +36,5 @@ def handle_post():
 def handle_get():
     return json.dumps(lg.queue)
 
-def with_control_origin(stuff):
-    response = make_response(stuff)
-    response.headers["Access-Control-Allow-Origin"] = "*"
-    return response
-
 if __name__ == "__main__":
     print("this module is not for direct call")
