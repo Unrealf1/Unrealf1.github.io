@@ -69,10 +69,12 @@ games = []
 timeout_limit = 60 * 60
 
 def add_to_queue(name):
+    print("Adding to queue")
     if name in queue:
         return "Name is already taken"
     queue.append(name)
-    return "OK"
+    #return "OK"
+    return "OK(added)"
 
 def check_game_timeout(game):
     return round(time.time()) - game.last_action > timeout_limit

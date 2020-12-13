@@ -22,8 +22,9 @@ def handle_start(req):
         return json.dumps({"status": "ok", "game_id": id})
 
 def handle_post():
-    print("Hot post request, json i\n")
+    print("Hot post request\n")
     json = request.json
+    print(json)
     if json["type"] == "turn":
         return handle_turn(json)
     elif json["type"] == "enter_queue":
