@@ -61,6 +61,7 @@ class Game:
         
 
 # names of players in queue
+# TODO: should add time of last heartbeat and time of appearing in the que. So really old ones and inactive ones could be eliminated
 queue = []
 
 games = []
