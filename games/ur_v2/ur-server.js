@@ -1,5 +1,5 @@
-//const url ='https://imagination-site.herokuapp.com/ur'
-const url ='http://127.0.0.1:5000/ur'
+const url ='https://imagination-site.herokuapp.com/ur'
+//const url ='http://127.0.0.1:5000/ur'
 
 async function post_data(data) {
     let response = await fetch(url, {

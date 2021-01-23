@@ -102,12 +102,10 @@ async function startGame(is_first, game_id) {
 function displayInvites(invites) {
   console.log(invites)
   var ul = document.getElementById("invites")
-  function addItem(name){
-    var li = document.createElement("li")
-    li.className = "invites-element"
-    li.appendChild(document.createTextNode(name))
+
+  function create_button(name) {
     let button = document.createElement('button')
-    button.className = "invite-button"
+    button.className = "ui-button"
     button.innerText = "accept"
     button.onclick = async () => {
       id = await accept_invite(gameContext.name, name)
@@ -116,8 +114,23 @@ function displayInvites(invites) {
       }
       startGame(true, id)
     }
+    return button
+  }
 
-    li.appendChild(button)
+  function addItem(name){
+    let button = create_button(name)
+    let but_span = document.createElement("span")
+    but_span.className = "button_span"
+    but_span.appendChild(button)
+
+    let text_span = document.createElement("span")
+    text_span.className = "text_span"
+    text_span.textContent = name
+
+    let li = document.createElement("li")
+    li.className = "invites-element"
+    li.appendChild(text_span)
+    li.appendChild(but_span)
     ul.appendChild(li)
   }
   while(ul.firstChild) ul.removeChild(ul.firstChild)
@@ -163,19 +176,31 @@ async function start_state_change_check() {
 
 function displayQue(queue) {
   var ul = document.getElementById("queue")
-  function addItem(name){
-    var li = document.createElement("li")
-    li.className = "queue-element"
-    //li.setAttribute('id',name)
-    li.appendChild(document.createTextNode(name))
+  function create_button(name) {
     let button = document.createElement('button')
-    button.className = "invite-button"
+    button.className = "ui-button"
     button.innerText = "invite"
     button.onclick = () => {
       invite(gameContext.name, name)
     }
+    return button
+  }
 
-    li.appendChild(button)
+  function addItem(name){
+    var li = document.createElement("li")
+    li.className = "queue-element"
+
+    let button = create_button(name)
+    let but_span = document.createElement("span")
+    but_span.className = "button_span"
+    but_span.appendChild(button)
+
+    let text_span = document.createElement("span")
+    text_span.className = "text_span"
+    text_span.textContent = name
+
+    li.appendChild(text_span)
+    li.appendChild(but_span)
     ul.appendChild(li)
   }
   while(ul.firstChild) ul.removeChild(ul.firstChild)
@@ -194,9 +219,10 @@ async function refreshQue() {
 
 async function main() {
     const canvas = document.querySelector("#glCanvas");
-    var width = window.innerWidth * 0.75;
+    var width = window.innerWidth * 0.6;
     var height = window.innerHeight - 20;
     var app = init(canvas, width, height)
+    alert("this is still in development!")
     
     var name = window.prompt("Enter your name to enter a que", "");
     while (name === null || name.length === 0 || name === "null") {

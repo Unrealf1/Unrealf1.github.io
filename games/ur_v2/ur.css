@@ -16,7 +16,8 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
-    width: 25%
+    width: 25%;
+    border-right: solid black 1px;
 }
 
 .stats div {
@@ -24,4 +25,64 @@
     display: flex;
     flex-direction: row;
     justify-content: center;
+}
+
+.list {
+    list-style-type: none;
+    padding: 0%;
+}
+
+.list-element {
+    border: black;
+    border-style: groove;
+    padding: 2px;
+    margin: 1px;
+    text-align: left;
+    white-space: nowrap;
+    display: flex;
+}
+
+.queue-element {
+    display: flex;
+    border-top: 2px solid black;
+    border-bottom: 1px solid black;
+    white-space: nowrap;
+    padding: 0px;
+    margin: 0;
+}
+
+.invites-element {
+    display: flex;
+}
+
+.ui-button {
+    background-color: burlywood;
+    border: black;
+    border-style: double;
+    padding: 2px;
+    width: 100%;
+}
+
+.ui-button:hover {
+    background-color: rgb(235, 195, 144);
+    box-shadow: chocolate;
+}
+
+.ui-button:active {
+    background-color: rgb(182, 151, 111);
+    box-shadow: chocolate;
+}
+
+.text_span {
+    text-align: left;
+    width: 80%;
+    display: block;
+    padding-left: 1rem;
+}
+
+.button_span {
+    display: block;
+    width: 20%;
+    padding: 0%;
+    margin: 0%;
 }
