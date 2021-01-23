@@ -115,6 +115,6 @@ function updateGraphics(state, context) {
             gunits[index].updatePosition(unit.position)
         })
     }
-    update_units(state.player1.units, context.gunits1)
-    update_units(state.player2.units, context.gunits2)
+    update_units(state.player1, context.gunits1)
+    update_units(state.player2, context.gunits2)
 }

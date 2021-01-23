@@ -5,39 +5,73 @@ class Unit {
     this.position = 0
   }
 
+  static in_position(position) {
+    let unit = new Unit()
+    unit.position = position
+    return unit
+  }
+
 }
 
 class GameState {
   constructor(player1, player2) {
-    player1.units = Array.from({length: 8}, (_, i) => new Unit())
-    player2.units = Array.from({length: 8}, (_, i) => new Unit())
     this.player1 = player1
     this.player2 = player2
   }
+
+  static empty() {
+    return new GameState(
+      Array.from({length: 8}, (_, i) => new Unit()), 
+      Array.from({length: 8}, (_, i) => new Unit())
+    )
+  }
+
+  static fromServerState(state) {
+    let toArray = (json) => {
+      let parsed = JSON.parse(json)
+      let out = []
+      for(var i = 0; i < parsed.length; i++) {
+        var obj = parsed[i];
+        out.push(obj)
+      }
+      return out
+    }
+    let toUnits = (positions) => {
+      let units = []
+      for (var i = 0; i < positions.length; i++) {
+        units.push(Unit.in_position(positions[i]))
+      }
+      return units
+    }
+
+    return new GameState(
+      toUnits(toArray(state["positions1"])), 
+      toUnits(toArray(state["positions2"]))
+    )
+  }
 }
 
-function moveGameState(unit, player, opponent, steps) {
+function tryTurn(unit, player, opponent, steps) {
   let new_position = unit.position + steps
-  if (new_position === 0) {return false}
-  if (player.units.some((unit)=>unit.position === new_position)) {
-    return false
+  if (new_position === 0) {return -1}
+  if (player.some((unit)=>unit.position === new_position)) {
+    return -1
   }
-  let enemy_on_spot = opponent.units.some((unit)=>{
+  let enemy_on_spot = opponent.some((unit)=>{
     return unit.position === new_position && unit.position > 4 && unit.position < 13})
   if (enemy_on_spot) {
     if (new_position === 8) {
-      return false
+      return -1
     }
-    let enemy_unit = opponent.units.find((unit)=>unit.position === new_position)
+    let enemy_unit = opponent.find((unit)=>unit.position === new_position)
     enemy_unit.position = 0
   }
-  unit.position = new_position
-  return true
+  return new_position
 }
 
 function checkForEnd(state) {
   let checkWin = (player) => {
-    return player.units.every((unit) => unit.position > 14)
+    return player.every((unit) => unit.position > 14)
   }
   let winner = 0
   if (checkWin(state.player1)) {
@@ -49,95 +83,20 @@ function checkForEnd(state) {
   return winner
 }
 
-
 function rollSteps() {
-  return randomInt(2) + randomInt(2) + randomInt(2) + randomInt(2)
+  let text = document.getElementById("steps")
+  let steps = randomInt(2) + randomInt(2) + randomInt(2) + randomInt(2)
+  text.textContent = steps
+  return steps
 }
 
-async function waitTurn(state, context) {
-  context.state = state
-  context.turn = true
-  context.roll = rollSteps()
-  updateElement('steps', context.roll)
-  while(context.turn) {
-    await sleep(100)
-  }
-}
-
-function win(state, winner) {
-  let winner_name = winner === 1 ? state.player1.name : state.player2.name
-  window.alert(winner_name + 'won!')
-}
-
-async function actualGameplay(state, context, game_ref) {
-  delete context.self_ref
-  window.addEventListener('unload', function(event) {
-    game_ref.remove()
-  });
-  context.state = state
-  game_ref.on('value', async (snapshot)=>{
-    let new_state = snapshot.val()
-    if (new_state == null) {
-      alert('other player left')
-      location.reload()
-    }
-    updateGraphics(new_state, context)
-    let winner = checkForEnd(new_state)
-    if (winner !== 0) {
-        win(state, winner)
-        if (context.first_player) {
-          context.first_player = false
-          game_ref.remove()
-        }
-        return
-    } 
-
-    let player = context.first_player ? new_state.player1 : new_state.player2
-    let opponent = context.first_player ? new_state.player2 : new_state.player1
-    if (player == null || player.status !== 'turn') {
-      return
-    }
-    state = new_state
-    await waitTurn(state, context)
-    player.status = 'wait'
-    opponent.status = 'turn'
-    game_ref.set(state)
-  })
-}
-
-async function startGameWith(opponent, self, context) {
-  if (context.first_player !== undefined) {
-    console.log('Already in game!')
-    return
-  }
-  console.log('me/opponent:')
-  console.log(self)
-  console.log(opponent)
-  if (opponent.key === self.key) {
-    console.log('can\'t start game with self')
-    return
-  }
-  let opponent_ref =  firebase.database().ref('ur-que/'+opponent.key)
-  console.log('I am ' + self.name + ', starting game with ' + opponent.name)
-  opponent = (await opponent_ref.once('value')).val()
-  opponent.key = opponent_ref.key
-  console.log(opponent)
-  if (opponent.status !== 'ready') {
-    console.log('opponent is not ready, his status is ' + opponent.status)
-    return
-  }
-  self.status = 'turn'
-  let state = new GameState(self, opponent)
-  let game_ref = await firebase.database().ref('ur-games').push()
-  await game_ref.set(state)
-  console.log('created game')
-  opponent.game = game_ref.key
-  opponent.status = 'wait'
-  await opponent_ref.set(opponent)
-  console.log('published game to the opponent')
-  context.self_ref.remove()
-  context.first_player = true
-  actualGameplay(state, context, game_ref)
+async function startGame(is_first, game_id) {
+  gameContext.turn = is_first
+  gameContext.first_player = is_first
+  gameContext.game_id = game_id
+  gameContext.roll = rollSteps()
+  start_state_change_check()
+  alert("Game started!")
 }
 
 function displayInvites(invites) {
@@ -150,8 +109,12 @@ function displayInvites(invites) {
     let button = document.createElement('button')
     button.className = "invite-button"
     button.innerText = "accept"
-    button.onclick = () => {
-      accept_invite(gameContext.name, name)
+    button.onclick = async () => {
+      id = await accept_invite(gameContext.name, name)
+      if (id < 0) {
+        return
+      }
+      startGame(true, id)
     }
 
     li.appendChild(button)
@@ -164,12 +127,37 @@ function displayInvites(invites) {
 }
 
 async function start_heartbeat() {
-  while (true) {
-    await sleep(5000)
-    if (gameContext.turn !== undefined) {
-      let hb = await heartbeat(gameContext.name)
-      displayInvites(hb["invites"])
+  while (gameContext.turn === undefined) {
+    let hb = await heartbeat(gameContext.name)
+    displayInvites(hb["invites"])
+    if (hb["accepted"] >= 0) {
+      console.log("somebody accepted invite! starting game...")
+      startGame(false, hb["accepted"])
     }
+    await sleep(5000)
+  }
+  console.log("stopping heartbeats")
+}
+
+async function start_state_change_check() {
+  while (true) {
+    if (true) {
+      let state = await get_state(gameContext.game_id)
+      console.log(state)
+      gameContext.state = GameState.fromServerState(state)
+      let player_idx = gameContext.first_player ? 1 : 2
+      gameContext.turn = (state["turn"] === player_idx)
+      let end = checkForEnd(gameContext.state)
+      if (end > 0) {
+        if (end === player_idx) {
+          alert("You won!")
+        } else {
+          alert("You lost")
+        }
+      } 
+    }
+    updateGraphics(gameContext.state, gameContext)
+    await sleep(3000)
   }
 }
 
@@ -227,15 +215,14 @@ async function main() {
 
     start_heartbeat()
 
-    gameContext.onGUnitClick = (gunit) => {
-      console.log('clicked!')
+    gameContext.onGUnitClick = async (gunit) => {
       let context = gameContext
-      if (context.first_player === undefined) {
+      if (context.turn === undefined || context.first_player === undefined || context.state === undefined) {
         console.log('game hasn\'t started yet')
         return
       }
-      if (context.turn === undefined || context.turn === false) {
-        console.log('it is not my turn yet')
+      if (context.turn === false) {
+        console.log('it is not your turn yet')
         return
       }
       if (context.first_player !== gunit.first_player) {
@@ -244,14 +231,25 @@ async function main() {
       }
       let player = gunit.first_player ? gameContext.state.player1 : gameContext.state.player2
       let opponent = gunit.first_player ? gameContext.state.player2 : gameContext.state.player1
-      let unit = player.units[gunit.num]
+      let unit = player[gunit.num]
       let steps = gameContext.roll
-      if (moveGameState(unit, player, opponent, steps) === false) {
+      let new_pos = tryTurn(unit, player, opponent, steps)
+      if (new_pos < 0) {
         console.log('wrong move!')
         return
       }
-      console.log('now unit\'s position is ' + unit.position)
+      let player_idx = context.first_player ? 1 : 2
+      let response = await commit_turn(context.game_id, player_idx, gunit.num, steps)
+      if (response !== "OK") {
+        console.log("could not commit turn")
+        console.log(response)
+        return
+      }
+      unit.position = new_pos
+      console.log('now unit\'s position is ')
+      console.log(unit.position)
       gameContext.turn = false
+      gameContext.roll = rollSteps()
     }
     document.getElementById('skip').onclick = () => {
       let context = gameContext
@@ -270,6 +268,8 @@ async function main() {
       gameContext.turn = false
     }
     initGraphics(gameContext)
+    console.log("initialization complete.")
+    console.log(gameContext)
 }
   
 window.onload = main;

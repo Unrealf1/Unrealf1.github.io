@@ -22,24 +22,25 @@ class Game:
         return check_player(self.unit_positions1) or check_player(self.unit_positions2)
 
     def try_turn(self, turn):
+        self.last_action = round(time.time())
         if self.current_turn != turn["player"]:
             return False
         if turn["step"] == Game.skip_turn_flag:
             return True
 
-        units = unit_positions1 if turn["player"] == 1 else unit_positions2
-        enemies = unit_positions1 if turn["player"] == 2 else unit_positions2
+        units = self.unit_positions1 if turn["player"] == 1 else self.unit_positions2
+        enemies = self.unit_positions1 if turn["player"] == 2 else self.unit_positions2
         
         new_position = units[turn["unit"]] + turn["step"]
         
         # место занято своим же юнитом
-        if any(position == new_position for num in units):
+        if any(position == new_position for position in units):
             return False
 
         enemy_on_spot = any(position == new_position for position in enemies)
         
         # на безопасная клетка занята оппонентом
-        if enemy_on_spot and new_position in safe_positions:
+        if enemy_on_spot and new_position in Game.safe_positions:
             return False
         
         if enemy_on_spot:
@@ -48,7 +49,6 @@ class Game:
         
         units[turn["unit"]] = new_position
         return True
-        
         
     
     def apply(self, turn):
@@ -66,6 +66,9 @@ class Game:
 queue = dict()
 
 invitations = defaultdict(lambda: [])
+
+# names of players hwo sent invite that was accepted
+accepted = dict()
 
 games = []
 
@@ -147,12 +150,14 @@ def start_game(name1, name2):
     if (not name1 in queue) or (not name2 in queue):
         print("could not start game")
         return -1
+
     del queue[name1]
     del queue[name2]
     game = Game()
     game_id = len(games)
     games.append(game)
-    print("game started")
+    accepted[name2] = game_id
+    print(f"game started({game_id})")
     return game_id
 
 def apply_turn(id, turn):

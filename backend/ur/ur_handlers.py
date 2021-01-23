@@ -25,11 +25,27 @@ def handle_heartbeat(req):
     name = req["name"]
     invites = lg.get_invitations(name)
     lg.heartbeat(name)
-    return json.dumps({"invites": invites})
+    accepted = name in lg.accepted
+    game_id = -1
+    if accepted:
+        game_id = lg.accepted[name]
+        del lg.accepted[name]
+
+    return json.dumps({"invites": invites, "accepted": game_id})
 
 def handle_invite(req):
     lg.invite(req["self"], req["other"])
     return "OK"
+
+def handle_get_state(req):
+    print(req)
+    game = lg.games[req["game_id"]]
+    return json.dumps({
+        "positions1": json.dumps(game.unit_positions1),
+        "positions2": json.dumps(game.unit_positions2),
+        "turn": game.current_turn
+    })
+
 
 def handle_post():
     print("Hot post request\n")
@@ -46,8 +62,10 @@ def handle_post():
         return handle_heartbeat(json)
     elif req_type == "invite":
         return handle_invite(json)
+    elif req_type == "get_state":
+        return handle_get_state(json)
     
-    return "(you posted shit)"
+    return "(you posted cringe)"
 
 def handle_get():
     lg.clear_queue()

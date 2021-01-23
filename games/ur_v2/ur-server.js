@@ -41,8 +41,6 @@ async function heartbeat(name) {
     }
     let response = await post_data(request)
     json = await response.json()
-    console.log("from heartbeat:")
-    console.log(json)
     return json
 }
 
@@ -53,7 +51,16 @@ async function accept_invite(self_name, other_name) {
         "other": other_name
     }
     let response = await post_data(request)
-    return response
+    let json = await response.json()
+    if (json["status"] === "ok") {
+        game_id = json["game_id"]
+        console.log("Game id is ", game_id)
+        return game_id
+    } else {
+        console.log("could not start game.")
+        console.log(json)
+        return -1
+    }
 }
 
 async function commit_turn(game_id, player, unit, step) {
@@ -65,13 +72,23 @@ async function commit_turn(game_id, player, unit, step) {
         "step": step
     }
     let response = await post_data(request)
-    return response
+    let text = await response.text()
+    return text
+}
+
+async function get_state(game_id) {
+    console.log("requesting state, game id is ", game_id)
+    const request = {
+        "type": "get_state",
+        "game_id": game_id
+    }
+    let response = await post_data(request)
+    let state = await response.json()
+    return state
 }
 
 async function syncQue() {
   let response = await fetch(url)
   let names = await response.json()
-  console.log("Got new queue:")
-  console.log(names)
   return names
 }
