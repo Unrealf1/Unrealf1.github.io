@@ -1,0 +1,88 @@
+.playArea {
+    background: #f3e130;
+    display: flex;
+    justify-content: center;
+    margin: 0 auto;
+    overflow: hidden;
+}
+
+.playArea canvas {
+    border: 10px ridge rgba(56, 48, 59, 0.6);
+}
+
+.stats {
+    text-align: center;
+    font: small-caps bold 24px/1 sans-serif;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 25%;
+    border-right: solid black 1px;
+}
+
+.stats div {
+    margin-bottom: 2rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.list {
+    list-style-type: none;
+    padding: 0%;
+}
+
+.list-element {
+    border: black;
+    border-style: groove;
+    padding: 2px;
+    margin: 1px;
+    text-align: left;
+    white-space: nowrap;
+    display: flex;
+}
+
+.queue-element {
+    display: flex;
+    border-top: 2px solid black;
+    border-bottom: 1px solid black;
+    white-space: nowrap;
+    padding: 0px;
+    margin: 0;
+}
+
+.invites-element {
+    display: flex;
+}
+
+.ui-button {
+    background-color: burlywood;
+    border: black;
+    border-style: double;
+    padding: 2px;
+    width: 100%;
+}
+
+.ui-button:hover {
+    background-color: rgb(235, 195, 144);
+    box-shadow: chocolate;
+}
+
+.ui-button:active {
+    background-color: rgb(182, 151, 111);
+    box-shadow: chocolate;
+}
+
+.text_span {
+    text-align: left;
+    width: 80%;
+    display: block;
+    padding-left: 1rem;
+}
+
+.button_span {
+    display: block;
+    width: 20%;
+    padding: 0%;
+    margin: 0%;
+}

@@ -1,0 +1,31 @@
+<html>
+<head>
+    <title>Ur</title>
+    <script src="../../libs/pixi.js"></script>
+    <script src="../pixicommons.js"></script>
+    <script src="../commons.js"></script>
+    <script src="ur-graphics.js"></script>
+    <script src="ur-server.js"></script>
+    <script src="ur.js"></script>
+    <link rel="stylesheet" href="ur.css">
+</head>
+
+<body class="playArea">
+    <span>
+        <canvas touch-action="none" id="glCanvas"></canvas>
+    </span>
+    <span class="stats">
+        <ui id="invites" class="list"></ui>
+        <button class="ui-button" onclick="refreshQue()">refresh</button>
+        <ul id="queue" class="list"></ul>
+    </span>
+    <span class="stats">
+        <button class="back" onclick="window.location.href='../../index.html';">Go back</button>
+        <button id="skip" class="ui-button">Skip turn</button>
+        <div class="que" id="que"></div>
+        <div>
+            <span>Steps: </span> <span id="steps">0</span>
+        </div>
+    </span>
+</body>
+</html>

@@ -1,9 +1,21 @@
-from flask import Flask
-
+from flask import Flask, request, make_response
+from ur import ur_handlers
 
 app = Flask(__name__)
 
-@app.route("/")
-def hello():
-    return "Hello World!"
+@app.route("/ur", methods=['POST', 'GET', 'OPTIONS'])
+def ur():
+    if request.method == 'POST':
+        return with_control_origin(ur_handlers.handle_post())
+    elif request.method == 'OPTIONS':
+        return with_control_origin(ur_handlers.handle_options())
+    elif request.method == 'GET':
+        return with_control_origin(ur_handlers.handle_get())
 
+def with_control_origin(stuff):
+    response = make_response(stuff)
+    response.headers["Access-Control-Allow-Origin"] = "*"
+    return response
+
+if __name__ == "__main__":
+    app.run(debug=True)
