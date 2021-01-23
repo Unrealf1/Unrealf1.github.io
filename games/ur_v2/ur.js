@@ -1,4 +1,4 @@
-const url ='https://imagination-site.herokuapp.com/ur'
+var gameContext = null
 
 class Unit {
   constructor() {
@@ -49,26 +49,6 @@ function checkForEnd(state) {
   return winner
 }
 
-function syncQue(handler) {
-    return firebase.database().ref('ur-que')
-      .on('value', handler)
-}
-
-async function enterQue(name) {
-  const data = {
-    "type": "enter_queue",
-    "name": name
-  }
-  let response = await fetch(url, {
-    method: "POST",
-    body: JSON.stringify(data),
-    headers: {
-       "Content-type": "application/json; charset=UTF-8"
-    }
-  })
-  console.log("tried to enter que, response is")
-  console.log(response)
-}
 
 function rollSteps() {
   return randomInt(2) + randomInt(2) + randomInt(2) + randomInt(2)
@@ -160,40 +140,92 @@ async function startGameWith(opponent, self, context) {
   actualGameplay(state, context, game_ref)
 }
 
-function displayQue(context) {
-  que = context.que
-  self = context.self
-  let list = document.getElementById("que")
-  while (list.firstChild) {
-    list.removeChild(list.lastChild);
+function displayInvites(invites) {
+  console.log(invites)
+  var ul = document.getElementById("invites")
+  function addItem(name){
+    var li = document.createElement("li")
+    li.className = "invites-element"
+    li.appendChild(document.createTextNode(name))
+    let button = document.createElement('button')
+    button.className = "invite-button"
+    button.innerText = "accept"
+    button.onclick = () => {
+      accept_invite(gameContext.name, name)
+    }
+
+    li.appendChild(button)
+    ul.appendChild(li)
   }
-  que.forEach((player) => {
-    let entry = document.createElement("button");
-    entry.onclick = () => {startGameWith(player, self, context)}
-    var text = document.createTextNode(player.name + ': ' + player.status);
-    entry.appendChild(text);
-    list.appendChild(entry)
-  })
+  while(ul.firstChild) ul.removeChild(ul.firstChild)
+  for (elem of invites) {
+    addItem(elem)
+  }
 }
 
+async function start_heartbeat() {
+  while (true) {
+    await sleep(5000)
+    if (gameContext.turn !== undefined) {
+      let hb = await heartbeat(gameContext.name)
+      displayInvites(hb["invites"])
+    }
+  }
+}
+
+function displayQue(queue) {
+  var ul = document.getElementById("queue")
+  function addItem(name){
+    var li = document.createElement("li")
+    li.className = "queue-element"
+    //li.setAttribute('id',name)
+    li.appendChild(document.createTextNode(name))
+    let button = document.createElement('button')
+    button.className = "invite-button"
+    button.innerText = "invite"
+    button.onclick = () => {
+      invite(gameContext.name, name)
+    }
+
+    li.appendChild(button)
+    ul.appendChild(li)
+  }
+  while(ul.firstChild) ul.removeChild(ul.firstChild)
+  console.log(queue)
+  for (elem of queue) {
+    if (elem !== gameContext.name) {
+      addItem(elem)
+    }
+  }
+}
+
+async function refreshQue() {
+  let names = await syncQue()
+  displayQue(names)
+}
 
 async function main() {
     const canvas = document.querySelector("#glCanvas");
     var width = window.innerWidth * 0.75;
     var height = window.innerHeight - 20;
     var app = init(canvas, width, height)
-    let gameContext = {
+    
+    var name = window.prompt("Enter your name to enter a que", "");
+    while (name === null || name.length === 0 || name === "null") {
+      //TODO allow offline gameplay
+      name = window.prompt("Sorry, offline is not yet supported, so name is required.\nEnter your name to enter a que", "");    
+    }
+
+    gameContext = {
       app: app,
       width: width,
       height: height,
-      que: []
+      name: name
     }
-    name = window.prompt("Enter your name to enter a que", "");
-    if (name === null || name.length === 0 || name === "null") {
-      //TODO allow for offline gameplay
-      return      
-    } 
+
     await enterQue(name)
+
+    start_heartbeat()
 
     gameContext.onGUnitClick = (gunit) => {
       console.log('clicked!')
