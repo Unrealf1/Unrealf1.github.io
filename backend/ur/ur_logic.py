@@ -1,4 +1,5 @@
 import time
+from collections import defaultdict
 
 
 class Game:
@@ -29,7 +30,7 @@ class Game:
         units = unit_positions1 if turn["player"] == 1 else unit_positions2
         enemies = unit_positions1 if turn["player"] == 2 else unit_positions2
         
-        new_position = units[turn["unit"]] + turn["steps"]
+        new_position = units[turn["unit"]] + turn["step"]
         
         # место занято своим же юнитом
         if any(position == new_position for num in units):
@@ -62,23 +63,72 @@ class Game:
 
 # names of players in queue
 # TODO: should add time of last heartbeat and time of appearing in the que. So really old ones and inactive ones could be eliminated
-queue = []
+queue = dict()
+
+invitations = defaultdict(lambda: [])
 
 games = []
 
 # no actions for an hour = game is not active
-timeout_limit = 60 * 60
+game_timeout_limit = 60 * 60
+
+# no hearrtbeat from user for this time = deletion from queue
+queue_timeout_limit = 3 * 60
+
+invitation_timeout_limit = 2 * 60
+
+def invite(inviter, invited):
+    invitations[invited].append((inviter, time.time()))
+
+def get_invitations(name):
+    return [inv for inv, _ in invitations[name]]
+
+def clean_invites():
+    current_time = time.time()
+    stale_names = []
+    for name in invitations:
+        stale = []
+        actual_invs = invitations[name]
+        # I'm not sure if iterator in list will stay correct after deletion, so for now delete all items after the iteration
+        for inv in actual_invs:
+            _, t = inv
+            if current_time - t > invitation_timeout_limit:
+                stale.append(inv)
+
+        for inv in stale:
+            actual_invs.remove(inv)
+
+        if not actual_invs:
+            stale_names.append(name)
+    
+    for name in stale_names:
+        del invitations[name]
 
 def add_to_queue(name):
     print("Adding to queue")
     if name in queue:
         return "Name is already taken"
-    queue.append(name)
-    #return "OK"
+    queue[name] = time.time()
     return "OK(added)"
 
+def clear_queue():
+    current_time = time.time()
+    stale = []
+    for name, last_int in queue.items():
+        if current_time - last_int >= queue_timeout_limit:
+            stale.append(name)
+
+    for name in stale:
+        del queue[name]
+
+def heartbeat(name):
+    queue[name] = time.time()
+
+def get_names():
+    return list(queue.keys())
+
 def check_game_timeout(game):
-    return round(time.time()) - game.last_action > timeout_limit
+    return round(time.time()) - game.last_action > game_timeout_limit
 
 def clear_games():
     first_to_clear = len(games)
@@ -94,13 +144,15 @@ def clear_games():
     games = games[:first_to_clear]
 
 def start_game(name1, name2):
-    if not name1 in queue or not name2 in queue:
+    if (not name1 in queue) or (not name2 in queue):
+        print("could not start game")
         return -1
-    queue.remove(name1)
-    queue.remove(name2)
+    del queue[name1]
+    del queue[name2]
     game = Game()
     game_id = len(games)
     games.append(game)
+    print("game started")
     return game_id
 
 def apply_turn(id, turn):

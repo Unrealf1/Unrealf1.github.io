@@ -15,27 +15,44 @@ def handle_turn(turn):
         return "illegal move"
 
 def handle_start(req):
-    id = lg.start_game(req["other"])
+    id = lg.start_game(req["self"], req["other"])
     if id < 0:
         return json.dumps({"status": "fail"})
     else:
         return json.dumps({"status": "ok", "game_id": id})
 
+def handle_heartbeat(req):
+    name = req["name"]
+    invites = lg.get_invitations(name)
+    lg.heartbeat(name)
+    return json.dumps({"invites": invites})
+
+def handle_invite(req):
+    lg.invite(req["self"], req["other"])
+    return "OK"
+
 def handle_post():
     print("Hot post request\n")
     json = request.json
     print(json)
-    if json["type"] == "turn":
+    req_type = json["type"]
+    if req_type == "turn":
         return handle_turn(json)
-    elif json["type"] == "enter_queue":
+    elif req_type == "enter_queue":
         return lg.add_to_queue(json["name"])
-    elif json["type"] == "start_game":
+    elif req_type == "start_game":
         return handle_start(json)
+    elif req_type == "heartbeat":
+        return handle_heartbeat(json)
+    elif req_type == "invite":
+        return handle_invite(json)
     
     return "(you posted shit)"
 
 def handle_get():
-    return json.dumps(lg.queue)
+    lg.clear_queue()
+    names = lg.get_names()
+    return json.dumps(names)
 
 if __name__ == "__main__":
     print("this module is not for direct call")
