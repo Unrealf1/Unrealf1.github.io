@@ -157,7 +157,7 @@ def start_game(name1, name2):
     game_id = len(games)
     games.append(game)
     accepted[name2] = game_id
-    print(f"game started({game_id})")
+    print(f"game started({game_id}). len(games) is {len(games)}")
     return game_id
 
 def apply_turn(id, turn):
