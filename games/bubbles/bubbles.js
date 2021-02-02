@@ -1,5 +1,7 @@
 let color_list = [0x9b59b6, 0xffc125, 0xf24b4b, 0x97c4f5, 0xe3e129]
 
+let gameContext = null
+
 class Bubble {
   _create_text() {
     const style = new PIXI.TextStyle({
@@ -172,7 +174,7 @@ function finalText() {
     wordWrapWidth: 440,
     lineJoin: 'round'
   });
-  const richText = new PIXI.Text('Click on the field to try again!', style);
+  const richText = new PIXI.Text('Game over, try again!', style);
   richText.x = 50;
   richText.y = 220;
   return richText
@@ -217,14 +219,83 @@ function loadScores() {
     scores_loaded = true
 }
 
-function checkScore(context) {
+async function checkScore(context) {
   if (context.score > 250) {
-    name = window.prompt("Enter your name to save a record!", "");
+    let name = window.prompt("Enter your name to save a record!", "");
     if (name === null || name.length === 0 || name === "null") {
       return;
     }
-    saveToFirebase(name, context.score, context.misses)
+    //saveToFirebase(name, context.score, context.misses)
+    await post_record(name, context.score, context.mises, isMobile())
   }
+}
+
+function stopGame() {
+  let app = gameContext.app
+  gameContext.active = false
+  for (bubble of [...gameContext.bubbles]) {
+    removeBubble(bubble, gameContext.bubbles, app.stage)
+  }
+  clearInterval(gameContext.spawnTimer)
+  clearInterval(gameContext.fadeTimer)
+  clearInterval(gameContext.countdownTimer)
+  let restart_button = document.getElementById("restart-button")
+  restart_button.textContent = "Start"
+  restart_button.onclick = startGame
+}
+
+function startGame() {
+  let app = gameContext.app
+
+  if (gameContext.finalText !== undefined) {
+    app.stage.removeChild(gameContext.finalText)
+    gameContext.finalText = undefined
+  }
+  
+  updateElement("score", 0)
+  updateElement("misses", 0)
+  updateElement("last", gameContext.score)
+
+  gameContext.score = 0
+  gameContext.misses = 0
+
+  gameContext.spawnTimer = setInterval(() => {
+    let bubble = safeCreateBubble(gameContext.width, gameContext.height, gameContext)
+    initBubble(bubble, gameContext)
+    app.stage.addChild(bubble.graphics)
+  }, 700);
+
+  gameContext.fadeTimer = setInterval(() => {
+    for (bubble of gameContext.bubbles) {
+      bubble.fade()
+      if (bubble.life <= 0) {
+        removeBubble(bubble, gameContext.bubbles, app.stage)
+      }
+    }
+  }, 50)
+
+  let timeLeft = 30
+  updateElement("time", timeLeft)
+  gameContext.countdownTimer = setInterval(async () => {
+    timeLeft -= 1
+    updateElement("time", timeLeft)
+    if (timeLeft === 0) {
+      gameContext.finalText = finalText()
+      app.stage.addChild(gameContext.finalText);
+      stopGame()
+      await checkScore(gameContext)
+    }
+  }, 1000)
+  gameContext.active = true
+
+  let restart_button = document.getElementById("restart-button")
+  restart_button.textContent = "Restart"
+  restart_button.onclick = restartGame
+}
+
+function restartGame() {
+  stopGame()
+  startGame() 
 }
 
 function main() {
@@ -233,62 +304,35 @@ function main() {
     var width = window.innerWidth * 0.5;
     var height = window.innerHeight - 20;
     var app = init(canvas, width, height, true)
-    let gameContext = {
+    gameContext = {
       score: 0,
       misses: 0,
       bubbles: [],
       app: app,
       width: width,
-      height: height
+      height: height,
+      active: false
     }
+
+    // If click has missed all circles
     app.stage.on('pointerdown', () => {
+      if (!gameContext.active) {
+        return
+      }
       gameContext.misses += 1
       gameContext.score -= 5
       updateElement("misses", gameContext.misses)
       updateElement("score", gameContext.score)
     });
+
+    // main update
     app.ticker.add((delta) => {
+      if (!gameContext.active) {
+        return
+      }
       collision(gameContext)
       gameContext.bubbles.forEach((bubble) => {bubble.move(delta)})
     });
-    let spawnTimer = setInterval(() => {
-      let bubble = safeCreateBubble(width, height, gameContext)
-      initBubble(bubble, gameContext)
-      app.stage.addChild(bubble.graphics)
-    }, 700);
-    let fadeTimer = setInterval(() => {
-      for (bubble of gameContext.bubbles) {
-        bubble.fade()
-        if (bubble.life <= 0) {
-          removeBubble(bubble, gameContext.bubbles, app.stage)
-        }
-      }
-    }, 50)
-    let timeLeft = 30
-    updateElement("time", timeLeft)
-    let countdownTimer = setInterval(() => {
-      timeLeft -= 1
-      updateElement("time", timeLeft)
-      if (timeLeft === 0) {
-        for (bubble of [...gameContext.bubbles]) {
-          removeBubble(bubble, gameContext.bubbles, app.stage)
-        }
-        clearInterval(spawnTimer)
-        clearInterval(fadeTimer)
-        clearInterval(countdownTimer)
-        app.stage.addChild(finalText());
-        checkScore(gameContext)
-        app.stage.on('pointerdown', () => {
-          app.stop()
-          app.destroy()
-          updateElement("score", 0)
-          updateElement("misses", 0)
-          updateElement("last", gameContext.score)
-          main()
-        });
-      }
-    }, 1000)
-    
 }
   
 window.onload = main;
