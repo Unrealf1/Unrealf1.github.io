@@ -220,7 +220,7 @@ function loadScores() {
 }
 
 async function checkScore(context) {
-  if (context.score > 150) {
+  if (context.score > 250) {
     let name = window.prompt("Enter your name to save a record!", "");
     if (name === null || name.length === 0 || name === "null") {
       return;
