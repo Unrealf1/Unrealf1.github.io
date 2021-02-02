@@ -220,13 +220,13 @@ function loadScores() {
 }
 
 async function checkScore(context) {
-  if (context.score > 250) {
+  if (context.score > 150) {
     let name = window.prompt("Enter your name to save a record!", "");
     if (name === null || name.length === 0 || name === "null") {
       return;
     }
     //saveToFirebase(name, context.score, context.misses)
-    await post_record(name, context.score, context.mises, isMobile())
+    await post_record(name, context.score, context.misses, isMobile())
   }
 }
 
