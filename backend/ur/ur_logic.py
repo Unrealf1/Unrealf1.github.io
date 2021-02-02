@@ -119,6 +119,7 @@ def clear_queue():
     stale = []
     for name, last_int in queue.items():
         if current_time - last_int >= queue_timeout_limit:
+            print(f"deleting name from queue as {current_time - last_int} time passed and timeout limit is {queue_timeout_limit}")
             stale.append(name)
 
     for name in stale:
@@ -138,6 +139,7 @@ def clear_games():
     for i in reversed(range(len(games))):
         if game.active:
             if check_game_timeout(game):
+                print(f"deleting game as {time.time() - game.last_action} time passed and timeout limit is {game_timeout_limit}")
                 game.active = False
             else:
                 break
@@ -157,7 +159,7 @@ def start_game(name1, name2):
     game_id = len(games)
     games.append(game)
     accepted[name2] = game_id
-    print(f"game started({game_id})")
+    print(f"game started({game_id}). len(games) is {len(games)}")
     return game_id
 
 def apply_turn(id, turn):

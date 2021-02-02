@@ -39,6 +39,8 @@ def handle_invite(req):
 
 def handle_get_state(req):
     print(req)
+    idx = req["game_id"]
+    print(f"len(games) is {len(lg.games)}\nreq[game_id] is {idx}")
     game = lg.games[req["game_id"]]
     return json.dumps({
         "positions1": json.dumps(game.unit_positions1),
