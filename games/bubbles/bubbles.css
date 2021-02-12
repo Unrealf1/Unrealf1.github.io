@@ -7,7 +7,7 @@
     font: inherit;
     line-height: 1;
     padding: 1% 1%;
-    transition: 0.25s;
+    transition: 0.2s;
 }
 
 .back:hover,
@@ -33,6 +33,22 @@
     background: orchid;
 }
 .records div:first-child {
+    background: brown;
+}
+
+.records li {
+    margin: 0;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+}
+
+.records li:nth-child(odd) {
+    background: orange;
+}
+.records li:nth-child(even) {
+    background: orchid;
+}
+.records li:first-child {
     background: brown;
 }
 
@@ -63,3 +79,38 @@
     flex-direction: row;
     justify-content: center;
 }
+
+.modal {
+    background-color: rgba(0, 0, 0, 0.4);
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    overflow: hidden;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    display: none;
+    flex-flow: column nowrap;
+    justify-content: flex-start;
+    align-items: center;
+    z-index: 99;
+    /* Чтобы окно не прилипало к границе
+    браузера установим отступы */
+    padding:30px 0;
+}
+
+.modal-content {
+    background: #fff;
+    margin:auto;
+    width: 600px;
+    max-width: 100%;
+    flex-shrink:0;
+}
+
+.modal-close-button {
+    background:rgba(0, 0, 0, 0.1);
+    display: grid;
+    place-items: center;
+}
+

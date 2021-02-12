@@ -48,3 +48,32 @@ async function post_data(data, url) {
     
     return response
 }
+
+function openModal(modal_id, display_style="flex") {
+    modal = document.getElementById(modal_id)
+    modal.style.display = display_style
+}
+
+function closeModal(modal_id) {
+    modal = document.getElementById(modal_id)
+    modal.style.display = "none"
+}
+
+function setupModal(modal_id, modal_content_id) {
+  let modal = document.getElementById(modal_id)
+  let modal_content = document.getElementById(modal_content_id)
+  
+  function modalClick() {
+    closeModal(modal_id)
+  }
+  
+  function modalContentClick(e) {
+    e.preventDefault();
+    e.stopPropagation();
+    e.stopImmediatePropagation();
+    return false;
+  }
+
+  modal.addEventListener('click', modalClick);
+  modal_content.addEventListener('click', modalContentClick);
+}
