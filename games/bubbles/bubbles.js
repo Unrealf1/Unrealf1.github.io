@@ -188,14 +188,19 @@ function stringFromRecord(record) {
   return res
 }
 
-function displayScores(scores) {
-  let list = document.getElementById("records")
+function displayScores(scores, where="records", enumerate=false) {
+  let list = document.getElementById(where)
   while (list.firstChild) {
     list.removeChild(list.lastChild);
   }
+  let sequence_number = 1
   scores.forEach((record) => {
     let li = document.createElement("div");
     var text = document.createTextNode(stringFromRecord(record));
+    if (enumerate) {
+      li.appendChild(document.createTextNode(sequence_number.toString() + ". "))
+      sequence_number += 1
+    }
     li.appendChild(text);
     list.appendChild(li)
   })
@@ -217,6 +222,26 @@ function loadScores() {
       displayScores(scores)
     })
     scores_loaded = true
+}
+
+function updateScoreBoard() {
+  firebase.database().ref('bubbles-records')
+    .orderByChild("score")
+    .once('value')
+    .then((snapshot) =>{
+      let scores = []
+      snapshot.forEach(function(childSnapshot) {
+        var childData = childSnapshot.val();
+        scores.push(childData)
+      });
+      scores.reverse()
+      displayScores(scores, "records-full", true)
+    })
+}
+
+function openScoreBoard() {
+ updateScoreBoard()
+ openModal("records-modal-container")
 }
 
 async function checkScore(context) {
@@ -299,6 +324,7 @@ function restartGame() {
 }
 
 function main() {
+    setupModal("records-modal-container", "records-modal-wrapper")
     loadScores()
     const canvas = document.querySelector("#glCanvas");
     var width = window.innerWidth * 0.5;
