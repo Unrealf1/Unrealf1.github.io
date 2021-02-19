@@ -29,12 +29,17 @@ function randomSample(arr) {
 }
 
 function isMobile() {
-    return ('ontouchstart' in document.documentElement) &&
+    let res = ('ontouchstart' in document.documentElement) &&
         (screen.width < 500 ||
         navigator.userAgent.match(/Android/i) ||
         navigator.userAgent.match(/webOS/i) ||
         navigator.userAgent.match(/(iPhone|iPod|iPad)/i) ||
         navigator.userAgent.match(/BlackBerry/i))
+    if (!res) {
+        return false
+    } else {
+        return true
+    }
 }
 
 async function post_data(data, url) {
