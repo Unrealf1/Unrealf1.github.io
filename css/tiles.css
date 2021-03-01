@@ -68,7 +68,7 @@ body {
 
 .tile:hover .buttonWrap button {
 	text-indent: 0;
-	width: 5rem;
+	width: auto;
 	border-radius: 0%;
 	opacity: 1;
 	background: #262a2b;
@@ -79,3 +79,6 @@ body {
 	width: 7rem;
 }
 
+.disabled:active {
+	background: #262a2b;
+}
