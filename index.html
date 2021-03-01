@@ -2,25 +2,61 @@
 <head>
     <title>Unrealf1's website</title>
     <link rel="stylesheet" href="css/tiles.css">
+    <link rel="stylesheet" href="css/guestbook.css">
 </head>
 <body>
-    <ul class="tilesWrap">
-        <li>
+    <div class="main">
+    <div class="tilesWrap">
+        <li class="tile">
             <h2>01</h2>
             <h3>Bubbles</h3>
             <p>
                 A simple js game, where all you need is to click as many bubbles as you can
             </p>
-            <button onclick="window.location.href='games/bubbles/bubbles.html';">Play</button>
+            <div class="buttonWrap">
+                <button onclick="window.location.href='games/bubbles/bubbles.html';">Play</button>
+            </div>
         </li>
-        <li>
+        <li class="tile">
             <h2>02</h2>
             <h3>Royal Game of Ur</h3>
             <p>
                 An ancient Mesopotamia board 1v1 game.
             </p>
-            <button onclick="window.location.href='games/ur_v2/ur.html';">Play</button>
+            <div class="buttonWrap">
+                <button onclick="window.location.href='games/ur_v2/ur.html';">Play</button>
+            </div>
         </li>
-    </ul>
+    </div>
+
+    <div class="guestBookWrap">
+        <div class="message-form">
+            <div>
+                <textarea name="memes" id="" cols="40" rows="4" placeholder="Leave a message!" class="bookInput"></textarea>
+            </div>
+            <div>
+                <input type="text" placeholder="Enter your name" class="bookInput">
+                <button class="bookInput">Post</button>
+            </div>
+        </div>
+        <div class="guestBook">
+            <span class="bookNames">
+                <div>name</div>
+                <div>name2</div>
+                <div>name3</div>
+            </span>
+            <span class="bookTexts">
+                <div>text</div>
+                <div>text2</div>
+                <div>text2text2text2text2text2text2text2text2text2text2text2text2</div>
+            </span>
+            <span class="bookDates">
+                <div>date</div>
+                <div>date2</div>
+            </span>
+        </div>
+    </div>
+    
+    </div>
 </body>
 </html>
