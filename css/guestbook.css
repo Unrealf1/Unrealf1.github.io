@@ -35,6 +35,10 @@
     border-width: 1px;
 }
 
+.bookInput:disabled {
+    background: var(--inactive);
+}
+
 .guestBook span {
     margin-right: 1rem;
 }
@@ -43,3 +47,4 @@
     border-bottom: black;
     width: max-content;
 }
+
