@@ -1,20 +1,3 @@
-.back {
-    position: absolute;
-    left: 3;
-    top: 3;
-    background: #4f4f4f;
-    border: 2px solid;
-    font: inherit;
-    line-height: 1;
-    padding: 1% 1%;
-    transition: 0.2s;
-}
-
-.back:hover,
-.back:focus {
-    box-shadow: inset 0 0 0 2em #f3a530;
-}
-
 .records {
     margin: 0;
     padding-top: 0;
@@ -26,14 +9,14 @@
     padding-bottom: 0.5rem;
 }
 
-.records div:nth-child(odd) {
-    background: orange;
-}
 .records div:nth-child(even) {
-    background: orchid;
+    background: #a2d5c6;
+}
+.records div:nth-child(odd) {
+    background: #077b8a;
 }
 .records div:first-child {
-    background: brown;
+    background: #d72631;
 }
 
 .records li {
@@ -42,18 +25,8 @@
     padding-bottom: 0.5rem;
 }
 
-.records li:nth-child(odd) {
-    background: orange;
-}
-.records li:nth-child(even) {
-    background: orchid;
-}
-.records li:first-child {
-    background: brown;
-}
-
 .playArea {
-    background: #f3e130;
+    background: var(--background);
     display: flex;
     justify-content: center;
     margin: 0 auto;
