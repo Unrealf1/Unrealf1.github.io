@@ -1,0 +1,13 @@
+/* 
+blue #4F4FD9
+*/
+:root {
+	--background: #8243D6;
+	--darker: #FFCF40;
+	--lighter: #FFEE40;
+	--active: #fdcd90;
+	--additional: #FFCF40;
+	--inactive: #dddddd;
+	--light-text: #e7e7e7;
+	--dark-text: black;
+}

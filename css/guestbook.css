@@ -1,0 +1,45 @@
+.guestBookWrap {
+    display: grid;
+    place-items: center;
+}
+
+.guestBookWrap div {
+    margin-top: 1.2rem;
+}
+
+.message-form {
+    place-items: center;
+    display: grid;
+}
+
+.message-form div {
+    margin-top: 0;
+}
+
+.guestBook {
+    max-height: 30rem;
+    overflow: hidden;
+    overflow-y: auto;
+    background: var(--additional);
+    color: var(--dark-text);
+    display: flex;
+    padding: 1rem;
+    -webkit-overflow-scrolling: touch;
+}
+
+.bookInput {
+    background: var(--additional);
+    color: var(--dark-text);
+    border-color: black;
+    border-style: solid;
+    border-width: 1px;
+}
+
+.guestBook span {
+    margin-right: 1rem;
+}
+
+.bookEntries div {
+    border-bottom: black;
+    width: max-content;
+}
