@@ -7,12 +7,13 @@
     <script src="../commons.js"></script>
     <script src="bubbles.js"></script>
     <script src="server-interaction.js"></script>
+    <link rel="stylesheet" href="../../css/common.css">
     <link rel="stylesheet" href="bubbles.css">
     <script src="https://www.gstatic.com/firebasejs/7.22.1/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/7.22.1/firebase-database.js"></script>
     <!-- TODO: Add SDKs for Firebase products that you want to use
         https://firebase.google.com/docs/web/setup#available-libraries -->
-    <script src="https://www.gstatic.com/firebasejs/7.22.1/firebase-analytics.js"></script>
+    <!-- <script src="https://www.gstatic.com/firebasejs/7.22.1/firebase-analytics.js"></script> -->
     <script>
     var firebaseConfig = {
         apiKey: "AIzaSyAnH8zH4JnIfjEXjfi8Qdpcmlmdmc5hTr8",
@@ -30,13 +31,15 @@
 
 <body class="playArea">
 
-<button class="back" onclick="window.location.href='../../index.html';">Go back</button>
-<span class="stats records" id='records'>
+<span class="records stats" id='records'>
 </span>
 <span>
     <canvas touch-action="none" id="glCanvas"></canvas>
 </span>
 <span class="stats">
+    <div>
+        <button class="back" onclick="window.location.href='../../index.html';">Go back</button>
+    </div>
     <div>
         <button class="modal-open-button" onclick='openScoreBoard()'>Scoreboard</button>
     </div>

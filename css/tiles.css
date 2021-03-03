@@ -1,5 +1,5 @@
 body {
-	background: #2e2e2a;
+	background: var(--background);
 }
 
 .main {
@@ -7,6 +7,7 @@ body {
 }
 
 .tilesWrap {
+	margin-top: 1rem;
 	height: auto;
 	width: auto;
 	display: grid;
@@ -23,7 +24,7 @@ body {
 .tile {
 	border-radius: 30px;
 	font-family: 'helvetica', san-serif;
-	background: #2f2f2f;
+	background: var(--darker);
 	display: flex;
 	flex-direction: column;
 	padding: 1rem;
@@ -37,15 +38,15 @@ body {
 
 .tile h3 {
 	margin: 0;
-	color: #b7b7b7;
+	color: black;
 }
 
 .tile p {
-	color: #b7b7b7;
+	color: var(--dark-text);
 }
 
 .tile:hover {
-	background: #3f3f3f;
+	background: var(--lighter);
 }
 
 .buttonWrap {
@@ -56,14 +57,14 @@ body {
 .buttonWrap button {
 	width: 2rem;
 	border-radius: 35%;
-	background: gray;
-	color: #b0b0b0;
+	color: var(--dark-text);
 	opacity: 0;
 	display: block;
 	transition: all 0.12s;
 	text-indent: 200%;
     white-space: nowrap;
     overflow: hidden;
+	transform: rotate(180deg);
 }
 
 .tile:hover .buttonWrap button {
@@ -71,14 +72,23 @@ body {
 	width: auto;
 	border-radius: 0%;
 	opacity: 1;
-	background: #262a2b;
+	/* background: #262a2b; */
+	background: var(--active);
+	transform: rotate(360deg);
 }
 
-.buttonWrap button:hover {
+/* .tile:hover .buttonWrap button:hover {
 	background: yellow;
-	width: 7rem;
+} */
+
+.disabled {
+	background: var(--inactive);
 }
 
-.disabled:active {
-	background: #262a2b;
+.tile:hover .buttonWrap .disabled:hover {
+	background: var(--inactive);
+}
+
+.tile:hover .buttonWrap .disabled {
+	background: var(--inactive);
 }

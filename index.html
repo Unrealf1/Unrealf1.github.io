@@ -1,8 +1,27 @@
 <html>
 <head>
     <title>Unrealf1's website</title>
+    <script src="https://www.gstatic.com/firebasejs/7.22.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.22.1/firebase-database.js"></script>
+    <link rel="stylesheet" href="css/common.css">
     <link rel="stylesheet" href="css/tiles.css">
     <link rel="stylesheet" href="css/guestbook.css">
+    <script src="games/commons.js"></script>
+    <script src="js/index.js"></script>
+
+    <script>
+        let firebaseConfig = {
+            apiKey: "AIzaSyAnH8zH4JnIfjEXjfi8Qdpcmlmdmc5hTr8",
+            authDomain: "personalsite-63f97.firebaseapp.com",
+            databaseURL: "https://personalsite-63f97.firebaseio.com",
+            projectId: "personalsite-63f97",
+            storageBucket: "personalsite-63f97.appspot.com",
+            messagingSenderId: "535921243955",
+            appId: "1:535921243955:web:cb077082d5adb991a67046",
+            measurementId: "G-TXHHQGKEKQ"
+        };
+        firebase.initializeApp(firebaseConfig);
+    </script>
 </head>
 <body>
     <div class="main">
@@ -32,28 +51,23 @@
 
     <div class="guestBookWrap">
         <div class="message-form">
-            <div>
-                <textarea name="memes" id="" cols="40" rows="4" placeholder="Leave a message!" class="bookInput"></textarea>
-            </div>
-            <div>
-                <input type="text" placeholder="Enter your name" class="bookInput">
-                <button class="bookInput">Post</button>
-            </div>
+                <div>
+                    <textarea id="comment_text" cols="40" rows="4" placeholder="Leave a message!" class="bookInput"></textarea>
+                </div>
+                <div>
+                    <input type="text" placeholder="Enter your name" class="bookInput" id="comment_author">
+                    <button class="bookInput" onclick="comment()">Post</button>
+                </div>
         </div>
         <div class="guestBook">
-            <span class="bookNames">
-                <div>name</div>
-                <div>name2</div>
-                <div>name3</div>
+            <span class="bookNames bookEntries" id="book_names">
+                <div>Unrealf1</div>
             </span>
-            <span class="bookTexts">
-                <div>text</div>
-                <div>text2</div>
-                <div>text2text2text2text2text2text2text2text2text2text2text2text2</div>
+            <span class="bookTexts bookEntries" id="book_texts">
+                <div>Comments are loading...</div>
             </span>
-            <span class="bookDates">
-                <div>date</div>
-                <div>date2</div>
+            <span class="bookDates bookEntries" id="book_dates">
+                <div>still</div>
             </span>
         </div>
     </div>

@@ -1,6 +1,7 @@
 from flask import Flask, request, make_response
 from ur import ur_handlers
 from bubbles import bubbles
+from guestbook import guestbook
 import json
 
 
@@ -23,6 +24,15 @@ def bubbles_post():
         return with_control_origin(bubbles.handle_submit(request.json))
     elif request.method == 'GET':
         return with_control_origin(json.dumps(bubbles.get_all_records()))
+    elif request.method == 'OPTIONS':
+        return with_control_origin(default_options())
+
+@app.route("/guestbook", methods=['POST', 'OPTIONS'])
+def guestbook_handler():
+    if request.method == 'POST':
+        if request.json is None:
+            return with_control_origin("incorrect request")
+        return with_control_origin(guestbook.handle_post(request.json))
     elif request.method == 'OPTIONS':
         return with_control_origin(default_options())
 

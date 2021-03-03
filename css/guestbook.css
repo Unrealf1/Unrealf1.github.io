@@ -17,17 +17,19 @@
 }
 
 .guestBook {
+    max-height: 30rem;
     overflow: hidden;
     overflow-y: auto;
-    background: #2a2a2a;
-    color: #b7b7b7;
+    background: var(--additional);
+    color: var(--dark-text);
     display: flex;
     padding: 1rem;
+    -webkit-overflow-scrolling: touch;
 }
 
 .bookInput {
-    background: #2a2a2a;
-    color: #b7b7b7;
+    background: var(--additional);
+    color: var(--dark-text);
     border-color: black;
     border-style: solid;
     border-width: 1px;
@@ -37,11 +39,7 @@
     margin-right: 1rem;
 }
 
-.bookEntry {
-    display: flex;
-
-}
-
-.bookEntry span {
-    margin-right: 1rem;
+.bookEntries div {
+    border-bottom: black;
+    width: max-content;
 }
