@@ -13,6 +13,9 @@ def handle_post(comment):
     text = comment["text"]
     author = comment["author"] if "author" in comment and len(comment["author"]) > 0 else ("anon#" + str(random.randrange(10000, 99999)))
 
+    if len(text) == 0:
+        return "text is empty"
+
     if len(text) > 160 or len(author) > 30:
         return "text is too long"
 

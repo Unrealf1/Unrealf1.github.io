@@ -9,10 +9,14 @@ async function postComment(text, author) {
 async function comment() {
     let text = document.getElementById("comment_text").value
     let author = document.getElementById("comment_author").value
+    if (text.length === 0) {
+        alert("Text shouldn't be empty")
+        return
+    }
     if (text.length > 160) {
         alert("Text is too long")
         return
-    } 
+    }
     if (author.length > 30) {
         alert("Name is too long")
         return
