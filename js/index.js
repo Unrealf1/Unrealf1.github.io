@@ -7,6 +7,8 @@ async function postComment(text, author) {
 }
 
 async function comment() {
+    let button = document.getElementById("post_button")
+    button.disabled = true
     let text = document.getElementById("comment_text").value
     let author = document.getElementById("comment_author").value
     if (text.length === 0) {
@@ -21,7 +23,10 @@ async function comment() {
         alert("Name is too long")
         return
     }
+
     await postComment(text, author)
+    await sleep(600)
+    button.disabled = false
 }
 
 function displayComments(comments) {
