@@ -82,3 +82,14 @@ function setupModal(modal_id, modal_content_id) {
   modal.addEventListener('click', modalClick);
   modal_content.addEventListener('click', modalContentClick);
 }
+
+function dictGetOrSet(dict, key, value) {
+    key in dict || (dict[key] = value);
+    return dict[key];
+}
+
+function clearChildren(element) {
+    while (element.firstChild) {
+        element.removeChild(element.lastChild);
+    }
+}
