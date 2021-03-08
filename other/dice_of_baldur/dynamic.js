@@ -195,9 +195,15 @@ function setAlert(text) {
     5000)
 }
 
+function showRoll() {
+    let roll = doRoll();
+    document.getElementById("roll").textContent = roll;
+}
+
 function main() {
     alert("Note, this is still in development. Bugs are possible")
     resetState()
+    updateEverything()
 }
 
 window.onload = main;

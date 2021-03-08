@@ -137,6 +137,19 @@ function sanityCheck(probs) {
     return Math.abs(probs.reduce((a, b) => a + b, 0) - 1) < 0.01;
 }
 
+function doRoll() {
+    let result = 0;
+    let groups = getGroups()
+    for (var g of groups) {
+        let dice_number, dice_value;
+        [dice_value, dice_number] = g; 
+        for (var i = 0; i < dice_number; i++) {
+            result += randomIntIn(1, parseInt(dice_value) + 1);
+        }      
+    }
+    return result;
+}
+
 function processProbs() {
     let total_dice_num = 0;
     let total_dice_val = 0;
