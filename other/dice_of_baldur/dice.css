@@ -45,3 +45,15 @@
     padding: 0.1rem;
     margin-bottom: 0.4;
 }
+
+.subsection {
+    display: flex;
+    justify-content: space-between;
+}
+
+.symbolButton {
+    padding: 0rem;
+    margin: 0;
+    border: 0;
+    font-size: 1rem;
+}
