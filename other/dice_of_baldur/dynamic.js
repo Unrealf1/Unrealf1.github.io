@@ -196,7 +196,7 @@ function setAlert(text) {
 }
 
 function main() {
-    // alert("Note, this is still in development. Bugs are possible")
+    alert("Note, this is still in development. Bugs are possible")
     resetState()
 }
 
