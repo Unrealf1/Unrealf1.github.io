@@ -93,3 +93,21 @@ function clearChildren(element) {
         element.removeChild(element.lastChild);
     }
 }
+
+function blockingPressButton(button_id, callback) {
+    let button = document.getElementById(button_id)
+    button.disabled = true
+    callback()
+    button.disabled = false
+        
+}
+
+function dict2Arrays(d) {
+    let ks = [];
+    let vs = [];
+    for (k in d) {
+        ks.push(k);
+        vs.push(d[k]);
+    }
+    return [ks, vs];
+}
