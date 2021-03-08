@@ -153,6 +153,6 @@ function processProbs() {
     }
 
     if (!sanityCheck(Object.values(state.probs))) {
-        setAlert("There was a problem when calculating probabilities. They are possibly inaccurate");
+        setAlert("There was a problem in probabilities calculation. They might be inaccurate");
     }
 }
