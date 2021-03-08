@@ -55,6 +55,10 @@ body {
 }
 
 .buttonWrap button {
+	padding-top: 0.1rem;
+	padding-bottom: 0.1rem;
+	font-size: 1.2rem;
+	font-weight: bold;
 	width: 2rem;
 	border-radius: 35%;
 	color: var(--dark-text);
