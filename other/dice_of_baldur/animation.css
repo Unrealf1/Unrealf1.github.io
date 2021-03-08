@@ -1,0 +1,88 @@
+.critical_role {
+    width: 80%;
+    height: 80%;
+    margin-top: 10rem;
+    border-width: 0px;
+    border-style: dotted;
+    animation-play-state: paused;
+    animation: global_rotation 10s linear infinite reverse;
+    place-content: center;
+    display: grid;
+    background-color: black;
+    overflow: hidden;
+}
+
+.critical_link {
+    animation: global_rotation 10s linear infinite;
+}
+
+.animated_dice {
+    position: fixed;
+    text-align: center;
+}
+
+#d4 {
+    width: 0;
+    height: 0;
+    border-left: 4rem solid transparent;
+    border-right: 4rem solid transparent;
+    border-bottom: 6rem solid gold;
+    line-height: 1rem;
+    top: 55%;
+    left: 25%;
+    animation: rotation4 4s ease-in-out infinite, deformation4 7s linear infinite alternate;
+}
+
+#d6 {
+    top: 20%;
+    left: 20%;
+    margin: 2px;
+    line-height: 5rem;
+    width: 5rem;
+    height: 5rem;
+    background-color: crimson;
+    border-color: #8f0a25;
+    border-width: 1rem;
+    border-style: solid;
+    animation: glowd6 3s ease-in-out infinite, rotation6 7s linear infinite;
+}
+
+@keyframes global_rotation {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(359deg);
+    }
+}
+
+@keyframes deformation4 {
+    100% {
+        border-radius: 6rem;
+    }
+}
+
+@keyframes rotation4 {
+    50% {
+        transform: rotate(90deg);
+    }
+}
+
+@keyframes glowd6 {
+    50% {
+        box-shadow: rgb(240, 185, 33) 0rem 0rem 3rem 1rem;
+    }
+}
+
+@keyframes rotation6 {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(359deg);
+    }
+}
+
+@keyframes flight6 {
+
+}
