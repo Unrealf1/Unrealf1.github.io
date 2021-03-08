@@ -6,7 +6,6 @@ function updateExpectancy() {
 function updateContracted() {
     let dice = getState().dice;
     let short_string = " "
-    console.log(dice)
     for (var dice_value in dice) {
         let dice_number = dice[dice_value];
         if (dice_number === 0) {
@@ -20,7 +19,9 @@ function updateContracted() {
 
 function createDiceChild(num, val) {
     let div = document.createElement("div")
-    let text = document.createTextNode(`${num}d${val}`)
+    let text = document.createElement("span")
+    text.classList.add('diceText')
+    text.textContent = `${num}d${val}`
     let removeButton = document.createElement("button")
     removeButton.textContent = "X"
     removeButton.onclick = () => {
@@ -41,6 +42,10 @@ function displayAdd(num, val) {
 function addDice() {
     let num = parseInt(document.getElementById("diceNumber").value)
     let val = parseInt(document.getElementById("diceValue").value)
+    if (isNaN(num) || isNaN(val)) {
+        setAlert("Incorrect input")
+        return;
+    }
 
     if (num === 0) {
         return;
@@ -77,36 +82,19 @@ function clearDiceChildren() {
 }
 
 function resetEverything() {
-    resetState()
-    clearDiceChildren()
-    updateEverything()
+    resetState();
+    clearDiceChildren();
+    updateEverything();
+    setAlert("Cleared everything");
 }
 
 function extractProbParams() {
-    let state = getState()
-    var positive = 0;
-    var max_dice_value = null;
-    var dice_number = null;
-    for (dice_value in state.dice) {
-        let current_dice_num = state.dice[dice_value];
-        if (current_dice_num > 0) {
-            positive++;
-            max_dice_value = dice_value;
-            dice_number = current_dice_num;
-            if (positive > 1){
-                alert("For now this is supported only for uniform dice")
-                return null;
-            }
-        }
-    }
-
-    if (positive === 0) {
-        alert("Can't calculate probability for empty dice list")
-        return null;
-    }
-
     let required = parseInt(document.getElementById("requirement_for_prob").value);
-    return [required, dice_number, max_dice_value]
+    if (isNaN(required)) {
+        setAlert("Incorrect input")
+    }
+
+    return required
 }
 
 function updateProb(p) {
@@ -114,47 +102,101 @@ function updateProb(p) {
 }
 
 function getProb() {
-    let extracted = extractProbParams()
-    if (extracted === null) {
+    let value = extractProbParams()
+    if (value === null) {
         return;
     }
-    let value, number, max_value;
-    [value, number, max_value] = extracted;
-    let prob = calcProb(value, number, max_value);
-    updateProb(prob)
+    let prob = calcComplexProb(getGroups(), value);
+    updateProb(prob);
 }
 
 function getProbOrLow() {
-    let extracted = extractProbParams()
-    if (extracted === null) {
+    let value = extractProbParams()
+    if (value === null) {
         return;
     }
-    let value, number, max_value;
-    [value, number, max_value] = extracted;
+    processProbs()
     let prob = 0;
-    for (var i = 0; i <= value; i++) {
-        prob += calcProb(i, number, max_value);
-    }
+    let probs = state.probs
+    for (v in probs) {
+        if (v <= value) {
+            prob += probs[v]
+        }
+    } 
 
     updateProb(prob)
 }
 
 function getProbOrHigh() {
-    let extracted = extractProbParams()
-    if (extracted === null) {
+    let value = extractProbParams()
+    if (value === null) {
         return;
     }
-    let value, number, max_value;
-    [value, number, max_value] = extracted;
+    processProbs()
     let prob = 0;
-    for (var i = number * max_value; i >= value; i--) {
-        prob += calcProb(i, number, max_value);
-    }
+    let probs = state.probs
+    for (v in probs) {
+        if (v >= value) {
+            prob += probs[v]
+        }
+    } 
 
     updateProb(prob)
 }
 
+function valuesToColours(vs) {
+    let max_v = Math.max(...vs)
+    let min_v = Math.min(...vs)
+
+    let v_c = (v) => {
+        return `rgba(${255 * (v - min_v) / (max_v - min_v)}, 64, 64, 0.2)`;
+    }
+    return vs.map(v_c)
+} 
+
+function valuesToBColours(vs) {
+    let max_v = Math.max(...vs)
+    let min_v = Math.min(...vs)
+
+    let v_c = (v) => {
+        return `rgba(${255 * (v - min_v) / (max_v - min_v)}, 64, 64, 1)`;
+    }
+    return vs.map(v_c)
+} 
+
+function printComplex() {
+    processProbs();
+    let state = getState()
+    console.log(state.probs)
+    let labels, values;
+    [labels, values] = dict2Arrays(state.probs)
+
+    state.activeChart.data.labels = labels;
+    state.activeChart.data.datasets = [{
+        label: 'Probability',
+        data: values,
+        backgroundColor: valuesToColours(values),
+        borderColor: valuesToBColours(values),
+        borderWidth: 1
+    }];
+    state.activeChart.update();
+}
+
+function setAlert(text) {
+    let alert = document.getElementById("text_alert");
+    alert.textContent = text;
+    alert.classList.add('active_alert');
+    alert.style.visibility = 'visible';
+    setTimeout(() => {
+        alert.classList.remove('active_alert');
+        alert.style.visibility = 'hidden';
+    },
+    
+    5000)
+}
+
 function main() {
+    // alert("Note, this is still in development. Bugs are possible")
     resetState()
 }
 

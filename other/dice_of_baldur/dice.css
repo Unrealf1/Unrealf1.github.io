@@ -2,3 +2,46 @@
     display: flex;
     justify-content: space-between;
 }
+
+.diceText {
+    font-style: oblique;
+    font-weight: bold;
+}
+
+.column {
+    margin: 1rem;
+}
+
+.outputs div {
+    margin-bottom: 1.5rem;
+    padding: 0.5rem;
+    border: 1px solid;
+}
+
+.outputs div div {
+    border-style: dotted;
+}
+
+#diceContainer div {
+    margin: 0.1rem;
+    padding: 0.4rem;
+    border: 1px solid black;
+}
+
+#diceContainer div button {
+    margin-left: 1rem;
+}
+
+#text_alert {
+    visibility: hidden;
+    transition: all 0.2s;
+}
+
+.active_alert {
+    background-color: red;
+}
+
+.panel {
+    padding: 0.1rem;
+    margin-bottom: 0.4;
+}
