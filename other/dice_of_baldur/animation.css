@@ -47,6 +47,10 @@
     animation: glowd6 3s ease-in-out infinite, rotation6 7s linear infinite;
 }
 
+#d20 {
+    
+}
+
 @keyframes global_rotation {
     from {
         transform: rotate(0deg);
