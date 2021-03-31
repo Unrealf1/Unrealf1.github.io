@@ -57,70 +57,6 @@ function processRemove(num, val) {
     state.probs = {}
 }
 
-function calc_num_sums(value, number, max_value) {
-    // value - integer to get
-    // number - number of dice
-    // max_value - max value on _all_ of the dice.
-    // result: number of ordered ways to get value from given dice
-
-    if (value < number || value > max_value * number) {
-        return 0;
-    }
-    let cached = dictGetOrSet(state.prob_cache, [value, number, max_value], null)
-    if (cached !== null) {
-        return cached;
-    }
-
-    if (number === 1) {
-        return 1;
-    }
-
-    if (number === 2) {
-        return (value <= max_value ? value - 1 : 2 * max_value - value + 1)
-    }
-
-    let res = 0;
-    for (var i = 1; i <= max_value; i++) {
-        res += calc_num_sums(value - i, number - 1, max_value)
-    }
-    state.prob_cache[[value, number, max_value]] = res;
-    return res;
-}
-
-function calcProb(value, number, max_value) {
-    return calc_num_sums(value, number, max_value) / Math.pow(max_value, number)
-}
-
-// this could be optimized for tail rec
-function calcComplexProb(gs, v) {
-    if (gs.length === 0) {
-        return 0;
-    }
-    
-    let cached = dictGetOrSet(state.complex_prob_cache, [gs, v], null)
-    if (cached !== null) {
-        return cached;
-    }
-    let res;
-
-    let val, num;
-    let gs_copy = [...gs];
-    [val, num] = gs.pop();
-
-    if (gs.length === 0) {
-        res = calcProb(v, num, val);
-    } else {
-        let prob = 0;
-        for (var i = num; i <= num*val; i++) {
-            prob += calcComplexProb([...gs], v - i) * calcProb(i, num, val) 
-        }
-        res = prob;
-    }
-
-    state.complex_prob_cache[[gs_copy, v]] = res
-    return res
-}
-
 function getGroups() {
     let groups = []
     for (var dice_value in state.dice) {
@@ -131,10 +67,6 @@ function getGroups() {
         groups.push([dice_value, dice_number])       
     }
     return groups
-}
-
-function sanityCheck(probs) {
-    return Math.abs(probs.reduce((a, b) => a + b, 0) - 1) < 0.01;
 }
 
 function doRoll() {
