@@ -70,7 +70,7 @@ function createDiceChild(num, val) {
         removeDice(num, val, div)
     }
     div.appendChild(text)
-    div.appendChild(removeButton)
+    //div.appendChild(removeButton)
     return div
 }
 
