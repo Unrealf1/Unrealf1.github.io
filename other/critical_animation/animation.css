@@ -12,8 +12,31 @@
     overflow: hidden;
 }
 
-.critical_link {
+#critical_link {
+    position: static;
+    font-size: 1rem;
+    text-decoration: none;
+    color: whitesmoke;
+    background: transparent;
+    transition: all 0.6s;
+    font-weight: bold;
+}
+
+#critical_link:hover {
+    font-size: 1.5rem;
+    font-weight: bolder;
+    box-shadow: teal 0rem 0rem 3rem 1rem;
+    border-radius: 1rem;
+    padding: 0.5rem;
+    background-color: teal;
+}
+
+#link_container_2 {
     animation: global_rotation 10s linear infinite;
+}
+
+#link_container:hover {
+    animation: shake 0.82s cubic-bezier(.36,.07,.19,.97) infinite;
 }
 
 .animated_dice {
@@ -89,4 +112,22 @@
 
 @keyframes flight6 {
 
+}
+
+@keyframes shake {
+    10%, 90% {
+      transform: translate3d(-1px, 0, 0);
+    }
+    
+    20%, 80% {
+      transform: translate3d(2px, 0, 0);
+    }
+  
+    30%, 50%, 70% {
+      transform: translate3d(-4px, 0, 0);
+    }
+  
+    40%, 60% {
+      transform: translate3d(4px, 0, 0);
+    }
 }
