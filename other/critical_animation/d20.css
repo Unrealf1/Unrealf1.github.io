@@ -1,0 +1,75 @@
+:root {
+    --d20-side-angle: 360deg / 5;
+    --d20-triangle-width: 7rem;
+    --d20-triangle-height: calc(var(--d20-triangle-width) * 0.866);
+    --d20-z-translation: calc(var(--d20-triangle-width) * 1.53884 / 2);
+    --d20-hat-x-rotation: 53deg;
+    --d20-hat-x-rotation-min: 53deg + 180deg;
+}
+
+#d20-cube {
+    transform-style: preserve-3d;
+    width: 5rem;
+    height: 5rem;
+    animation: spinCube 20s infinite ease-in-out;
+}
+
+/* #d20-cube div {
+    width: 0;
+    height: 0;
+    border-left: var(--d20-triangle-base) solid transparent;
+    border-right: var(--d20-triangle-base) solid transparent;
+    border-bottom: var(--d20-triangle-width) solid gold;
+    margin: 0;
+    top: 55%;
+    left: 25%;
+    position: absolute;
+} */
+
+#d20-cube div {
+    transform-style: preserve-3d;
+    position: absolute;
+    background-color: gold;
+    width: var(--d20-triangle-width);
+    height: var(--d20-triangle-height);
+    clip-path: polygon(0% 100%, 50% 0%, 100% 100%);
+    margin: 0;
+    top: 0;
+    left: 0;
+    border: 1px black solid;
+}
+
+#d20-cube p {
+    text-align: center;
+    top: calc(var(--d20-triangle-height) / 4.0);
+    position: relative;
+    margin: 0;
+}
+
+/* top 5 point */
+#d20-cube div:nth-child(1) { transform: rotateY( calc(var(--d20-side-angle) * 0) ) rotateX( var(--d20-hat-x-rotation) ) rotateZ( 0 ) translateZ( var(--d20-z-translation) ); }
+#d20-cube div:nth-child(2) { transform: rotateY( calc(var(--d20-side-angle) * 1) ) rotateX( var(--d20-hat-x-rotation) ) rotateZ( 0 ) translateZ( var(--d20-z-translation) ); }
+#d20-cube div:nth-child(3) { transform: rotateY( calc(var(--d20-side-angle) * 2) ) rotateX( var(--d20-hat-x-rotation) ) rotateZ( 0 ) translateZ( var(--d20-z-translation) ); }
+#d20-cube div:nth-child(4) { transform: rotateY( calc(var(--d20-side-angle) * 3) ) rotateX( var(--d20-hat-x-rotation) ) rotateZ( 0 ) translateZ( var(--d20-z-translation) ); }
+#d20-cube div:nth-child(5) { transform: rotateY( calc(var(--d20-side-angle) * 4) ) rotateX( var(--d20-hat-x-rotation) ) rotateZ( 0 ) translateZ( var(--d20-z-translation) ); }
+
+/* bottom 5 point */
+#d20-cube div:nth-child(6)  { background-color:hotpink; transform: rotateY( calc(36deg + 72deg * 1) ) rotateX( var(--d20-hat-x-rotation-min) ) rotateZ( 180deg ) translateZ( var(--d20-z-translation) ); }
+#d20-cube div:nth-child(7)  { background-color:hotpink; transform: rotateY( calc(36deg + 72deg * 2) ) rotateX( var(--d20-hat-x-rotation-min) ) rotateZ( 180deg ) translateZ( var(--d20-z-translation) ); }
+#d20-cube div:nth-child(8)  { background-color:hotpink; transform: rotateY( calc(36deg + 72deg * 3) ) rotateX( var(--d20-hat-x-rotation-min) ) rotateZ( 180deg ) translateZ( var(--d20-z-translation) ); }
+#d20-cube div:nth-child(9)  { background-color:hotpink; transform: rotateY( calc(36deg + 72deg * 4) ) rotateX( var(--d20-hat-x-rotation-min) ) rotateZ( 180deg ) translateZ( var(--d20-z-translation) ); }
+#d20-cube div:nth-child(10)  { background-color:hotpink; transform: rotateY( calc(36deg + 72deg * 5) ) rotateX( var(--d20-hat-x-rotation-min) ) rotateZ( 180deg ) translateZ( var(--d20-z-translation) ); }
+
+/* middle point down */
+#d20-cube div:nth-child(11)  { background-color:red; transform: rotateY( calc(72deg * 1) ) rotateX( 13deg ) rotateZ( 180deg ) translateZ( var(--d20-z-translation) ); }
+#d20-cube div:nth-child(12)  { background-color:red; transform: rotateY( calc(72deg * 2) ) rotateX( 13deg ) rotateZ( 180deg ) translateZ( var(--d20-z-translation) ); }
+#d20-cube div:nth-child(13)  { background-color:red; transform: rotateY( calc(72deg * 3) ) rotateX( 13deg ) rotateZ( 180deg ) translateZ( var(--d20-z-translation) ); }
+#d20-cube div:nth-child(14)  { background-color:red; transform: rotateY( calc(72deg * 4) ) rotateX( 13deg ) rotateZ( 180deg ) translateZ( var(--d20-z-translation) ); }
+#d20-cube div:nth-child(15)  { background-color:red; transform: rotateY( calc(72deg * 5) ) rotateX( 13deg ) rotateZ( 180deg ) translateZ( var(--d20-z-translation) ); }
+
+/* middle point up */
+#d20-cube div:nth-child(16)  { background-color:greenyellow; transform: rotateY( calc(36deg + 72deg * 1) ) rotateX( -13deg ) rotateZ( 0 ) translateZ( var(--d20-z-translation) ); }
+#d20-cube div:nth-child(17)  { background-color:greenyellow; transform: rotateY( calc(36deg + 72deg * 2) ) rotateX( -13deg ) rotateZ( 0 ) translateZ( var(--d20-z-translation) ); }
+#d20-cube div:nth-child(18)  { background-color:greenyellow; transform: rotateY( calc(36deg + 72deg * 3) ) rotateX( -13deg ) rotateZ( 0 ) translateZ( var(--d20-z-translation) ); }
+#d20-cube div:nth-child(19)  { background-color:greenyellow; transform: rotateY( calc(36deg + 72deg * 4) ) rotateX( -13deg ) rotateZ( 0 ) translateZ( var(--d20-z-translation) ); }
+#d20-cube div:nth-child(20)  { background-color:greenyellow; transform: rotateY( calc(36deg + 72deg * 5) ) rotateX( -13deg ) rotateZ( 0 ) translateZ( var(--d20-z-translation) ); }
