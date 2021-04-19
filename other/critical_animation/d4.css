@@ -1,0 +1,44 @@
+:root {
+    --d4-side-angle: 360deg / 3deg;
+    --d4-plane-angle: 70.53deg;
+    --d4-triangle-width: 7rem;
+    --d4-triangle-height: calc(var(--d4-triangle-width) * 0.866);
+    --d4-z-translation: calc(var(--d4-triangle-width) * 1.53884 / 2);
+}
+
+#d4-cube {
+    transform-style: preserve-3d;
+    width: 5rem;
+    height: 5rem;
+    animation: spinCube 20s infinite ease-in-out;
+}
+
+#d4-cube div {
+    transform-style: preserve-3d;
+    position: absolute;
+    background-color: gold;
+    width: var(--d4-triangle-width);
+    height: var(--d4-triangle-height);
+    clip-path: polygon(0% 100%, 50% 0%, 100% 100%);
+    margin: 0;
+    top: 0;
+    left: 0;
+    border: 1px black solid;
+}
+
+#d4-cube div:nth-child(1) { 
+    transform: rotateX( var(--d4-plane-angle) ) translateZ(var(--d4-z-translation)); 
+}
+
+#d4-cube div:nth-child(2) { 
+    transform: rotateY( var(--d4-side-angle) ) rotateX( var(--d4-plane-angle) ) translateZ(var(--d4-z-translation)); 
+}
+
+#d4-cube div:nth-child(3) { 
+    transform: rotateY( -120deg ) rotateX( var(--d4-plane-angle) ) translateZ(var(--d4-z-translation)); 
+}
+
+#d4-cube div:nth-child(4) {
+    visibility: hidden;
+    transform: translateZ(var(--d4-z-translation)) rotateX( var(--d4-plane-angle) ); 
+}

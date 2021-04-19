@@ -9,6 +9,7 @@
         <script src="../../games/commons.js"></script>
         <script src="dynamic.js"></script>
         <script src="logic.js"></script>
+        <script src="probs.js"></script>
         <script src="../../libs/Chart.js"></script>
     </head>
 
@@ -16,17 +17,10 @@
         <div class="main">
             <span class="inputs column">
                 <div class="panel">
-                    <label>Number of dice</label>
-                    <input type="number" min=0 id="diceNumber">
-                    <label>Maximum dice value</label>
-                    <input type="number" min=1 id="diceValue">
-                    <button onclick="addDice()" id="addButton">+</button>
+                    <button onclick="calculateEverything()" id="calculateButton">Calculate</button>
                     <button onclick="resetEverything()">Reset</button>
                 </div>
-                <div id="diceContainer"></div>
-            </span>
-            <span class="column">
-                <a href="https://www.youtube.com/watch?v=LhFETREAvhc">Take a chance, roll the dice!</a>
+                <div id="entries"></div>
             </span>
             <span class="outputs column">
                 <div id="text_alert"></div>
@@ -34,6 +28,11 @@
                     <span>
                         <label>Short notation:</label>
                         <output id="contractedOut" class="diceText">0d0</output>
+                    </span>
+                </div>
+                <div class="subsection">
+                    <span>
+                        <a href="https://www.youtube.com/watch?v=LhFETREAvhc">Take a chance, roll the dice!</a>
                     </span>
                     <span>
                         <button onclick="showRoll()" class="symbolButton">🎲</button>

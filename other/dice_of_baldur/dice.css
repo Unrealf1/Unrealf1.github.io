@@ -3,6 +3,23 @@
     justify-content: space-between;
 }
 
+.inputs {
+    min-width: 50%;
+}
+
+.diceEntry {
+    width: 95%;
+    border: 1px solid black;
+    padding-left: 1rem;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    margin: 0.2rem;
+}
+
+.diceEntry span {
+    margin-right: 0.2rem;
+}
+
 .diceText {
     font-style: oblique;
     font-weight: bold;
@@ -22,16 +39,6 @@
     border-style: dotted;
 }
 
-#diceContainer div {
-    margin: 0.1rem;
-    padding: 0.4rem;
-    border: 1px solid black;
-}
-
-#diceContainer div button {
-    margin-left: 1rem;
-}
-
 #text_alert {
     visibility: hidden;
     transition: all 0.2s;
@@ -42,6 +49,7 @@
 }
 
 .panel {
+    min-width: 50%;
     padding: 0.1rem;
     margin-bottom: 0.4;
 }
