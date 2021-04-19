@@ -64,4 +64,70 @@
             </span>
         </div>
     </body>
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Unrealf1's website</title>
+        <link rel="stylesheet" href="../../css/common.css">
+        <link rel="stylesheet" href="dice.css">
+        <link rel="stylesheet" href="animation.css">
+
+        <script src="../../games/commons.js"></script>
+        <script src="dynamic.js"></script>
+        <script src="logic.js"></script>
+        <script src="probs.js"></script>
+        <script src="../../libs/Chart.js"></script>
+    </head>
+
+    <body>
+        <div class="main">
+            <span class="inputs column">
+                <div class="panel">
+                    <button onclick="calculateEverything()" id="calculateButton">Calculate</button>
+                    <button onclick="resetEverything()">Reset</button>
+                </div>
+                <div id="entries"></div>
+            </span>
+            <span class="outputs column">
+                <div id="text_alert"></div>
+                <div class=subsection>
+                    <span>
+                        <label>Short notation:</label>
+                        <output id="contractedOut" class="diceText">0d0</output>
+                    </span>
+                </div>
+                <div class="subsection">
+                    <span>
+                        <a href="https://www.youtube.com/watch?v=LhFETREAvhc">Take a chance, roll the dice!</a>
+                    </span>
+                    <span>
+                        <button onclick="showRoll()" class="symbolButton">🎲</button>
+                        <output id="roll">0</output>
+                    </span>
+                </div>
+                <div>
+                    <label>Expectancy:</label>
+                    <output id="expectancyOut">0</output>                    
+                </div>
+                <div>
+                    <div>
+                        <label>Calculate probability of getting</label>
+                        <input type="number" value="1" min=1 id="requirement_for_prob">
+                    </div>
+                    <div>
+                        <button onclick="getProb()">Calculate</button>
+                        <button onclick="getProbOrLow()">This or lower</button>
+                        <button onclick="getProbOrHigh()">This or higher</button>
+                    </div>
+                    <div>
+                        <output id="probOut" value=0></output>
+                    </div>
+                </div>
+                <div>
+                    <button id="complex_process" onclick="blockingPressButton(`complex_process`, printComplex)">Build graph</button>
+                    <canvas id="chart"></canvas>
+                </div>
+            </span>
+        </div>
+    </body>
 </html>
