@@ -6,6 +6,64 @@ body {
 	display: block;
 }
 
+.help-note-circle {
+	place-content: center;
+	border: none;
+	position: absolute;
+	text-align: center;
+	margin: 0;
+	width: 1.5rem;
+	height: 1.5rem;
+	right: 1.5rem;
+	bottom: 0.7rem;
+	clip-path: circle(50%);
+	background-color: white;
+	transition: all 0.12s;
+}
+
+.help-note-circle p {
+	font-weight: bold;
+	margin: 0;
+	padding: 0;
+}
+
+.help-note-circle:hover {
+	scale: 1.5;
+}
+
+.tile-desc {
+	padding: 1rem;
+    background: whitesmoke;
+    margin:auto;
+    width: 600px;
+    max-width: 100%;
+    flex-shrink:0;
+}
+
+.tile-desc span {
+	margin-bottom: 0.9rem;
+}
+
+.tile-desc span:last-child {
+	margin-bottom: 0;
+}
+
+.modal-close {
+	background-color: rgba(0, 0, 0, 0);
+	font-weight: bold;
+	position: absolute;
+	top: 0;
+	right: 0;
+	border: 0;
+}
+
+.close-button-container {
+	height: 1rem;
+	margin: 0;
+	padding: 0.1rem;
+	position: relative;
+}
+
 .tilesWrap {
 	margin-top: 1rem;
 	height: auto;
@@ -25,6 +83,7 @@ body {
 	border-radius: 30px;
 	font-family: 'helvetica', san-serif;
 	background: var(--darker);
+	position: relative;
 	display: flex;
 	flex-direction: column;
 	padding: 1rem;
