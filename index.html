@@ -6,6 +6,7 @@
     <link rel="stylesheet" href="css/common.css">
     <link rel="stylesheet" href="css/tiles.css">
     <link rel="stylesheet" href="css/guestbook.css">
+    <link rel="stylesheet" href="css/index.css">
     <script src="games/commons.js"></script>
     <script src="js/index.js"></script>
 
@@ -35,6 +36,47 @@
             <div class="buttonWrap">
                 <button onclick="window.location.href='games/bubbles/bubbles.html';">Play</button>
             </div>
+            <button class="help-note-circle" onclick="openModal('Bubbles-modal')">
+                <p>?</p>
+            </button>
+            <div class="modal" id="Bubbles-modal">
+                <div class="tile-desc" id="Bubbles-modal-content">
+                    <div class="close-button-container">
+                        <button class="modal-close" onclick="closeModal('Bubbles-modal')">X</button>
+                    </div>
+                    <table class="squestion-answer">
+                        <colgroup>
+                            <col>
+                            <col>
+                        </colgroup>
+                        <tr>
+                            <td>Why?</td>
+                            <td>
+                                This is inspired by one of the first assignments of the python course at
+                                <a href="https://en.wikipedia.org/wiki/Moscow_Institute_of_Physics_and_Technology">MIPT</a> 
+                                for people who have never written code. I was an instructor at that course and decided to create an
+                                example for students to follow. Also, for a long time, I wanted to create a js game and
+                                try out some javascript libraries for 2d graphics. Also also, this game initiated this whole site
+                                and encouraged me to learn a lot of new tools and technologies
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>When?</td>
+                            <td>The last <i>real</i> change was made in February 2021. The first usable version was committed in October of 2020</td>
+                        </tr>
+
+                        <tr>
+                            <td>What is used?</td>
+                            <td>
+                                Graphics are rendered using <a href="https://pixijs.com">pixi.js</a>. 
+                                Data is stored via <a href="https://firebase.google.com">firebase</a> and their js client
+                                (originally there was no server, only this database)
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
         </li>
         <li class="tile">
             <h2>02</h2>
@@ -55,6 +97,37 @@
             </p>
             <div class="buttonWrap">
                 <button onclick="window.location.href='other/dice_of_baldur/index.html';">Go</button>
+            </div>
+            <button class="help-note-circle" onclick="openModal('Baldur-modal')">
+                <p>?</p>
+            </button>
+            <div class="modal" id="Baldur-modal">
+                <div class="tile-desc" id="Baldur-modal-content">
+                    <div class="close-button-container">
+                        <button class="modal-close" onclick="closeModal('Baldur-modal')">X</button>
+                    </div>
+                    <table class="squestion-answer">
+                        <colgroup>
+                            <col>
+                            <col>
+                        </colgroup>
+                        <tr>
+                            <td>Why?</td>
+                            <td>
+                                In the last year of my bachelors program, I found a new passion: D&D. Once, when I was thinking about
+                                which character configuration is more efficient, I decided to write a small program to calculate
+                                dice roll probabilities. And a link to a webpage is the best way to share such little project in
+                                my opinion.
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>What is used?</td>
+                            <td>
+                                Math
+                            </td>
+                        </tr>
+                    </table>
+                </div>
             </div>
         </li>
     </div>

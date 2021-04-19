@@ -71,4 +71,15 @@ function loadComments() {
     })
     comments_loaded = true
 }
-window.onload = loadComments;
+
+function setupModals() {
+    setupModal("Bubbles-modal", "Bubbles-modal-content");
+    setupModal("Baldur-modal", "Baldur-modal-content");
+}
+
+function prepare() {
+    loadComments();
+    setupModals();
+}
+
+window.onload = prepare;
