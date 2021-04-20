@@ -1,1 +1,79 @@
+:root {
+    --d8-side-angle: 90deg;
+    --d8-plane-angle: 35deg;
+    --d8-base-radius: 1rem;
+    --d8-triangle-width: calc(var(--d8-base-radius) * 2);
+    /* height = width * sin(60) */
+    --d8-triangle-height: calc(var(--d8-triangle-width) * 0.866);
+    --d8-double-triangle-height: calc(var(--d8-triangle-height) * 2.0);
+}
 
+#d8-die {
+    transform-style: preserve-3d;
+    width: 5rem;
+    height: 5rem;
+    animation: spinCube 20s infinite ease-in-out;
+}
+
+#d8-die figure {
+    overflow: hidden;
+    transform-style: preserve-3d;
+    position: absolute;
+    /* backface-visibility: hidden; */
+    background-color: orange;
+    width: var(--d8-triangle-width);
+    height: var(--d8-double-triangle-height);
+    clip-path: polygon(0% 50%, 50% 0%, 100% 50%);
+    margin: 0;
+    top: 0;
+    left: 0;
+    border: 1px black solid;
+    transition: all 5s;
+}
+
+#d8-die figure p {
+    text-align: center;
+    margin-top: 35%;
+    background-color: rgba(1, 0, 0, 0.5);
+}
+
+/* Top 4 */
+#d8-die figure:nth-child(1) { 
+    transform: translateZ( var(--d8-base-radius) ) rotateX( var(--d8-plane-angle) ); 
+}
+
+#d8-die figure:nth-child(2) { 
+    background-color: blueviolet;
+    transform: rotateY( var(--d8-side-angle) ) translateZ( var(--d8-base-radius) ) rotateX( var(--d8-plane-angle) ); 
+}
+
+#d8-die figure:nth-child(3) {
+    background-color: green; 
+    transform: rotateY( calc(var(--d8-side-angle) + var(--d8-side-angle)) ) translateZ( var(--d8-base-radius) ) rotateX( var(--d8-plane-angle) ) ; 
+}
+
+#d8-die figure:nth-child(4) {
+    background-color: blue;
+    transform: rotateY( calc(var(--d8-side-angle) * 3) ) translateZ( var(--d8-base-radius) ) rotateX( var(--d8-plane-angle) ) ; 
+}
+
+/* bottom 4 */
+
+#d8-die figure:nth-child(5) { 
+    transform: translateZ( var(--d8-base-radius) ) rotateX( calc(180deg - var(--d8-plane-angle)) ); 
+}
+
+#d8-die figure:nth-child(6) { 
+    background-color: blueviolet;
+    transform: rotateY( var(--d8-side-angle) ) translateZ( var(--d8-base-radius) ) rotateX( calc(180deg - var(--d8-plane-angle)) ); 
+}
+
+#d8-die figure:nth-child(7) {
+    background-color: green; 
+    transform: rotateY( calc(var(--d8-side-angle) + var(--d8-side-angle)) ) translateZ( var(--d8-base-radius) ) rotateX( calc(180deg - var(--d8-plane-angle)) ) ; 
+}
+
+#d8-die figure:nth-child(8) {
+    background-color: blue;
+    transform: rotateY( calc(var(--d8-side-angle) * 3) ) translateZ( var(--d8-base-radius) ) rotateX( calc(180deg - var(--d8-plane-angle)) ) ; 
+}
