@@ -285,7 +285,7 @@ function calcComplexProb(gs, v, type) {
 
 function sanityCheck(probs) {
     console.log("sanity check: ", probs.reduce((a, b) => a + b, 0));
-    return Math.abs(probs.reduce((a, b) => a + b, 0) - 1) < 0.01;
+    return Math.abs(probs.reduce((a, b) => a + b, 0) - 1) < 0.1;
 }
 function prob_sum(value, childProbs) {
     let res = 0.0;
