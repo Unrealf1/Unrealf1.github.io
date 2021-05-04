@@ -1,5 +1,6 @@
 import realtime_database as db
 import datetime
+from comons import XSS_safe
 
 
 theoretical_max = 1204
@@ -20,6 +21,9 @@ def handle_submit(record):
     if record["score"] < minimum_to_post:
         print(f"score {record['score']} is too low")
         return f"score {record['score']} is too low"
+
+    if not XSS_safe(record["name"]):
+        return "name contains forbidden symbols"
 
     record["time"] = str(datetime.datetime.now())
     db.push(records_path, record)

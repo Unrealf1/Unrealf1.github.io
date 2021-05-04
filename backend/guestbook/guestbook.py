@@ -1,4 +1,5 @@
 from commons import require
+from commons import XSS_safe
 import random
 import realtime_database as db
 import datetime
@@ -18,6 +19,9 @@ def handle_post(comment):
 
     if len(text) > 160 or len(author) > 30:
         return "text is too long"
+
+    if not XSS_safe(text) or not XSS_safe(author):
+        return "text contains forbidden symbols"
 
     actual_comment = {"text": text, "author": author, "time": str(datetime.datetime.now())}
     print(f"posting comment {actual_comment}")
