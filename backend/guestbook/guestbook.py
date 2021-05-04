@@ -20,8 +20,11 @@ def handle_post(comment):
     if len(text) > 160 or len(author) > 30:
         return "text is too long"
 
+    print("checking for html tags...")
     if not XSS_safe(text) or not XSS_safe(author):
+        print("wait, that's illegal!")
         return "text contains forbidden symbols"
+    print("ok, no tags found!")
 
     actual_comment = {"text": text, "author": author, "time": str(datetime.datetime.now())}
     print(f"posting comment {actual_comment}")

@@ -1,6 +1,6 @@
 import realtime_database as db
 import datetime
-from comons import XSS_safe
+from commons import XSS_safe
 
 
 theoretical_max = 1204
