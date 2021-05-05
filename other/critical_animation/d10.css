@@ -1,0 +1,68 @@
+:root {
+    /* circumcircle radius */
+    --d10-pyramid-radius: 3rem;
+    /* --d10-triangle-width: calc(var(--d10-pyramid-radius) * 1.176); */
+    --d10-triangle-width: calc(var(--d10-pyramid-radius) * 1.406);
+    --d10-triangle-edge: calc(var(--d10-triangle-width) * 1.154);
+    --d10-triangle-height: calc(var(--d10-triangle-width) * 1.04);
+    --d10-pyramid-height: calc(var(--d10-pyramid-radius) * 0.917);
+    --d10-plane-angle: 41.43deg;
+    --d10-side-angle: 72deg;
+}
+
+#d10-die {
+    transform-style: preserve-3d;
+    animation: spinCube 20s infinite ease-in-out;
+}
+
+#d10-die div:nth-child(2) {
+    transform: rotateX(180deg) translateY(calc(var(--d10-pyramid-height) * -3.5));
+}
+
+.d10-pyramid {
+    transform-style: preserve-3d;
+}
+
+.d10-pyramid figure {
+    overflow: hidden;
+    transform-style: preserve-3d;
+    position: absolute;
+    display: grid;
+    justify-content: center;
+    /* backface-visibility: hidden; */
+    background-color: cornflowerblue;
+    width: var(--d10-triangle-width);
+    /* double height to rotateX around bottom edge */
+    height: calc(var(--d10-triangle-height) * 2);
+    clip-path: polygon(0% 50%, 50% 0%, 100% 50%, 50% 60%);
+    margin: 0;
+    top: 0;
+    left: 0;
+    border: 1px black solid;
+    transition: all 5s;
+}
+
+.d10-pyramid figure:nth-child(1) {
+    background-color: teal;
+    transform: translateZ( var(--d10-pyramid-radius) ) rotateX( var(--d10-plane-angle) ); 
+}
+
+.d10-pyramid figure:nth-child(2) { 
+    background-color: red;
+    transform: rotateY( calc(var(--d10-side-angle) * 1) ) translateZ( var(--d10-pyramid-radius) ) rotateX( var(--d10-plane-angle) ); 
+}
+
+.d10-pyramid figure:nth-child(3) { 
+    background-color: green;
+    transform: rotateY( calc(var(--d10-side-angle) * 2) ) translateZ( var(--d10-pyramid-radius) ) rotateX( var(--d10-plane-angle) ); 
+}
+
+.d10-pyramid figure:nth-child(4) { 
+    background-color: yellow;
+    transform: rotateY( calc(var(--d10-side-angle) * 3) ) translateZ( var(--d10-pyramid-radius) ) rotateX( var(--d10-plane-angle) ); 
+}
+
+.d10-pyramid figure:nth-child(5) { 
+    background-color: red;
+    transform: rotateY( calc(var(--d10-side-angle) * 4) ) translateZ( var(--d10-pyramid-radius) ) rotateX( var(--d10-plane-angle) ); 
+}

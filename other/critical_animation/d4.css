@@ -1,15 +1,23 @@
 :root {
+    /* 360 / 3 */
     --d4-side-angle: 120deg;
-    /* acos(radius/width) */
-    /* --d4-plane-angle: 73.22deg; */
-    /* why 19 and not 73.2????? */
-    --d4-plane-angle: 19.5deg;
-    --d4-base-radius: 1rem;
+    /* asin( 2*sqrt(2) / 3) = 70.53 */
+    /* why 19.47 = 90 - 70.53 */
+    --d4-plane-angle: 19.47deg;
+    /*  inradius of the triangle  */
+    --d4-base-radius: 5rem;
     /* triangle side = 6*r / sqrt(3) */
     --d4-triangle-width: calc(var(--d4-base-radius) * 3.4641);
     /* height = width * sin(60) */
     --d4-triangle-height: calc(var(--d4-triangle-width) * 0.866);
     --d4-double-triangle-height: calc(var(--d4-triangle-height) * 2.0);
+}
+
+.test-main {
+    width: 100%;
+    height: 100%;
+    display: grid;
+    place-content: center;
 }
 
 #d4-die {
@@ -23,9 +31,9 @@
     overflow: hidden;
     transform-style: preserve-3d;
     position: absolute;
-    /* backface-visibility: hidden; */
     background-color: gold;
     width: var(--d4-triangle-width);
+    /*  double the height, so rotations around X axis are based at the vottom of the triangle   */
     height: var(--d4-double-triangle-height);
     clip-path: polygon(0% 50%, 50% 0%, 100% 50%);
     margin: 0;

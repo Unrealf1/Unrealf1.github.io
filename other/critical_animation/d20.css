@@ -1,75 +1,102 @@
 :root {
-    --d20-side-angle: 360deg / 5;
-    --d20-triangle-width: 7rem;
-    --d20-triangle-height: calc(var(--d20-triangle-width) * 0.866);
-    --d20-z-translation: calc(var(--d20-triangle-width) * 1.53884 / 2);
-    --d20-hat-x-rotation: 53deg;
-    --d20-hat-x-rotation-min: 53deg + 180deg;
+    /* https://en.wikipedia.org/wiki/Regular_icosahedron */
+    /* inscribed sphere */
+    --d20-radius: 5rem;
+    --d20-edge: calc(var(--d20-radius) * 1.323);
+    --d20-triangle-height: calc(var(--d20-edge) * 0.866);
+    --d20-side-angle: 72deg;
+    --d20-plane-angle: 52.6deg;
+    /* https://en.wikipedia.org/wiki/Pentagon */
+    --d20-pyramid-base-diagonal: calc(var(--d20-edge) * 1.176);
+    /* --d20-pyramid-radius: calc(var(--d20-pyramid-base-diagonal) * 0.526); */
+    --d20-pyramid-radius: calc(var(--d20-pyramid-base-diagonal) * 0.626);
+
+    --d20-full-angle: 138.19deg;
+    --d20-circumscribed-radius: calc( var(--d20-edge) * 0.951);
 }
 
-#d20-cube {
+#d20-die {
     transform-style: preserve-3d;
-    width: 5rem;
-    height: 5rem;
     animation: spinCube 20s infinite ease-in-out;
 }
 
-/* #d20-cube div {
-    width: 0;
-    height: 0;
-    border-left: var(--d20-triangle-base) solid transparent;
-    border-right: var(--d20-triangle-base) solid transparent;
-    border-bottom: var(--d20-triangle-width) solid gold;
-    margin: 0;
-    top: 55%;
-    left: 25%;
-    position: absolute;
-} */
+#d20-die div:nth-child(2) {
+    transform: rotateX(180deg) translateY(calc(var(--d20-circumscribed-radius) * 0.4));
+}
 
-#d20-cube div {
+.d20-basket {
+    transform-style: preserve-3d;
+    width: 5rem;
+    height: 5rem;
+}
+
+.d20-basket figure {
+    overflow: hidden;
     transform-style: preserve-3d;
     position: absolute;
-    background-color: gold;
-    width: var(--d20-triangle-width);
-    height: var(--d20-triangle-height);
-    clip-path: polygon(0% 100%, 50% 0%, 100% 100%);
+    display: grid;
+    justify-content: center;
+    /* backface-visibility: hidden; */
+    background-color: hotpink;
+    width: var(--d20-edge);
+    /* double height to rotateX around bottom edge */
+    height: calc(var(--d20-triangle-height) * 2);
+    clip-path: polygon(0% 50%, 50% 0%, 100% 50%);
     margin: 0;
     top: 0;
     left: 0;
     border: 1px black solid;
+    transition: all 5s;
 }
 
-#d20-cube p {
+/* #d20-die figure p {
     text-align: center;
-    top: calc(var(--d20-triangle-height) / 4.0);
-    position: relative;
-    margin: 0;
+    padding-top: 0;
+    margin-top: 0;
+    /* margin-bottom: calc(var(--d20-triangle-height) * 1.5); 
+    background-color: rgba(1, 0, 0, 0.5);
+} */
+
+
+/* Top pyramid */
+.d20-basket figure:nth-child(1) { 
+    transform: translateZ( var(--d20-pyramid-radius) ) rotateX( var(--d20-plane-angle) ); 
 }
 
-/* top 5 point */
-#d20-cube div:nth-child(1) { transform: rotateY( calc(var(--d20-side-angle) * 0) ) rotateX( var(--d20-hat-x-rotation) ) rotateZ( 0 ) translateZ( var(--d20-z-translation) ); }
-#d20-cube div:nth-child(2) { transform: rotateY( calc(var(--d20-side-angle) * 1) ) rotateX( var(--d20-hat-x-rotation) ) rotateZ( 0 ) translateZ( var(--d20-z-translation) ); }
-#d20-cube div:nth-child(3) { transform: rotateY( calc(var(--d20-side-angle) * 2) ) rotateX( var(--d20-hat-x-rotation) ) rotateZ( 0 ) translateZ( var(--d20-z-translation) ); }
-#d20-cube div:nth-child(4) { transform: rotateY( calc(var(--d20-side-angle) * 3) ) rotateX( var(--d20-hat-x-rotation) ) rotateZ( 0 ) translateZ( var(--d20-z-translation) ); }
-#d20-cube div:nth-child(5) { transform: rotateY( calc(var(--d20-side-angle) * 4) ) rotateX( var(--d20-hat-x-rotation) ) rotateZ( 0 ) translateZ( var(--d20-z-translation) ); }
+.d20-basket figure:nth-child(2) { 
+    transform: rotateY( calc(var(--d20-side-angle) * 1) ) translateZ( var(--d20-pyramid-radius) ) rotateX( var(--d20-plane-angle) ); 
+}
 
-/* bottom 5 point */
-#d20-cube div:nth-child(6)  { background-color:hotpink; transform: rotateY( calc(36deg + 72deg * 1) ) rotateX( var(--d20-hat-x-rotation-min) ) rotateZ( 180deg ) translateZ( var(--d20-z-translation) ); }
-#d20-cube div:nth-child(7)  { background-color:hotpink; transform: rotateY( calc(36deg + 72deg * 2) ) rotateX( var(--d20-hat-x-rotation-min) ) rotateZ( 180deg ) translateZ( var(--d20-z-translation) ); }
-#d20-cube div:nth-child(8)  { background-color:hotpink; transform: rotateY( calc(36deg + 72deg * 3) ) rotateX( var(--d20-hat-x-rotation-min) ) rotateZ( 180deg ) translateZ( var(--d20-z-translation) ); }
-#d20-cube div:nth-child(9)  { background-color:hotpink; transform: rotateY( calc(36deg + 72deg * 4) ) rotateX( var(--d20-hat-x-rotation-min) ) rotateZ( 180deg ) translateZ( var(--d20-z-translation) ); }
-#d20-cube div:nth-child(10)  { background-color:hotpink; transform: rotateY( calc(36deg + 72deg * 5) ) rotateX( var(--d20-hat-x-rotation-min) ) rotateZ( 180deg ) translateZ( var(--d20-z-translation) ); }
+.d20-basket figure:nth-child(3) { 
+    transform: rotateY( calc(var(--d20-side-angle) * 2) ) translateZ( var(--d20-pyramid-radius) ) rotateX( var(--d20-plane-angle) ); 
+}
 
-/* middle point down */
-#d20-cube div:nth-child(11)  { background-color:red; transform: rotateY( calc(72deg * 1) ) rotateX( 13deg ) rotateZ( 180deg ) translateZ( var(--d20-z-translation) ); }
-#d20-cube div:nth-child(12)  { background-color:red; transform: rotateY( calc(72deg * 2) ) rotateX( 13deg ) rotateZ( 180deg ) translateZ( var(--d20-z-translation) ); }
-#d20-cube div:nth-child(13)  { background-color:red; transform: rotateY( calc(72deg * 3) ) rotateX( 13deg ) rotateZ( 180deg ) translateZ( var(--d20-z-translation) ); }
-#d20-cube div:nth-child(14)  { background-color:red; transform: rotateY( calc(72deg * 4) ) rotateX( 13deg ) rotateZ( 180deg ) translateZ( var(--d20-z-translation) ); }
-#d20-cube div:nth-child(15)  { background-color:red; transform: rotateY( calc(72deg * 5) ) rotateX( 13deg ) rotateZ( 180deg ) translateZ( var(--d20-z-translation) ); }
+.d20-basket figure:nth-child(4) { 
+    transform: rotateY( calc(var(--d20-side-angle) * 3) ) translateZ( var(--d20-pyramid-radius) ) rotateX( var(--d20-plane-angle) ); 
+}
 
-/* middle point up */
-#d20-cube div:nth-child(16)  { background-color:greenyellow; transform: rotateY( calc(36deg + 72deg * 1) ) rotateX( -13deg ) rotateZ( 0 ) translateZ( var(--d20-z-translation) ); }
-#d20-cube div:nth-child(17)  { background-color:greenyellow; transform: rotateY( calc(36deg + 72deg * 2) ) rotateX( -13deg ) rotateZ( 0 ) translateZ( var(--d20-z-translation) ); }
-#d20-cube div:nth-child(18)  { background-color:greenyellow; transform: rotateY( calc(36deg + 72deg * 3) ) rotateX( -13deg ) rotateZ( 0 ) translateZ( var(--d20-z-translation) ); }
-#d20-cube div:nth-child(19)  { background-color:greenyellow; transform: rotateY( calc(36deg + 72deg * 4) ) rotateX( -13deg ) rotateZ( 0 ) translateZ( var(--d20-z-translation) ); }
-#d20-cube div:nth-child(20)  { background-color:greenyellow; transform: rotateY( calc(36deg + 72deg * 5) ) rotateX( -13deg ) rotateZ( 0 ) translateZ( var(--d20-z-translation) ); }
+.d20-basket figure:nth-child(5) { 
+    transform: rotateY( calc(var(--d20-side-angle) * 4) ) translateZ( var(--d20-pyramid-radius) ) rotateX( var(--d20-plane-angle) ); 
+}
+
+/* Bottom "teeth" for the top pyramid */
+
+.d20-basket figure:nth-child(6) { 
+    transform: translateZ( var(--d20-pyramid-radius) ) rotateX( var(--d20-plane-angle) ) rotateX( var(--d20-full-angle) ); 
+}
+
+.d20-basket figure:nth-child(7) { 
+    transform: rotateY( calc(var(--d20-side-angle) * 1) ) translateZ( var(--d20-pyramid-radius) ) rotateX( var(--d20-plane-angle) ) rotateX( var(--d20-full-angle) ); 
+}
+
+.d20-basket figure:nth-child(8) { 
+    transform: rotateY( calc(var(--d20-side-angle) * 2) ) translateZ( var(--d20-pyramid-radius) ) rotateX( var(--d20-plane-angle) ) rotateX( var(--d20-full-angle) ); 
+}
+
+.d20-basket figure:nth-child(9) { 
+    transform: rotateY( calc(var(--d20-side-angle) * 3) ) translateZ( var(--d20-pyramid-radius) ) rotateX( var(--d20-plane-angle) ) rotateX( var(--d20-full-angle) ); 
+}
+
+.d20-basket figure:nth-child(10) { 
+    transform: rotateY( calc(var(--d20-side-angle) * 4) ) translateZ( var(--d20-pyramid-radius) ) rotateX( var(--d20-plane-angle) ) rotateX( var(--d20-full-angle) ); 
+}
