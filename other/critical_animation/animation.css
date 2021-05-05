@@ -1,5 +1,5 @@
 :root {
-    --d6-color: red;
+    --main-block-edge: 60vh;
 }
 
 .test-main {
@@ -19,9 +19,10 @@
 }
 
 .critical_role {
-    width: 80%;
-    height: 80%;
-    margin-top: 10rem;
+    width: var(--main-block-edge);
+    height: var(--main-block-edge);
+    margin-top: calc(50vh - var(--main-block-edge) / 2);
+    margin-left: calc(25vw + 50vh - var(--main-block-edge) / 2);
     border-width: 0px;
     border-style: dotted;
     animation-play-state: paused;
@@ -30,6 +31,46 @@
     display: grid;
     background-color: black;
     overflow: hidden;
+}
+
+.critical_role div:nth-child(1) {
+    bottom: 50%;
+    left: 100%;
+}
+
+.critical_role div:nth-child(2) {
+    bottom: 89%;
+    left: 81%;
+}
+
+.critical_role div:nth-child(3) {
+    bottom: 99%;
+    left: 39%;
+}
+
+/* .critical_role div:nth-child(4) {
+    bottom: 72%;
+    left: 5%;
+} */
+
+.critical_role div:nth-child(4) {
+    bottom: 3%;
+    left: 75%;
+}
+
+.critical_role div:nth-child(5) {
+    bottom: 5%;
+    left: 28%;
+}
+
+.critical_role div:nth-child(6) {
+    bottom: 39%;
+    left: 1%;
+}
+
+.critical_role div:nth-child(7) {
+    bottom: 81%;
+    left: 10%;
 }
 
 #critical_link {
@@ -60,39 +101,10 @@
 }
 
 .animated_dice {
-    position: fixed;
+    transform-style: preserve-3d;
     text-align: center;
 }
 
-#d4 {
-    width: 0;
-    height: 0;
-    border-left: 4rem solid transparent;
-    border-right: 4rem solid transparent;
-    border-bottom: 6rem solid gold;
-    line-height: 1rem;
-    top: 55%;
-    left: 25%;
-    animation: rotation4 4s ease-in-out infinite, deformation4 7s linear infinite alternate;
-}
-
-#d6 {
-    top: 20%;
-    left: 20%;
-    margin: 2px;
-    line-height: 5rem;
-    width: 5rem;
-    height: 5rem;
-    background-color: crimson;
-    border-color: #8f0a25;
-    border-width: 1rem;
-    border-style: solid;
-    animation: glowd6 3s ease-in-out infinite, rotation6 7s linear infinite;
-}
-
-#d20 {
-    
-}
 
 @keyframes global_rotation {
     from {
@@ -101,37 +113,6 @@
     to {
         transform: rotate(359deg);
     }
-}
-
-@keyframes deformation4 {
-    100% {
-        border-radius: 6rem;
-    }
-}
-
-@keyframes rotation4 {
-    50% {
-        transform: rotate(90deg);
-    }
-}
-
-@keyframes glowd6 {
-    50% {
-        box-shadow: rgb(240, 185, 33) 0rem 0rem 3rem 1rem;
-    }
-}
-
-@keyframes rotation6 {
-    from {
-        transform: rotate(0deg);
-    }
-    to {
-        transform: rotate(359deg);
-    }
-}
-
-@keyframes flight6 {
-
 }
 
 @keyframes shake {

@@ -1,0 +1,125 @@
+:root {
+    /* ⬠ */
+    --d12-side-angle: 72deg;
+    --d12-plane-angle: 153deg;
+    /* inradius */
+    --d12-base-radius: 1.3rem;
+    /* R = r/cos(Pi/5) */
+    --d12-base-circumradius: calc(var(--d12-base-radius) * 1.236);
+    --d12-base-height: calc(var(--d12-base-circumradius) + var(--d12-base-radius));
+    --d12-edge-length: calc(var(--d12-base-radius) * 1.453);
+    /* diagonal = edge * golden ratio */
+    --d12-base-diagonal: calc(var(--d12-edge-length) * 1.618);
+    /* distance between top and bottom planes */
+    --d12-total-height: calc(1.114 * var(--d12-edge-length) * 2);
+
+    /* difference in coords between bot left point and top left point */
+    /* cos(72) = 0.309; sin(72) = 0.951 */
+    --d12-base-point-dx: calc(var(--d12-edge-length) * 0.309);
+    --d12-base-point-dy: calc(var(--d12-edge-length) * 0.951);
+}
+
+#d12-die {
+    position: fixed;
+    transform-style: preserve-3d;
+    width: 5rem;
+    height: 5rem;
+    animation: spinCube 20s infinite ease-in-out;
+}
+
+#d12-die figure {
+    overflow: hidden;
+    transform-style: preserve-3d;
+    position: absolute;
+    display: grid;
+    justify-content: center;
+    /* backface-visibility: hidden; */
+    background-color: rgb(177, 44, 110);
+    width: var(--d12-base-diagonal);
+    /* double height to rotateX around bottom edge */
+    height: calc(var(--d12-base-height) * 2);
+    clip-path: polygon(
+        var(--d12-base-point-dx) 50%, 
+        0% calc(50% + var(--d12-base-point-dy)), 
+        50% 100%, 
+        100% calc(50% + var(--d12-base-point-dy)), 
+        calc(var(--d12-edge-length) + var(--d12-base-point-dx)) 50%);
+    margin: 0;
+    top: 0;
+    left: 0;
+    border: 1px black solid;
+    transition: all 5s;
+}
+
+#d12-die figure p {
+    text-align: center;
+    top: 0;
+    padding-top: 0;
+    margin-top: 0;
+    /* margin-bottom: calc(var(--d12-base-height) * 1.5); */
+    /* background-color: rgba(1, 0, 0, 0.5); */
+}
+
+/* Bottom 5 (on the side) */
+#d12-die figure:nth-child(1) { 
+    transform: translateY(var(--d12-total-height)) translateZ( var(--d12-base-radius) ) rotateX( var(--d12-plane-angle) ); 
+}
+
+#d12-die figure:nth-child(2) { 
+    background-color: blueviolet;
+    transform: translateY(var(--d12-total-height)) rotateY( var(--d12-side-angle) ) translateZ( var(--d12-base-radius) ) rotateX( var(--d12-plane-angle) ); 
+}
+
+#d12-die figure:nth-child(3) {
+    background-color: rgb(145, 58, 145); 
+    transform: translateY(var(--d12-total-height)) rotateY( calc(var(--d12-side-angle) * 2) ) translateZ( var(--d12-base-radius) ) rotateX( var(--d12-plane-angle) ) ; 
+}
+
+#d12-die figure:nth-child(4) {
+    background-color: rgba(0, 0, 255, 0.786);
+    transform: translateY(var(--d12-total-height)) rotateY( calc(var(--d12-side-angle) * 3) ) translateZ( var(--d12-base-radius) ) rotateX( var(--d12-plane-angle) ) ; 
+}
+
+#d12-die figure:nth-child(5) { 
+    background-color: rgb(26, 213, 226);
+    transform: translateY(var(--d12-total-height)) rotateY( calc(var(--d12-side-angle) * 4) ) translateZ( var(--d12-base-radius) ) rotateX( var(--d12-plane-angle) ) ;
+}
+
+/* bottom hat */
+
+#d12-die figure:nth-child(6) { 
+    background-color: teal;
+    transform: translateY(var(--d12-total-height)) translateZ(var(--d12-base-radius)) rotateX( -90deg )  /*rotateX( var(--d12-plane-angle) )*/ ;
+}
+
+/* Top 5 (on the side) */
+#d12-die figure:nth-child(7) { 
+    transform: rotateY(180deg) translateZ( var(--d12-base-radius) ) rotateX( calc(180deg - var(--d12-plane-angle)) ); 
+}
+
+#d12-die figure:nth-child(8) { 
+    background-color: blueviolet;
+    transform: rotateY( calc(180deg + var(--d12-side-angle)) ) translateZ( var(--d12-base-radius) ) rotateX( calc(180deg - var(--d12-plane-angle)) ); 
+}
+
+#d12-die figure:nth-child(9) {
+    background-color: rgb(111, 26, 221); 
+    transform: rotateY( calc(180deg + var(--d12-side-angle) * 2) ) translateZ( var(--d12-base-radius) ) rotateX( calc(180deg - var(--d12-plane-angle)) ) ; 
+}
+
+#d12-die figure:nth-child(10) {
+    background-color: rgb(102, 45, 77);
+    transform: rotateY( calc(180deg + var(--d12-side-angle) * 3) ) translateZ( var(--d12-base-radius) ) rotateX( calc(180deg - var(--d12-plane-angle)) ) ; 
+}
+
+#d12-die figure:nth-child(11) { 
+    background-color: rgb(202, 114, 14);
+    transform: rotateY( calc(180deg + var(--d12-side-angle) * 4) ) translateZ( var(--d12-base-radius) ) rotateX( calc(180deg - var(--d12-plane-angle)) ) ;
+}
+
+/* top hat */
+
+#d12-die figure:nth-child(12) { 
+    background-color: red;
+    transform: rotateY(180deg) translateZ(var(--d12-base-radius)) rotateX( -90deg ) ;
+}
