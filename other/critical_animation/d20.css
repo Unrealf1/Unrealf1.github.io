@@ -1,7 +1,7 @@
 :root {
     /* https://en.wikipedia.org/wiki/Regular_icosahedron */
     /* inscribed sphere */
-    --d20-radius: 5rem;
+    --d20-radius: 2rem;
     --d20-edge: calc(var(--d20-radius) * 1.323);
     --d20-triangle-height: calc(var(--d20-edge) * 0.866);
     --d20-side-angle: 72deg;
@@ -16,12 +16,13 @@
 }
 
 #d20-die {
+    position: fixed;
     transform-style: preserve-3d;
     animation: spinCube 20s infinite ease-in-out;
 }
 
 #d20-die div:nth-child(2) {
-    transform: rotateX(180deg) translateY(calc(var(--d20-circumscribed-radius) * 0.4));
+    transform: rotateX(180deg) translateY(calc(var(--d20-circumscribed-radius) * 1.1));
 }
 
 .d20-basket {
@@ -36,8 +37,7 @@
     position: absolute;
     display: grid;
     justify-content: center;
-    /* backface-visibility: hidden; */
-    background-color: hotpink;
+    background-color: gold;
     width: var(--d20-edge);
     /* double height to rotateX around bottom edge */
     height: calc(var(--d20-triangle-height) * 2);
@@ -49,15 +49,16 @@
     transition: all 5s;
 }
 
-/* #d20-die figure p {
+#d20-die figure p {
     text-align: center;
-    padding-top: 0;
-    margin-top: 0;
-    /* margin-bottom: calc(var(--d20-triangle-height) * 1.5); 
-    background-color: rgba(1, 0, 0, 0.5);
-} */
+}
 
-
+.d20-basket figure:nth-child(3n) {
+    background-color: rgb(238, 181, 38);
+}
+.d20-basket figure:nth-child(3n + 1) {
+    background-color: rgb(240, 185, 46);
+}
 /* Top pyramid */
 .d20-basket figure:nth-child(1) { 
     transform: translateZ( var(--d20-pyramid-radius) ) rotateX( var(--d20-plane-angle) ); 
@@ -85,7 +86,7 @@
     transform: translateZ( var(--d20-pyramid-radius) ) rotateX( var(--d20-plane-angle) ) rotateX( var(--d20-full-angle) ); 
 }
 
-.d20-basket figure:nth-child(7) { 
+.d20-basket figure:nth-child(7) {
     transform: rotateY( calc(var(--d20-side-angle) * 1) ) translateZ( var(--d20-pyramid-radius) ) rotateX( var(--d20-plane-angle) ) rotateX( var(--d20-full-angle) ); 
 }
 
@@ -100,3 +101,4 @@
 .d20-basket figure:nth-child(10) { 
     transform: rotateY( calc(var(--d20-side-angle) * 4) ) translateZ( var(--d20-pyramid-radius) ) rotateX( var(--d20-plane-angle) ) rotateX( var(--d20-full-angle) ); 
 }
+

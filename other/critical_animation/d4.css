@@ -5,7 +5,7 @@
     /* why 19.47 = 90 - 70.53 */
     --d4-plane-angle: 19.47deg;
     /*  inradius of the triangle  */
-    --d4-base-radius: 5rem;
+    --d4-base-radius: 1.3rem;
     /* triangle side = 6*r / sqrt(3) */
     --d4-triangle-width: calc(var(--d4-base-radius) * 3.4641);
     /* height = width * sin(60) */
@@ -21,6 +21,7 @@
 }
 
 #d4-die {
+    position: fixed;
     transform-style: preserve-3d;
     width: 5rem;
     height: 5rem;
@@ -31,7 +32,7 @@
     overflow: hidden;
     transform-style: preserve-3d;
     position: absolute;
-    background-color: gold;
+    background-color: rgba(255, 0, 0, 0.719);
     width: var(--d4-triangle-width);
     /*  double the height, so rotations around X axis are based at the vottom of the triangle   */
     height: var(--d4-double-triangle-height);
@@ -46,7 +47,7 @@
 #d4-die figure p {
     text-align: center;
     margin-top: 35%;
-    background-color: red;
+    /* background-color: red; */
 }
 
 #d4-die figure:nth-child(1) { 
@@ -54,16 +55,16 @@
 }
 
 #d4-die figure:nth-child(2) { 
-    background-color: blueviolet;
+    background-color: rgb(138, 14, 14);
     transform: rotateY( var(--d4-side-angle) ) translateZ( var(--d4-base-radius) ) rotateX( var(--d4-plane-angle) ); 
 }
 
 #d4-die figure:nth-child(3) {
-    background-color: green; 
+    background-color: rgb(180, 36, 36); 
     transform: rotateY( calc(var(--d4-side-angle) + var(--d4-side-angle)) ) translateZ( var(--d4-base-radius) ) rotateX( var(--d4-plane-angle) ) ; 
 }
 
 #d4-die figure:nth-child(4) {
-    background-color: blue;
+    background-color: rgb(247, 59, 2);
     transform: translateZ(var(--d4-base-radius)) rotateX( 90deg ); 
 }

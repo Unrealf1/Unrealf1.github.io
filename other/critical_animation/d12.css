@@ -3,7 +3,7 @@
     --d12-side-angle: 72deg;
     --d12-plane-angle: 153deg;
     /* inradius */
-    --d12-base-radius: 5rem;
+    --d12-base-radius: 1.3rem;
     /* R = r/cos(Pi/5) */
     --d12-base-circumradius: calc(var(--d12-base-radius) * 1.236);
     --d12-base-height: calc(var(--d12-base-circumradius) + var(--d12-base-radius));
@@ -20,6 +20,7 @@
 }
 
 #d12-die {
+    position: fixed;
     transform-style: preserve-3d;
     width: 5rem;
     height: 5rem;
@@ -33,7 +34,7 @@
     display: grid;
     justify-content: center;
     /* backface-visibility: hidden; */
-    background-color: hotpink;
+    background-color: rgb(177, 44, 110);
     width: var(--d12-base-diagonal);
     /* double height to rotateX around bottom edge */
     height: calc(var(--d12-base-height) * 2);
@@ -52,10 +53,11 @@
 
 #d12-die figure p {
     text-align: center;
+    top: 0;
     padding-top: 0;
     margin-top: 0;
-    margin-bottom: calc(var(--d12-base-height) * 1.5);
-    background-color: rgba(1, 0, 0, 0.5);
+    /* margin-bottom: calc(var(--d12-base-height) * 1.5); */
+    /* background-color: rgba(1, 0, 0, 0.5); */
 }
 
 /* Bottom 5 (on the side) */
@@ -69,24 +71,24 @@
 }
 
 #d12-die figure:nth-child(3) {
-    background-color: green; 
+    background-color: rgb(145, 58, 145); 
     transform: translateY(var(--d12-total-height)) rotateY( calc(var(--d12-side-angle) * 2) ) translateZ( var(--d12-base-radius) ) rotateX( var(--d12-plane-angle) ) ; 
 }
 
 #d12-die figure:nth-child(4) {
-    background-color: blue;
+    background-color: rgba(0, 0, 255, 0.786);
     transform: translateY(var(--d12-total-height)) rotateY( calc(var(--d12-side-angle) * 3) ) translateZ( var(--d12-base-radius) ) rotateX( var(--d12-plane-angle) ) ; 
 }
 
 #d12-die figure:nth-child(5) { 
-    background-color: grey;
+    background-color: rgb(26, 213, 226);
     transform: translateY(var(--d12-total-height)) rotateY( calc(var(--d12-side-angle) * 4) ) translateZ( var(--d12-base-radius) ) rotateX( var(--d12-plane-angle) ) ;
 }
 
 /* bottom hat */
 
 #d12-die figure:nth-child(6) { 
-    background-color: burlywood;
+    background-color: teal;
     transform: translateY(var(--d12-total-height)) translateZ(var(--d12-base-radius)) rotateX( -90deg )  /*rotateX( var(--d12-plane-angle) )*/ ;
 }
 
@@ -101,17 +103,17 @@
 }
 
 #d12-die figure:nth-child(9) {
-    background-color: green; 
+    background-color: rgb(111, 26, 221); 
     transform: rotateY( calc(180deg + var(--d12-side-angle) * 2) ) translateZ( var(--d12-base-radius) ) rotateX( calc(180deg - var(--d12-plane-angle)) ) ; 
 }
 
 #d12-die figure:nth-child(10) {
-    background-color: blue;
+    background-color: rgb(102, 45, 77);
     transform: rotateY( calc(180deg + var(--d12-side-angle) * 3) ) translateZ( var(--d12-base-radius) ) rotateX( calc(180deg - var(--d12-plane-angle)) ) ; 
 }
 
 #d12-die figure:nth-child(11) { 
-    background-color: grey;
+    background-color: rgb(202, 114, 14);
     transform: rotateY( calc(180deg + var(--d12-side-angle) * 4) ) translateZ( var(--d12-base-radius) ) rotateX( calc(180deg - var(--d12-plane-angle)) ) ;
 }
 

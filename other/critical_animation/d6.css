@@ -1,11 +1,17 @@
-#d6-cube {
+:root {
+    --d6-edge: 3rem;
+    --d5-translation: calc(var(--d6-edge) / 2);
+}
+
+#d6-die {
+    position: fixed;
     transform-style: preserve-3d;
-    width: 5rem;
-    height: 5rem;
+    width: var(--d6-edge);
+    height: var(--d6-edge);
     animation: spinCube 20s infinite ease-in-out;
 }
 
-#d6-cube div {
+#d6-die figure {
     /* background-color: var(--d6-color); */
     width: 100%;
     height: 100%;
@@ -13,29 +19,30 @@
     position: absolute;
     display: grid;
     place-content: center;
+    background-color: rgba(50, 100, 255, 0.377);
 }
 
-#d6-cube div:nth-child(1) {
-    background-color: red;
-    transform: rotateY(0deg) translateZ(2.5rem);
+#d6-die figure:nth-child(1) {
+    /* background-color: red; */
+    transform: rotateY(0deg) translateZ(var(--d5-translation));
 }
-#d6-cube div:nth-child(2) {
-    background-color: green;
-    transform: rotateX(-90deg) translateZ(2.5rem);
+#d6-die figure:nth-child(2) {
+    /* background-color: green; */
+    transform: rotateX(-90deg) translateZ(var(--d5-translation));
 }
-#d6-cube div:nth-child(3) {
-    background-color: blue;
-    transform: rotateY(-90deg) translateZ(2.5rem);
+#d6-die figure:nth-child(3) {
+    /* background-color: blue; */
+    transform: rotateY(-90deg) translateZ(var(--d5-translation));
 }
-#d6-cube div:nth-child(4) {
-    background-color: yellow;
-    transform: rotateY(90deg) translateZ(2.5rem);
+#d6-die figure:nth-child(4) {
+    /* background-color: yellow; */
+    transform: rotateY(90deg) translateZ(var(--d5-translation));
 }
-#d6-cube div:nth-child(5) {
-    background-color: violet;
-    transform: rotateX(90deg) translateZ(2.5rem);
+#d6-die figure:nth-child(5) {
+    /* background-color: violet; */
+    transform: rotateX(90deg) translateZ(var(--d5-translation));
 }
-#d6-cube div:nth-child(6) {
-    background-color: orange;
-    transform: rotateY(180deg) translateZ(2.5rem);
+#d6-die figure:nth-child(6) {
+    /* background-color: orange; */
+    transform: rotateY(180deg) translateZ(var(--d5-translation));
 }
