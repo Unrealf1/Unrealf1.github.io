@@ -19,7 +19,7 @@
     position: absolute;
     display: grid;
     place-content: center;
-    background-color: rgba(50, 100, 255, 0.377);
+    background-color: rgba(50, 100, 255, 0.327);
 }
 
 #d6-die figure:nth-child(1) {

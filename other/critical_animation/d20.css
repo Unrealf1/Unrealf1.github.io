@@ -9,7 +9,7 @@
     /* https://en.wikipedia.org/wiki/Pentagon */
     --d20-pyramid-base-diagonal: calc(var(--d20-edge) * 1.176);
     /* --d20-pyramid-radius: calc(var(--d20-pyramid-base-diagonal) * 0.526); */
-    --d20-pyramid-radius: calc(var(--d20-pyramid-base-diagonal) * 0.626);
+    --d20-pyramid-radius: calc(var(--d20-pyramid-base-diagonal) * 0.596);
 
     --d20-full-angle: 138.19deg;
     --d20-circumscribed-radius: calc( var(--d20-edge) * 0.951);
@@ -22,7 +22,7 @@
 }
 
 #d20-die div:nth-child(2) {
-    transform: rotateX(180deg) translateY(calc(var(--d20-circumscribed-radius) * 1.1));
+    transform: rotateX(180deg) translateY(calc(var(--d20-circumscribed-radius) * 1.19));
 }
 
 .d20-basket {
@@ -37,7 +37,7 @@
     position: absolute;
     display: grid;
     justify-content: center;
-    background-color: gold;
+    background-color: rgb(242, 175, 40);
     width: var(--d20-edge);
     /* double height to rotateX around bottom edge */
     height: calc(var(--d20-triangle-height) * 2);
