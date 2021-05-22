@@ -18,6 +18,7 @@
 
 .guestBook {
     max-height: 30rem;
+    max-width: 95vw;
     overflow: hidden;
     overflow-y: auto;
     background: var(--additional);
@@ -43,8 +44,17 @@
     margin-right: 1rem;
 }
 
+.bookTexts {
+    max-width: 70vw;
+}
+
+.bookNames {
+    max-width: 15vw;
+}
+
 .bookEntries div {
     border-bottom: black;
     width: max-content;
+    overflow: hidden;
 }
 
