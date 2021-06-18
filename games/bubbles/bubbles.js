@@ -325,6 +325,7 @@ function restartGame() {
 
 function main() {
     setupModal("records-modal-container", "records-modal-wrapper")
+    setupModal("help-modal", "help-modal-content");
     loadScores()
     const canvas = document.querySelector("#glCanvas");
     var width = window.innerWidth * 0.5;

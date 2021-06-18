@@ -31,3 +31,12 @@ blue #4F4FD9
     браузера установим отступы */
     padding:30px 0;
 }
+
+.model-content {
+	padding: 1rem;
+    background: whitesmoke;
+    margin:auto;
+    width: 600px;
+    max-width: 100%;
+    flex-shrink:0;
+}

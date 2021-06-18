@@ -41,6 +41,9 @@
         <button class="back" onclick="window.location.href='../../index.html';">Go back</button>
     </div>
     <div>
+        <button class="modal-open-button" onclick="openModal('help-modal')">Help</button>
+    </div>
+    <div>
         <button class="modal-open-button" onclick='openScoreBoard()'>Scoreboard</button>
     </div>
     <div>
@@ -65,6 +68,18 @@
         <div class="records" id="records-full"></div>
         <div class="modal-close-button">
             <button onclick='closeModal("records-modal-container")'>Close</button>
+        </div>
+    </div>
+</div>
+
+<div class="modal" id="help-modal">
+    <div class="modal-content" id="help-modal-content">
+        <div class="modal-close-button">
+            <button class="modal-close" onclick="closeModal('help-modal')">X</button>
+        </div>
+        <div>
+            Click on the circles, before they fade away! Get at least 250 points to get to the scoreboard.
+            Each miss takes 5 points away, so be precise
         </div>
     </div>
 </div>
