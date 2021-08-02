@@ -1,0 +1,11 @@
+.playArea {
+    background: var(--background);
+    display: flex;
+    justify-content: center;
+    margin: 0 auto;
+    overflow: hidden;
+}
+
+.playArea canvas {
+    border: 10px ridge rgba(56, 48, 59, 0.6);
+}

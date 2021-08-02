@@ -1,3 +1,18 @@
+function createPolygonalСhain(coords, width, colors) {
+  let chain = new PIXI.Graphics();
+  if (coords.length < 1) {
+    return chain;
+  }
+
+  chain.moveTo(coords[0].x, coords[0].y);
+  for (let i = 1; i < coords.length; i++) {
+    let to = coords[i];
+    chain.lineStyle(width, colors[i], 1, 0.5, true);
+    chain.lineTo(to.x, to.y);    
+  }
+  return chain;
+};
+
 function createCircle(x, y, r, color) {
     let circle = new PIXI.Graphics();
     circle.beginFill(color);
@@ -37,3 +52,8 @@ function init(canvas, width, height, interactive=false, backgroundColor=0x000000
     app.stage.hitArea = new PIXI.Rectangle(0, 0, width, height);
     return app
   }
+
+function removeGraphicObject(obj, stage) {
+    stage.removeChild(obj.graphics);
+    obj.graphics.destroy({children: true});
+}
