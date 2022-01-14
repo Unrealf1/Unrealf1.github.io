@@ -29,7 +29,7 @@ def handle_post(comment):
 
     # TODO: optimize and get only the last comment from db
     current_comments = db.get(comments_path)
-    last = sorted([(key, val) for key, val in current_comments.items], key=lambda x: x[0])[-1]
+    last = sorted([(key, val) for key, val in current_comments.items()], key=lambda x: x[0])[-1]
 
     cur_time = datetime.datetime.now()
     last_time = parser.parse(last[1]["time"])
