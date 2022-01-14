@@ -3,6 +3,7 @@ from commons import XSS_safe
 import random
 import realtime_database as db
 import datetime
+from dateutil import parser
 
 
 comments_path = "guestbook"
@@ -25,6 +26,15 @@ def handle_post(comment):
         print("wait, that's illegal!")
         return "text contains forbidden symbols"
     print("ok, no tags found!")
+
+    # TODO: optimize and get only the last comment from db
+    current_comments = db.get(comments_path)
+    last = sorted([(key, val) for key, val in current_comments.items], key=lambda x: x[0])[-1]
+
+    cur_time = datetime.datetime.now()
+    last_time = parser.parse(last[1]["time"])
+    if last[1]["text"] == text and (cur_time - last_time < datetime.timedelta(seconds=2)):
+        return "pls don't spam too much"
 
     actual_comment = {"text": text, "author": author, "time": str(datetime.datetime.now())}
     print(f"posting comment {actual_comment}")
