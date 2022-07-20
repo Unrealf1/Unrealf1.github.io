@@ -74,6 +74,8 @@ function loadComments() {
 function setupModals() {
     setupModal("Bubbles-modal", "Bubbles-modal-content");
     setupModal("Baldur-modal", "Baldur-modal-content");
+    setupModal("Flappy-modal", "Flappy-modal-content");
+    setupModal("Snake-modal", "Snake-modal-content");
 }
 
 function prepare() {

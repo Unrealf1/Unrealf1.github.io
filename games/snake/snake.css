@@ -1,0 +1,54 @@
+.records {
+    margin: 0;
+    padding-top: 0;
+}
+
+.records div {
+    margin: 0;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+}
+
+.records div:nth-child(even) {
+    background: #a2d5c6;
+}
+.records div:nth-child(odd) {
+    background: #077b8a;
+}
+.records div:first-child {
+    background: #d72631;
+}
+
+.records li {
+    margin: 0;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+}
+
+.playArea {
+    background: var(--background);
+    display: flex;
+    justify-content: center;
+    margin: 0 auto;
+    overflow: hidden;
+}
+
+.playArea canvas {
+    border: 10px ridge rgba(56, 48, 59, 0.6);
+}
+
+.stats {
+    text-align: center;
+    font: small-caps bold 24px/1 sans-serif;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 25%
+}
+
+.stats div {
+    margin-bottom: 2rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
