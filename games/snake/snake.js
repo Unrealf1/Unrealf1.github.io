@@ -26,7 +26,11 @@ class SnakePart {
     this.graphics = new PIXI.Container();
     let square_side = gameContext.square_size * 1.05;
     this.square = createRect(0, 0, square_side, square_side, 0x9b59b6);
+    let head_size = square_side / 4;
+    this.head = createRect((square_side - head_size) / 4, (square_side - head_size) / 4, head_size, head_size, 0xffffff);
+    this.head.visible = false;
     this.graphics.addChild(this.square)
+    this.graphics.addChild(this.head)
     this.update_graphics()
   }
 }
@@ -207,7 +211,9 @@ function step() {
   for (part of gameContext.snake) {
     console.log("snake part: ", part.x, part.y);
     part.update_graphics();
+    part.head.visible = false;
   }
+  gameContext.snake[0].head.visible = true;
   for (item of gameContext.food) {
     console.log("food item: ", item.x, item.y);
     item.update_graphics();
