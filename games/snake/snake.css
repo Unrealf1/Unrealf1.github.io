@@ -3,6 +3,11 @@
     padding-top: 0;
 }
 
+.records input{
+    width: 1.5rem;
+    height: 1.5rem;
+}
+
 .records div {
     margin: 0;
     padding-top: 0.5rem;

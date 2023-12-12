@@ -127,6 +127,11 @@ function eatFood(food_item) {
   removeItem(food_item, gameContext.food, gameContext.app.stage);
   spawnFood();
   gameContext.score += 1;
+  if (gameContext.hard_mode) {
+    gameContext.current_step_delay_ms += (gameContext.min_step_delay_ms - gameContext.current_step_delay_ms) * 0.1
+    clearInterval(gameContext.stepTimer)
+    gameContext.stepTimer = setInterval(step, gameContext.current_step_delay_ms);
+  }
   updateElement("score", gameContext.score);
 }
 
@@ -142,9 +147,12 @@ function stopGame() {
   console.log("stopping game");
   gameContext.active = false
   clearGameTimers();
+  gameContext.current_step_delay_ms = gameContext.base_step_delay_ms
   let restart_button = document.getElementById("restart-button")
   restart_button.textContent = "Start"
   restart_button.onclick = startGame
+  let mode_checkbox = document.getElementById("hardmode-checkbox")
+  mode_checkbox.disabled = false
 }
 
 function clearGameContext() {
@@ -161,7 +169,7 @@ function clearGameTimers() {
 }
 
 function setupGameTimers() {
-  gameContext.stepTimer = setInterval(step, 303);
+  gameContext.stepTimer = setInterval(step, gameContext.base_step_delay_ms);
   gameContext.secondsTimer = setInterval(async () => {
     gameContext.time += 1
     updateElement("time", gameContext.time)
@@ -181,13 +189,21 @@ function startGame() {
   gameContext.active = true
 
   let restart_button = document.getElementById("restart-button")
-  restart_button.textContent = "Restart"
-  restart_button.onclick = restartGame
+  restart_button.textContent = "Stop"
+  restart_button.onclick = stopGame
+
+  let mode_checkbox = document.getElementById("hardmode-checkbox")
+  mode_checkbox.disabled = true
 }
 
 function restartGame() {
   stopGame()
   startGame() 
+}
+
+function hardMode(cb) {
+  gameContext.hard_mode = cb.checked
+  console.log("set hard mode to ", gameContext.hard_mode)
 }
 
 function getInput() {
@@ -321,7 +337,10 @@ function main() {
       grid_width: grid_size,
       grid_height: grid_size,
       active: false,
-      base_step_frequency: 0.5,
+      base_step_delay_ms: 303,
+      current_step_delay_ms: 303,
+      min_step_delay_ms: 100,
+      hard_mode: false,
       snake: [],
       food: [],
       last_input: 0,
