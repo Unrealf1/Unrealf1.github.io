@@ -200,13 +200,63 @@
                         <tr>
                             <td>Why?</td>
                             <td>
-                                Too much free time (not really). Made this with my brother, this is the first game we developed together
+                                Too much free time (not really). Made this with my brother,
+                                this is the first game we developed together
                             </td>
                         </tr>
 
                         <tr>
                             <td>When?</td>
                             <td>Late July of 2022</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </li>
+        <li class="tile">
+            <h2>06</h2>
+            <h3>Noise generator</h3>
+            <p>
+                Noise generator with different variations of perlin noise
+            </p>
+            <div class="buttonWrap">
+                <button onclick="window.location.href='other/noises/noises.html';">Go</button>
+            </div>
+            <button class="help-note-circle" onclick="openModal('Noise-modal')">
+                <p>?</p>
+            </button>
+            <div class="modal" id="Noise-modal">
+                <div class="tile-desc" id="Noise-modal-content">
+                    <div class="close-button-container">
+                        <button class="modal-close" onclick="closeModal('Noise-modal')">X</button>
+                    </div>
+                    <table class="squestion-answer">
+                        <colgroup>
+                            <col>
+                            <col>
+                        </colgroup>
+                        <tr>
+                            <td>Why?</td>
+                            <td>
+                                Noise generator itself was made to learn how perlin noise works. I've tried out flecs
+                                for the first time along the way. At some point I decided to try out emscripten and
+                                port my allegro5 native app to web and figured it out in just one evening :)
+                            </td>
+                        </tr>
+
+                        </tr>
+
+                        <tr>
+                            <td>When?</td>
+                            <td>Summer of 2024</td>
+                        </tr>
+                        <tr>
+                            <td>What is used?</td>
+                            <td>
+                                Graphics and input is handled by <a href="https://liballeg.org">allegro5</a> library<br>
+                                Internal logic is implemented with <a href="https://flecs.dev">flecs</a><br>
+                                Project ported from C++ to web with <a href="https://emscripten.org">emscripten</a>
+                            </td>
                         </tr>
                     </table>
                 </div>
