@@ -47,10 +47,27 @@ function displayComments(comments) {
         div.appendChild(text);
         where.appendChild(div)
     }
+    comments = comments.reduce(function(accumulator, value) {
+      if (accumulator.length == 0) {
+        accumulator.push(value);
+        accumulator.at(-1).count = 1;
+        return accumulator;
+      }
+      if (accumulator.at(-1).author === value.author && accumulator.at(-1).text === value.text) {
+        accumulator.at(-1).count += 1;
+        return accumulator;
+      }
+      accumulator.push(value);
+      accumulator.at(-1).count = 1;
+      return accumulator;
+    }, [])
     comments.forEach((comment) => {
         addTo(names, comment.author)
         addTo(texts, comment.text)
-        addTo(dates, comment.time.slice(0, 19))
+        let maxCommentCount = 100
+        let tooMuch = comment.count > maxCommentCount
+        let countText = tooMuch ? "(99+)\t" : comment.count > 1 ? " (" + comment.count + "x)\t" : "\t"
+        addTo(dates, countText + comment.time.slice(0, 19))
     })
 }
 
