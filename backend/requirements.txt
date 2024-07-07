@@ -1,4 +1,0 @@
-Flask==1.0.3
-gunicorn==19.9.0
-firebase-admin==4.5.1
-python-dateutil==2.8.1
