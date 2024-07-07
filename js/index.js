@@ -3,7 +3,7 @@ async function postComment(text, author) {
         "text": text,
         "author": author
     }
-    await post_data(comment, "https://imagination-site.herokuapp.com/guestbook")
+    await post_data(comment, "https://organic-dryad-417919.lm.r.appspot.com/guestbook")
 }
 
 async function comment() {
