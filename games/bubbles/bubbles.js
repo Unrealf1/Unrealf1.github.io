@@ -56,20 +56,49 @@ class Bubble {
   }
 }
 
-function saveToFirebase(name, score, misses) {
-  let record = {
-    name: name,
-    score: score,
-    misses: misses,
-    mobile: isMobile()
+function logBubbleCreation(bubble, context) {
+  bubble.id = context.nextBubbleId;
+  context.nextBubbleId += 1;
+
+  let logEntry = {
+    type: "create",
+    id: bubble.id,
+    x: bubble.x,
+    y: bubble.y,
+    r: bubble.r,
+    dx: bubble.dx,
+    dy: bubble.dy,
+    bounty: bubble.bounty,
+    life: bubble.life,
+    time: Date.now() - context.startTime
   }
+  context.gameLog.push(logEntry)
+}
 
-  firebase.database().ref('bubbles-records').push().set(record)
-      .then(function(snapshot) {
+function logBubbleClick(bubble, context) {
+  let logEntry = {
+    type: "click",
+    id: bubble.id,
+    time: Date.now() - context.startTime
+  }
+  context.gameLog.push(logEntry)
+}
 
-      }, function(error) {
-          console.log('error' + error);
-      });
+function logMiss(context) {
+  let logEntry = {
+    type: "miss",
+    time: Date.now() - context.startTime
+  }
+  context.gameLog.push(logEntry)
+}
+
+function logFade(bubble, context) {
+  let logEntry = {
+    type: "fade",
+    id: bubble.id,
+    time: Date.now() - context.startTime
+  }
+  context.gameLog.push(logEntry)
 }
 
 function createBubble(width, height) {
@@ -107,6 +136,7 @@ function initBubble(bubble, context) {
   let app = context.app
   let bubbles = context.bubbles
   let bubbleOnclick = () => {
+    logBubbleClick(bubble, context)
     removeBubble(bubble, bubbles, app.stage)
     context.score += bubble.bounty
     context.score += 5 // for misses
@@ -250,8 +280,7 @@ async function checkScore(context) {
     if (name === null || name.length === 0 || name === "null") {
       return;
     }
-    //saveToFirebase(name, context.score, context.misses)
-    await post_record(name, context.score, context.misses, isMobile())
+    await post_record(name, context.score, context.misses, isMobile(), context.gameLog)
   }
 }
 
@@ -286,6 +315,7 @@ function startGame() {
 
   gameContext.spawnTimer = setInterval(() => {
     let bubble = safeCreateBubble(gameContext.width, gameContext.height, gameContext)
+    logBubbleCreation(bubble, gameContext)
     initBubble(bubble, gameContext)
     app.stage.addChild(bubble.graphics)
   }, 700);
@@ -294,6 +324,7 @@ function startGame() {
     for (bubble of gameContext.bubbles) {
       bubble.fade()
       if (bubble.life <= 0) {
+        logFade(bubble, gameContext)
         removeBubble(bubble, gameContext.bubbles, app.stage)
       }
     }
@@ -312,6 +343,9 @@ function startGame() {
     }
   }, 1000)
   gameContext.active = true
+  gameContext.startTime = Date.now()
+  gameContext.gameLog = []
+  gameContext.nextBubbleId = 0
 
   let restart_button = document.getElementById("restart-button")
   restart_button.textContent = "Restart"
@@ -330,11 +364,14 @@ function main() {
     const canvas = document.querySelector("#glCanvas");
     var width = window.innerWidth * 0.5;
     var height = window.innerHeight - 20;
-    var app = init(canvas, width, height, true)
+    var app = init(canvas, width, height, true);
     gameContext = {
       score: 0,
       misses: 0,
       bubbles: [],
+      nextBubbleId: 0,
+      gameLog: [],
+      startTime: -1,
       app: app,
       width: width,
       height: height,
@@ -348,6 +385,7 @@ function main() {
       }
       gameContext.misses += 1
       gameContext.score -= 5
+      logMiss(gameContext)
       updateElement("misses", gameContext.misses)
       updateElement("score", gameContext.score)
     });
