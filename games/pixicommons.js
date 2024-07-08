@@ -1,4 +1,4 @@
-function createPolygonalСhain(coords, width, colors) {
+function createPolygonalChain(coords, width, colors) {
   let chain = new PIXI.Graphics();
   if (coords.length < 1) {
     return chain;
