@@ -79,6 +79,13 @@
     width: 600px;
     max-width: 100%;
     flex-shrink:0;
+    border-color: var(--background);
+    border-width: 3px;
+    border-style: solid;
+}
+
+.model-help {
+    padding:2px;
 }
 
 .modal-close-button {
