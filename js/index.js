@@ -23,7 +23,12 @@ async function comment() {
         return
     }
     button.disabled = true
-    await postComment(text, author)
+    try {
+      await postComment(text, author)
+    } catch (e) {
+      console.error(e);
+    }
+
     await sleep(600)
     button.disabled = false
 }
