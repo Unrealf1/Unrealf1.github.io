@@ -29,21 +29,21 @@
     <div class="main">
     <div class="tilesWrap">
         <li class="tile">
-            <h2>01</h2>
-            <h3>Bubbles</h3>
+            <h2>05</h2>
+            <h3>Noise generator</h3>
             <p>
-                A simple js game, where all you need is to click as many bubbles as you can
+                Noise generator with different variations of perlin noise
             </p>
             <div class="buttonWrap">
-                <button onclick="window.location.href='games/bubbles/bubbles.html';">Play</button>
+                <button onclick="window.location.href='other/noises/noises.html';">Go</button>
             </div>
-            <button class="help-note-circle" onclick="openModal('Bubbles-modal')">
+            <button class="help-note-circle" onclick="openModal('Noise-modal')">
                 <p>?</p>
             </button>
-            <div class="modal" id="Bubbles-modal">
-                <div class="tile-desc" id="Bubbles-modal-content">
+            <div class="modal" id="Noise-modal">
+                <div class="tile-desc" id="Noise-modal-content">
                     <div class="close-button-container">
-                        <button class="modal-close" onclick="closeModal('Bubbles-modal')">X</button>
+                        <button class="modal-close" onclick="closeModal('Noise-modal')">X</button>
                     </div>
                     <table class="squestion-answer">
                         <colgroup>
@@ -53,78 +53,24 @@
                         <tr>
                             <td>Why?</td>
                             <td>
-                                This is inspired by one of the first assignments of the python course at
-                                <a href="https://en.wikipedia.org/wiki/Moscow_Institute_of_Physics_and_Technology">MIPT</a> 
-                                for people who have never written code. I was an instructor at that course and decided to create an
-                                example for students to follow. Also, for a long time, I wanted to create a js game and
-                                try out some javascript libraries for 2d graphics. Also also, this game initiated this whole site
-                                and encouraged me to learn a lot of new tools and technologies
+                                Noise generator itself was made to learn how perlin noise works. I've tried out flecs
+                                for the first time along the way. At some point I decided to try out emscripten and
+                                port my allegro5 native app to web and figured it out in just one evening :)
                             </td>
+                        </tr>
+
                         </tr>
 
                         <tr>
                             <td>When?</td>
-                            <td>The last <i>real</i> change was made in February 2021. The first usable version was committed in October of 2020</td>
-                        </tr>
-
-                        <tr>
-                            <td>What is used?</td>
-                            <td>
-                                Graphics are rendered using <a href="https://pixijs.com">pixi.js</a>. 
-                                Data is stored via <a href="https://firebase.google.com">firebase</a> and their js client
-                                (originally there was no server, only this database)
-                            </td>
-                        </tr>
-                    </table>
-                </div>
-            </div>
-        </li>
-        <li class="tile">
-            <h2>02</h2>
-            <h3>Royal Game of Ur</h3>
-            <p>
-                An ancient Mesopotamia board 1v1 game.
-            </p>
-            <div class="buttonWrap">
-                <!-- <button onclick="window.location.href='games/ur_v2/ur.html';">Play</button> -->
-                <button class="disabled">In development</button>
-            </div>
-        </li>
-        <li class="tile">
-            <h2>03</h2>
-            <h3>Dice of Baldur</h3>
-            <p>
-                Some (hopefully) useful stats on dice probabilities
-            </p>
-            <div class="buttonWrap">
-                <button onclick="window.location.href='other/dice_of_baldur/index.html';">Go</button>
-            </div>
-            <button class="help-note-circle" onclick="openModal('Baldur-modal')">
-                <p>?</p>
-            </button>
-            <div class="modal" id="Baldur-modal">
-                <div class="tile-desc" id="Baldur-modal-content">
-                    <div class="close-button-container">
-                        <button class="modal-close" onclick="closeModal('Baldur-modal')">X</button>
-                    </div>
-                    <table class="squestion-answer">
-                        <colgroup>
-                            <col>
-                            <col>
-                        </colgroup>
-                        <tr>
-                            <td>Why?</td>
-                            <td>
-                                In the last year of my bachelors program, I found a new passion: D&D. Once, when I was thinking about
-                                which character configuration is more efficient, I decided to write a small program to calculate
-                                dice roll probabilities. And a link to a webpage is the best way to share such little project in
-                                my opinion.
-                            </td>
+                            <td>Summer of 2024</td>
                         </tr>
                         <tr>
                             <td>What is used?</td>
                             <td>
-                                <a href="https://www.chartjs.org">Chart.js</a> for graph visualization
+                                Graphics and input is handled by <a href="https://liballeg.org">allegro5</a> library<br>
+                                Internal logic is implemented with <a href="https://flecs.dev">flecs</a><br>
+                                Project ported from C++ to web with <a href="https://emscripten.org">emscripten</a>
                             </td>
                         </tr>
                     </table>
@@ -133,6 +79,44 @@
         </li>
         <li class="tile">
             <h2>04</h2>
+            <h3>Snake</h3>
+            <p>
+                Simple game of snake
+            </p>
+            <div class="buttonWrap">
+                <button onclick="window.location.href='games/snake/snake.html';">Play</button>
+            </div>
+            <button class="help-note-circle" onclick="openModal('Snake-modal')">
+                <p>?</p>
+            </button>
+            <div class="modal" id="Snake-modal">
+                <div class="tile-desc" id="Snake-modal-content">
+                    <div class="close-button-container">
+                        <button class="modal-close" onclick="closeModal('Snake-modal')">X</button>
+                    </div>
+                    <table class="squestion-answer">
+                        <colgroup>
+                            <col>
+                            <col>
+                        </colgroup>
+                        <tr>
+                            <td>Why?</td>
+                            <td>
+                                Too much free time (not really). Made this with my brother,
+                                this is the first game we developed together
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>When?</td>
+                            <td>Late July of 2022</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </li>
+        <li class="tile">
+            <h2>03</h2>
             <h3>Flappy</h3>
             <p>
                 Small game, where you have to avoid touching green pipes(totally original)
@@ -177,21 +161,21 @@
             </div>
         </li>
         <li class="tile">
-            <h2>05</h2>
-            <h3>Snake</h3>
+            <h2>02</h2>
+            <h3>Dice of Baldur</h3>
             <p>
-                Simple game of snake
+                Some (hopefully) useful stats on dice probabilities
             </p>
             <div class="buttonWrap">
-                <button onclick="window.location.href='games/snake/snake.html';">Play</button>
+                <button onclick="window.location.href='other/dice_of_baldur/index.html';">Go</button>
             </div>
-            <button class="help-note-circle" onclick="openModal('Snake-modal')">
+            <button class="help-note-circle" onclick="openModal('Baldur-modal')">
                 <p>?</p>
             </button>
-            <div class="modal" id="Snake-modal">
-                <div class="tile-desc" id="Snake-modal-content">
+            <div class="modal" id="Baldur-modal">
+                <div class="tile-desc" id="Baldur-modal-content">
                     <div class="close-button-container">
-                        <button class="modal-close" onclick="closeModal('Snake-modal')">X</button>
+                        <button class="modal-close" onclick="closeModal('Baldur-modal')">X</button>
                     </div>
                     <table class="squestion-answer">
                         <colgroup>
@@ -201,35 +185,38 @@
                         <tr>
                             <td>Why?</td>
                             <td>
-                                Too much free time (not really). Made this with my brother,
-                                this is the first game we developed together
+                                In the last year of my bachelors program, I found a new passion: D&D. Once, when I was thinking about
+                                which character configuration is more efficient, I decided to write a small program to calculate
+                                dice roll probabilities. And a link to a webpage is the best way to share such little project in
+                                my opinion.
                             </td>
                         </tr>
-
                         <tr>
-                            <td>When?</td>
-                            <td>Late July of 2022</td>
+                            <td>What is used?</td>
+                            <td>
+                                <a href="https://www.chartjs.org">Chart.js</a> for graph visualization
+                            </td>
                         </tr>
                     </table>
                 </div>
             </div>
         </li>
         <li class="tile">
-            <h2>06</h2>
-            <h3>Noise generator</h3>
+            <h2>01</h2>
+            <h3>Bubbles</h3>
             <p>
-                Noise generator with different variations of perlin noise
+                A simple js game, where all you need is to click as many bubbles as you can
             </p>
             <div class="buttonWrap">
-                <button onclick="window.location.href='other/noises/noises.html';">Go</button>
+                <button onclick="window.location.href='games/bubbles/bubbles.html';">Play</button>
             </div>
-            <button class="help-note-circle" onclick="openModal('Noise-modal')">
+            <button class="help-note-circle" onclick="openModal('Bubbles-modal')">
                 <p>?</p>
             </button>
-            <div class="modal" id="Noise-modal">
-                <div class="tile-desc" id="Noise-modal-content">
+            <div class="modal" id="Bubbles-modal">
+                <div class="tile-desc" id="Bubbles-modal-content">
                     <div class="close-button-container">
-                        <button class="modal-close" onclick="closeModal('Noise-modal')">X</button>
+                        <button class="modal-close" onclick="closeModal('Bubbles-modal')">X</button>
                     </div>
                     <table class="squestion-answer">
                         <colgroup>
@@ -239,24 +226,26 @@
                         <tr>
                             <td>Why?</td>
                             <td>
-                                Noise generator itself was made to learn how perlin noise works. I've tried out flecs
-                                for the first time along the way. At some point I decided to try out emscripten and
-                                port my allegro5 native app to web and figured it out in just one evening :)
+                                This is inspired by one of the first assignments of the python course at
+                                <a href="https://en.wikipedia.org/wiki/Moscow_Institute_of_Physics_and_Technology">MIPT</a> 
+                                for people who have never written code. I was an instructor at that course and decided to create an
+                                example for students to follow. Also, for a long time, I wanted to create a js game and
+                                try out some javascript libraries for 2d graphics. Also also, this game initiated this whole site
+                                and encouraged me to learn a lot of new tools and technologies
                             </td>
-                        </tr>
-
                         </tr>
 
                         <tr>
                             <td>When?</td>
-                            <td>Summer of 2024</td>
+                            <td>The last <i>real</i> change was made in February 2021. The first usable version was committed in October of 2020</td>
                         </tr>
+
                         <tr>
                             <td>What is used?</td>
                             <td>
-                                Graphics and input is handled by <a href="https://liballeg.org">allegro5</a> library<br>
-                                Internal logic is implemented with <a href="https://flecs.dev">flecs</a><br>
-                                Project ported from C++ to web with <a href="https://emscripten.org">emscripten</a>
+                                Graphics are rendered using <a href="https://pixijs.com">pixi.js</a>. 
+                                Data is stored via <a href="https://firebase.google.com">firebase</a> and their js client
+                                (originally there was no server, only this database)
                             </td>
                         </tr>
                     </table>
