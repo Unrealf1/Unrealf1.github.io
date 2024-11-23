@@ -29,6 +29,57 @@
     <div class="main">
     <div class="tilesWrap">
         <li class="tile">
+            <h2>06</h2>
+            <h3>Minesweeper with a car</h3>
+            <p>
+                Different take on a classic minesweeper game
+            </p>
+            <div class="buttonWrap">
+                <button onclick="window.location.href='games/minesweeper_cars/Minesweeper_cars.html';">Play</button>
+            </div>
+            <button class="help-note-circle" onclick="openModal('Minesweeper-modal')">
+                <p>?</p>
+            </button>
+            <div class="modal" id="Minesweeper-modal">
+                <div class="tile-desc" id="Minesweeper-modal-content">
+                    <div class="close-button-container">
+                        <button class="modal-close" onclick="closeModal('Minesweeper-modal')">X</button>
+                    </div>
+                    <table class="squestion-answer">
+                        <colgroup>
+                            <col>
+                            <col>
+                        </colgroup>
+                        <tr>
+                            <td>Why?</td>
+                            <td>
+                                Initially I created this game as an entry to a small game jam at work and got a 3rd place!
+                                I liked the game, and several people I've showed it to enjoyed it as well, but it was
+                                originally made with proprietary tools, so couldn't be shared. This is why I decided to
+                                rewrite it in Godot and release it on this website!
+                                This is my second game made with Godot.
+                            </td>
+                        </tr>
+
+                        </tr>
+
+                        <tr>
+                            <td>When?</td>
+                            <td>Autumn of 2024</td>
+                        </tr>
+                        <tr>
+                            <td>What is used?</td>
+                            <td>
+                                Game engine is <a href="https://godotengine.org/">Godot</a> 4.3
+                                Data is stored in <a href="https://firebase.google.com">firebase</a>
+                                Server backend is written in python
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </li>
+        <li class="tile">
             <h2>05</h2>
             <h3>Noise generator</h3>
             <p>
@@ -227,7 +278,7 @@
                             <td>Why?</td>
                             <td>
                                 This is inspired by one of the first assignments of the python course at
-                                <a href="https://en.wikipedia.org/wiki/Moscow_Institute_of_Physics_and_Technology">MIPT</a> 
+                                <a href="https://en.wikipedia.org/wiki/Moscow_Institute_of_Physics_and_Technology">MIPT</a>
                                 for people who have never written code. I was an instructor at that course and decided to create an
                                 example for students to follow. Also, for a long time, I wanted to create a js game and
                                 try out some javascript libraries for 2d graphics. Also also, this game initiated this whole site
@@ -243,7 +294,7 @@
                         <tr>
                             <td>What is used?</td>
                             <td>
-                                Graphics are rendered using <a href="https://pixijs.com">pixi.js</a>. 
+                                Graphics are rendered using <a href="https://pixijs.com">pixi.js</a>.
                                 Data is stored via <a href="https://firebase.google.com">firebase</a> and their js client
                                 (originally there was no server, only this database)
                             </td>
@@ -279,7 +330,7 @@
             </span>
         </div>
     </div>
-    
+
     </div>
 </body>
 </html>
