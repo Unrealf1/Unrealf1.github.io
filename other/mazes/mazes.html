@@ -97,6 +97,50 @@
     };
 </script>
 
+<input onchange="onFilenameChosen()" type="file" accept=".maze" id="mazeupload" style="display:none"/>
+
+<script>
+function offerFileAsDownload(filename, mime) {
+  mime = mime || "application/octet-stream";
+
+  let content = Module.FS.readFile(filename);
+  console.log(`Offering download of "${filename}", with ${content.length} bytes...`);
+
+  var a = document.createElement('a');
+  a.download = filename;
+  a.href = URL.createObjectURL(new Blob([content], {type: mime}));
+  a.style.display = 'none';
+
+  document.body.appendChild(a);
+  a.click();
+  setTimeout(() => {
+    document.body.removeChild(a);
+    URL.revokeObjectURL(a.href);
+  }, 2000);
+}
+
+function triggerFileUpload() {
+  let inputElem = document.getElementById("mazeupload")
+  inputElem.click();
+}
+
+let reader= new FileReader();
+function onFilenameChosen() {
+  let files = document.getElementById("mazeupload").files;
+  let file=files[0];
+  reader.addEventListener('loadend', send_file_to_native);
+  reader.readAsArrayBuffer(file);
+}
+
+function send_file_to_native(e) {
+  let result=reader.result;
+  const uint8_view = new Uint8Array(result);
+
+  FS.writeFile('uploaded.maze', uint8_view)
+  Module.ccall('load_maze_from_file', 'number', ['string'], ['uploaded.maze'])
+}
+</script>
+
 <script async src=combo_app.js></script>
 </body>
 </html>
