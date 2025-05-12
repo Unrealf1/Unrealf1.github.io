@@ -29,6 +29,54 @@
     <div class="main">
     <div class="tilesWrap">
         <li class="tile">
+            <h2>07</h2>
+            <h3>Maze generator and solver</h3>
+            <p>
+                Demo with several maze generating and traversing algorithms and their visualization
+            </p>
+            <div class="buttonWrap">
+                <button onclick="window.location.href='other/mazes/mazes.html';">Go</button>
+            </div>
+            <button class="help-note-circle" onclick="openModal('Mazes-modal')">
+                <p>?</p>
+            </button>
+            <div class="modal" id="Mazes-modal">
+                <div class="tile-desc" id="Mazes-modal-content">
+                    <div class="close-button-container">
+                        <button class="modal-close" onclick="closeModal('Mazes-modal')">X</button>
+                    </div>
+                    <table class="squestion-answer">
+                        <colgroup>
+                            <col>
+                            <col>
+                        </colgroup>
+                        <tr>
+                            <td>Why?</td>
+                            <td>
+                                Wanted to create a clean, representation-independent
+                                implementation of basic graph algorithms. And mazes
+                                turned out to be a perfect application for these algorithms.
+                            </td>
+                        </tr>
+
+                        </tr>
+
+                        <tr>
+                            <td>When?</td>
+                            <td>Original project in January of 2023, ported to web in May of 2025</td>
+                        </tr>
+                        <tr>
+                            <td>What is used?</td>
+                            <td>
+                                Graphics and input is handled by <a href="https://liballeg.org">allegro5</a> library<br>
+                                Project ported from C++ to web with <a href="https://emscripten.org">emscripten</a>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </li>
+        <li class="tile">
             <h2>06</h2>
             <h3>Minesweeper with a car</h3>
             <p>
