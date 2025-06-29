@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://d35tet7rsbn3c"
-path="res://.godot/imported/Minesweeper_cars.icon.png-8c70fd168eccdef70921f09a9d465489.ctex"
+uid="uid://cr2xk2gtly5cg"
+path="res://.godot/imported/Minesweeper_cars.icon.png-372ab48244bad5b082f5387c3646344b.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://exports/Minesweeper_cars.icon.png"
-dest_files=["res://.godot/imported/Minesweeper_cars.icon.png-8c70fd168eccdef70921f09a9d465489.ctex"]
+source_file="res://exports/web/Minesweeper_cars.icon.png"
+dest_files=["res://.godot/imported/Minesweeper_cars.icon.png-372ab48244bad5b082f5387c3646344b.ctex"]
 
 [params]
 
