@@ -20,7 +20,8 @@ function createCircle(x, y, r, color) {
     circle.endFill();
     circle.x = x;
     circle.y = y;
-    circle.r = r
+    circle.r = r;
+    circle.color = color;
     return circle
 }
 
