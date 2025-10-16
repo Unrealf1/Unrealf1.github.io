@@ -63,7 +63,7 @@ canvas.emscripten { border: 0px none; background-color: black; width: 100%; heig
   display: flex;
   justify-content: center;
   font: small-caps bold 18px/1 sans-serif;
-  width: 20%;
+  width: 8%;
 }
 
 .info div {
@@ -73,6 +73,6 @@ canvas.emscripten { border: 0px none; background-color: black; width: 100%; heig
 
 .centered {
   height: 100%;
-  width: 90%;
+  width: 92%;
   box-sizing: border-box;
 }
