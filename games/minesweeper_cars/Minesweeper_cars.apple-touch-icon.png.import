@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://us485vusglf3"
-path="res://.godot/imported/Minesweeper_cars.apple-touch-icon.png-42149b993ca62d2bb2c71879b0e0ba43.ctex"
+uid="uid://ca3w63uq7m47s"
+path="res://.godot/imported/Minesweeper_cars.apple-touch-icon.png-cf53986a3e191daf1f604c4b6b2d88f9.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://exports/Minesweeper_cars.apple-touch-icon.png"
-dest_files=["res://.godot/imported/Minesweeper_cars.apple-touch-icon.png-42149b993ca62d2bb2c71879b0e0ba43.ctex"]
+source_file="res://exports/web/Minesweeper_cars.apple-touch-icon.png"
+dest_files=["res://.godot/imported/Minesweeper_cars.apple-touch-icon.png-cf53986a3e191daf1f604c4b6b2d88f9.ctex"]
 
 [params]
 

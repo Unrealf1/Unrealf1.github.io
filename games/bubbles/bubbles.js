@@ -1,6 +1,7 @@
 let color_list = [0x9b59b6, 0xffc125, 0xf24b4b, 0x97c4f5, 0xe3e129]
 
 let gameContext = null
+let bubbleFadeTime = 0.05 * 1000.0
 
 class Bubble {
   _create_text() {
@@ -36,6 +37,7 @@ class Bubble {
     this.graphics.addChild(this.circle)
     // this.graphics.addChild(this._create_border())
     this.graphics.addChild(this._create_text(bounty))
+    this.disappearAt = -1;
   }
 
   get x() {
@@ -136,8 +138,12 @@ function initBubble(bubble, context) {
   let app = context.app
   let bubbles = context.bubbles
   let bubbleOnclick = () => {
+    if (bubble.disappearAt >= 0) {
+      return;
+    }
     logBubbleClick(bubble, context)
-    removeBubble(bubble, bubbles, app.stage)
+    bubble.circle.interactive = false;
+    bubble.disappearAt = Date.now() + bubbleFadeTime;
     context.score += bubble.bounty
     context.score += 5 // for misses
     context.misses -= 1
@@ -150,7 +156,7 @@ function initBubble(bubble, context) {
 function bubbleCollision(bubble, bubbles) {
   res = false
   for (other of bubbles) {
-    if (other !== bubble && objDistance(bubble, other) <= bubble.r + other.r) {
+    if (other !== bubble && other.disappearAt < 0.0 && objDistance(bubble, other) <= bubble.r + other.r) {
       bubble.dx = randomIntIn(1, 5) * Math.sign(bubble.x - other.x)
       bubble.dy = randomIntIn(1, 5) * Math.sign(bubble.y - other.y)
       res = true
@@ -181,6 +187,9 @@ function screenCollision(bubble, context) {
 
 function collision(context) {
     for (bubble of context.bubbles) {
+      if (bubble.disappearAt >= 0.0) {
+        continue;
+      }
       bubbleCollision(bubble, context.bubbles)
       screenCollision(bubble, context)
     }
@@ -396,7 +405,20 @@ function main() {
         return
       }
       collision(gameContext)
+      let curTime = Date.now();
       gameContext.bubbles.forEach((bubble) => {bubble.move(delta)})
+      gameContext.bubbles.forEach((bubble) => {
+        if (bubble.disappearAt >= 0) {
+	  if (curTime >= bubble.disappearAt) {
+	    removeBubble(bubble, gameContext.bubbles, app.stage)
+	    return;
+	  }
+	  let newR = (bubble.disappearAt - curTime) / bubbleFadeTime * bubble.r;
+	  bubble.graphics.removeChild(bubble.circle)
+	  bubble.circle = createCircle(0, 0, newR, bubble.circle.color);
+	  bubble.graphics.addChild(bubble.circle)
+	}
+      })
     });
 }
   
